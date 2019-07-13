@@ -1,0 +1,1333 @@
+<!DOCTYPE html>
+<html lang="en-us">
+
+<head>
+
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="generator" content="Source Themes Academic 4.3.1">
+
+  
+
+  
+  
+  
+  
+  
+    
+    
+    
+  
+  
+
+  <meta name="author" content="Taotao Pan">
+
+  
+  
+  
+    
+  
+  <meta name="description" content="Detailed linear regression">
+
+  
+  <link rel="alternate" hreflang="en-us" href="https://shuishoudage.github.io/post/linear-regression/linear-regression/">
+
+  
+
+
+  
+
+  
+  
+  
+  <meta name="theme-color" content="#2962ff">
+  
+
+  
+  
+  
+  
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/academicons/1.8.6/css/academicons.min.css" integrity="sha256-uFVgMKfistnJAfoCUQigIl+JfUaP47GrRKjf6CTPVmw=" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.0/css/all.css" integrity="sha384-aOkxzJ5uQz7WBObEZcHvV5JvRW3TUc2rNPA7pe3AwnsUohiw1Vj2Rgx2KSOkF5+h" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.2.5/jquery.fancybox.min.css" integrity="sha256-ygkqlh3CYSUri3LhQxzdcm0n1EQvH2Y+U5S2idbLtxs=" crossorigin="anonymous">
+
+    
+    
+    
+      
+    
+    
+      
+      
+        
+          <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.6/styles/github.min.css" crossorigin="anonymous" title="hl-light">
+          <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.6/styles/dracula.min.css" crossorigin="anonymous" title="hl-dark" disabled>
+        
+      
+    
+
+    
+
+    
+
+  
+
+  
+  
+  <link rel="stylesheet" href="//fonts.googleapis.com/css?family=Montserrat:400,700|Roboto:400,400italic,700|Roboto+Mono">
+  
+
+  
+  
+  
+  <link rel="stylesheet" href="/css/academic.min.46a1b794785753fccc51ea5357a2e8e7.css">
+
+  
+    
+    
+    
+    
+      
+    
+    
+    
+    <link rel="stylesheet" href="/css/academic.93fd939d561542cf92d42776391d90df.css">
+  
+
+  
+  
+  
+
+  
+
+  <link rel="manifest" href="/site.webmanifest">
+  <link rel="icon" type="image/png" href="/favicons/favicon.ico">
+  <link rel="icon" type="image/png" href="/favicons/favicon-32x32.png" size="32x32">
+  <link rel="icon" type="image/png" href="/favicons/favicon-16x16.png" size="16x16">
+  <link rel="apple-touch-icon" type="image/png" href="/favicon/apple-touch-icon.png">
+
+  <link rel="canonical" href="https://shuishoudage.github.io/post/linear-regression/linear-regression/">
+
+  
+  
+  
+  
+    
+    
+  
+  <meta property="twitter:card" content="summary">
+  
+  <meta property="og:site_name" content="TAOTAO PAN">
+  <meta property="og:url" content="https://shuishoudage.github.io/post/linear-regression/linear-regression/">
+  <meta property="og:title" content="Linear Regression | TAOTAO PAN">
+  <meta property="og:description" content="Detailed linear regression"><meta property="og:image" content="https://shuishoudage.github.io/img/icon-192.png">
+  <meta property="og:locale" content="en-us">
+  
+  <meta property="article:published_time" content="2019-06-28T00:00:00&#43;00:00">
+  
+  <meta property="article:modified_time" content="2019-06-28T19:23:41&#43;10:00">
+  
+
+  
+
+
+  <link 
+    rel="stylesheet" 
+    href="https://unpkg.com/tippy.js@4/themes/light.css" 
+  />
+<style>
+   
+.hljs-ln-numbers {
+    text-align: center;
+    color: #ccc;
+    border-right: 1px solid #CCC;
+    border-top: 0px;
+    vertical-align: top;
+    padding-right: 5px;
+
+     
+}
+
+ 
+.hljs-ln-code {
+    padding-left: 10px;
+    border-top: 0px;
+    margin-left: 1em;
+}
+
+.hljs-ln td {
+    padding-left: 1em !important;
+    padding-top: 0 !important;
+    padding-bottom: 0 !important;
+}
+</style>
+
+  <title>Linear Regression | TAOTAO PAN</title>
+
+</head>
+
+
+<body id="top" data-spy="scroll" data-target="#TableOfContents" data-offset="71" >
+
+  <aside class="search-results" id="search">
+  <div class="container">
+    <section class="search-header">
+
+      <div class="row no-gutters justify-content-between mb-3">
+        <div class="col-6">
+          <h1>Search</h1>
+        </div>
+        <div class="col-6 col-search-close">
+          <a class="js-search" href="#"><i class="fas fa-times-circle text-muted" aria-hidden="true"></i></a>
+        </div>
+      </div>
+
+      <div id="search-box">
+        
+        <input name="q" id="search-query" placeholder="Search..." autocapitalize="off"
+        autocomplete="off" autocorrect="off" role="textbox" spellcheck="false" type="search">
+        
+      </div>
+
+    </section>
+    <section class="section-search-results">
+
+      <div id="search-hits">
+        
+      </div>
+
+    </section>
+  </div>
+</aside>
+
+
+  
+<nav class="navbar navbar-light fixed-top navbar-expand-lg py-0" id="navbar-main">
+  <div class="container">
+
+    
+      <a class="navbar-brand" href="/">TAOTAO PAN</a>
+      
+      <button type="button" class="navbar-toggler" data-toggle="collapse"
+              data-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
+        <span><i class="fas fa-bars"></i></span>
+      </button>
+      
+
+    
+    <div class="collapse navbar-collapse" id="navbar">
+
+      
+      
+      <ul class="navbar-nav mr-auto">
+        
+
+        
+
+        
+        
+        
+          
+        
+
+        
+        
+        
+        
+        
+        
+          
+          
+          
+            
+          
+          
+        
+
+        <li class="nav-item">
+          <a class="nav-link " href="/#posts"><span>Home</span></a>
+        </li>
+
+        
+        
+
+        
+
+        
+        
+        
+          
+        
+
+        
+        
+        
+        
+        
+        
+          
+          
+          
+            
+          
+          
+        
+
+        <li class="nav-item">
+          <a class="nav-link " href="/#skills"><span>Skills</span></a>
+        </li>
+
+        
+        
+
+        
+
+        
+        
+        
+          
+        
+
+        
+        
+        
+        
+        
+        
+          
+          
+          
+            
+          
+          
+        
+
+        <li class="nav-item">
+          <a class="nav-link " href="/#projects"><span>Projects</span></a>
+        </li>
+
+        
+        
+
+        
+
+        
+        
+        
+          
+        
+
+        
+        
+        
+        
+        
+        
+          
+          
+          
+            
+          
+          
+        
+
+        <li class="nav-item">
+          <a class="nav-link " href="/#about"><span>About</span></a>
+        </li>
+
+        
+        
+
+        
+
+        
+        
+        
+          
+        
+
+        
+        
+        
+        
+        
+        
+          
+          
+          
+            
+          
+          
+        
+
+        <li class="nav-item">
+          <a class="nav-link " href="/#contact"><span>Contact</span></a>
+        </li>
+
+        
+        
+
+      
+      </ul>
+      <ul class="navbar-nav ml-auto">
+      
+
+        
+
+        
+        <li class="nav-item">
+          <a class="nav-link js-search" href="#"><i class="fas fa-search" aria-hidden="true"></i></a>
+        </li>
+        
+
+        
+
+        
+        <li class="nav-item">
+          <a class="nav-link js-dark-toggle" href="#"><i class="fas fa-moon" aria-hidden="true"></i></a>
+        </li>
+        
+
+      </ul>
+
+    </div>
+  </div>
+</nav>
+
+
+  <article class="article" itemscope itemtype="http://schema.org/Article">
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+  
+  
+<div class="article-container pt-3">
+  <h1 itemprop="name">Linear Regression</h1>
+
+  
+  <p class="page-subtitle">the detail behind regression</p>
+  
+
+  
+    
+
+
+
+<meta content="2019-06-28 00:00:00 &#43;0000 UTC" itemprop="datePublished">
+<meta content="2019-06-28 19:23:41 &#43;1000 AEST" itemprop="dateModified">
+
+<div class="article-metadata">
+
+  
+  
+
+  
+  <span class="article-date">
+    
+    
+      
+          Last updated on
+      
+    
+    <time>Jun 28, 2019</time>
+  </span>
+  
+
+  
+
+  
+  <span class="middot-divider"></span>
+  <span class="article-reading-time">
+    11 min read
+  </span>
+  
+
+  
+  
+  <span class="middot-divider"></span>
+  <a href="/post/linear-regression/linear-regression/#disqus_thread"></a>
+  
+
+  
+  
+  <span class="middot-divider"></span>
+  <span class="article-categories">
+    <i class="fas fa-folder"></i>
+    <a href="/categories/data-science/">Data Science</a></span>
+  
+
+  
+    
+<div class="share-box" aria-hidden="true">
+  <ul class="share">
+    
+      
+      
+      
+        
+      
+      
+      
+      <li>
+        <a href="https://twitter.com/intent/tweet?url=https://shuishoudage.github.io/post/linear-regression/linear-regression/&amp;text=Linear%20Regression" target="_blank" rel="noopener" class="share-btn-twitter">
+          <i class="fab fa-twitter"></i>
+        </a>
+      </li>
+    
+      
+      
+      
+        
+      
+      
+      
+      <li>
+        <a href="https://www.facebook.com/sharer.php?u=https://shuishoudage.github.io/post/linear-regression/linear-regression/&amp;t=Linear%20Regression" target="_blank" rel="noopener" class="share-btn-facebook">
+          <i class="fab fa-facebook-f"></i>
+        </a>
+      </li>
+    
+      
+      
+      
+        
+      
+      
+      
+      <li>
+        <a href="mailto:?subject=Linear%20Regression&amp;body=https://shuishoudage.github.io/post/linear-regression/linear-regression/" target="_blank" rel="noopener" class="share-btn-email">
+          <i class="fas fa-envelope"></i>
+        </a>
+      </li>
+    
+      
+      
+      
+        
+      
+      
+      
+      <li>
+        <a href="https://www.linkedin.com/shareArticle?url=https://shuishoudage.github.io/post/linear-regression/linear-regression/&amp;title=Linear%20Regression" target="_blank" rel="noopener" class="share-btn-linkedin">
+          <i class="fab fa-linkedin-in"></i>
+        </a>
+      </li>
+    
+      
+      
+      
+        
+      
+      
+      
+      <li>
+        <a href="https://web.whatsapp.com/send?text=Linear%20Regression%20https://shuishoudage.github.io/post/linear-regression/linear-regression/" target="_blank" rel="noopener" class="share-btn-whatsapp">
+          <i class="fab fa-whatsapp"></i>
+        </a>
+      </li>
+    
+      
+      
+      
+        
+      
+      
+      
+      <li>
+        <a href="https://service.weibo.com/share/share.php?url=https://shuishoudage.github.io/post/linear-regression/linear-regression/&amp;title=Linear%20Regression" target="_blank" rel="noopener" class="share-btn-weibo">
+          <i class="fab fa-weibo"></i>
+        </a>
+      </li>
+    
+  </ul>
+</div>
+
+
+  
+
+</div>
+
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+</div>
+
+
+
+  <div class="article-container">
+
+    <div class="article-style" itemprop="articleBody">
+      
+
+
+<div id="introduction" class="section level3">
+<h3>Introduction</h3>
+<p>Linear regression is probably the first topic that every machine learning
+course will talk. It is simple and often prodivde and adequate and interpretable
+description of how the inputs affect the output <span class="citation"><span class="csl-baseline"><span class="smallcaps">[<a href="#ref-friedman2001elements">1</a>]</span></span></span>.
+I will try my best to explain linear regression in a simple way but also with
+depth insight. For those who scare of math, it is okey just give a glance.</p>
+<p>Let’s start from a very simple equation from high school.</p>
+<p><span class="math display">\[
+y = ax + b
+\]</span>
+Here y is outcome or sometimes we will written as <span class="math inline">\(f(x)\)</span>, it is the same thing
+but written in a different format. a is the slope and b is the intercept. Let’s
+giving a plot.</p>
+<p><img src="/post/linear-regression/index_files/figure-html/unnamed-chunk-2-1.png" width="672" />
+This example is set intercept to 1.4 and slope as 0.5. For this example, we only
+have one input (x) and one output (y)</p>
+<p>In real world application, we normally have more than one feature. Suppose
+we have an input vector <span class="math inline">\(X^T=(X_1, X_2, \dots, X_p)\)</span></p>
+<table>
+<caption>
+<span id="tab:unnamed-chunk-3">Table 1: </span>A table for advertising dataset
+</caption>
+<thead>
+<tr>
+<th style="text-align:right;">
+X
+</th>
+<th style="text-align:right;">
+TV
+</th>
+<th style="text-align:right;">
+Radio
+</th>
+<th style="text-align:right;">
+Newspaper
+</th>
+<th style="text-align:right;">
+Sales
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+230.1
+</td>
+<td style="text-align:right;">
+37.8
+</td>
+<td style="text-align:right;">
+69.2
+</td>
+<td style="text-align:right;">
+22.1
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+2
+</td>
+<td style="text-align:right;">
+44.5
+</td>
+<td style="text-align:right;">
+39.3
+</td>
+<td style="text-align:right;">
+45.1
+</td>
+<td style="text-align:right;">
+10.4
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+3
+</td>
+<td style="text-align:right;">
+17.2
+</td>
+<td style="text-align:right;">
+45.9
+</td>
+<td style="text-align:right;">
+69.3
+</td>
+<td style="text-align:right;">
+9.3
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+4
+</td>
+<td style="text-align:right;">
+151.5
+</td>
+<td style="text-align:right;">
+41.3
+</td>
+<td style="text-align:right;">
+58.5
+</td>
+<td style="text-align:right;">
+18.5
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+5
+</td>
+<td style="text-align:right;">
+180.8
+</td>
+<td style="text-align:right;">
+10.8
+</td>
+<td style="text-align:right;">
+58.4
+</td>
+<td style="text-align:right;">
+12.9
+</td>
+</tr>
+</tbody>
+</table>
+<p>Here the input features we could think as <strong>X1=TV</strong>, <strong>X2=Radio</strong>
+and <strong>X3=Newspaper</strong>. and the y is <strong>Sales</strong></p>
+<p>We have a simple model for multiple features</p>
+<p><span class="math display">\[
+f(X)=\beta_{0}+\sum_{j=1}^{p} X_{j} \beta_{j}
+\]</span></p>
+<p>Let’s plot a regression model for iris dataset to see what exactly going on.</p>
+<pre class="r"><code>ggplot(df, aes(TV, Sales)) +
+  geom_point() +
+  geom_smooth(method = &#39;lm&#39;, formula = y~x)</code></pre>
+<p><img src="/post/linear-regression/index_files/figure-html/unnamed-chunk-4-1.png" width="672" /></p>
+<p>What we like to do is reduce the residuals.</p>
+<div class="figure">
+<img src="residuals.png" alt="png" />
+<p class="caption">png</p>
+</div>
+<p>So finally, what we want to do is just minimize the residual sum of squares, which
+is the equation following:
+<span class="math display">\[
+\begin{aligned} \operatorname{RSS}(\beta) &amp;=\sum_{i=1}^{N}\left(y_{i}-f\left(x_{i}\right)\right)^{2} \\ &amp;=\sum_{i=1}^{N}\left(y_{i}-\beta_{0}-\sum_{j=1}^{p} x_{i j} \beta_{j}\right)^{2} \end{aligned}
+\]</span></p>
+<p>To make the formula clear little bit. We could using vectorization or vector
+notation to represent it.</p>
+<p><span class="math display">\[
+\operatorname{RSS}(\beta)=(\mathbf{y}-\mathbf{X} \beta)^{T}(\mathbf{y}-\mathbf{X} \beta)
+\]</span></p>
+<p>let’s take the derivative respect to <span class="math inline">\(\beta\)</span>.
+<span class="math display">\[
+\frac{\partial \mathrm{RSS}}{\partial \beta}=-2 \mathbf{X}^{T}(\mathbf{y}-\mathbf{X} \beta)
+\]</span></p>
+<p>Because, if we check the RSS equation above it is a quadratic function. Therefore,
+this equation is always having a global minimal value. Let’s just set the derivative
+equal zero, then find what the <span class="math inline">\(\beta\)</span> is.</p>
+<p><span class="math display">\[
+\begin{aligned}
+&amp;-2 \mathbf{X}^{T}(\mathbf{y}-\mathbf{X} \beta)=0 \\ &amp;\mathbf{X}^{T}(\mathbf{y}-\mathbf{X} \beta)=0 \quad (1)\\
+&amp;\mathbf{X}^{T}\mathbf{y}-\mathbf{X}^{T}\mathbf{X} \beta=0 \quad (2) \\
+&amp;\mathbf{X}^{T}\mathbf{y}=\mathbf{X}^{T}\mathbf{X} \beta \quad(3)\\
+&amp;(\mathbf{X}^{T}\mathbf{X})^{-1}\mathbf{X}^{T}\mathbf{y}=(\mathbf{X}^{T}\mathbf{X})^{-1}\mathbf{X}^{T}\mathbf{X} \beta \quad (4)\\
+&amp;(\mathbf{X}^{T}\mathbf{X})^{-1}\mathbf{X}^{T}\mathbf{y} = \beta \quad (5)
+\end{aligned}
+\]</span></p>
+<p>Let’s break it down, the first step we just divide both side by -2, hence we can
+eliminate the constant. Second step we just apply distribution rule, the third
+one is to make the equation equal, we just move <span class="math inline">\(-X^tX\beta\)</span> to the right side.
+Step 4 is just using a little trick to make <span class="math inline">\(X^TX\)</span> to an identity matrix by
+multiply <span class="math inline">\((X^TX)^{-1}\)</span>, finally, we get <span class="math inline">\(\beta\)</span>.</p>
+<p>It is obviously that if we multiply <span class="math inline">\(X\)</span> to the <span class="math inline">\(\beta\)</span> we can calculate the estimated
+<span class="math inline">\(\hat{y}\)</span> value</p>
+</div>
+<div id="case-study" class="section level3">
+<h3>Case study</h3>
+<p>It is important for an analyst to understand the output of a linear model. It is
+not just blindly using some packages without thinking. Here I take an example
+from book An Introduction to Statistical Learning <span class="citation"><span class="csl-baseline"><span class="smallcaps">[<a href="#ref-james2013introduction">2</a>]</span></span></span>.</p>
+<p>Let’s start from single variable linear regression model, then try to give
+a short explanation to the output. Here we use Boosten dataset from R package
+of MASS, this dataset records 506 neighborhoods around Boosten, there are several
+feature columns, like <code>crim</code> indicates per capita crime rate by town, <code>rm</code> means
+the average number of rooms per dwelling and <code>ptratia</code> means pupil-teacher ratio
+by town.</p>
+<p>Here we use feature <code>lstat</code> (lower status of the population) to predict
+<code>medv</code>(median value of owner-occupied homes in $1000).</p>
+<pre class="r"><code>lm.fit &lt;- lm(medv ~ lstat, data = MASS::Boston)
+summary(lm.fit)</code></pre>
+<pre><code>## 
+## Call:
+## lm(formula = medv ~ lstat, data = MASS::Boston)
+## 
+## Residuals:
+##     Min      1Q  Median      3Q     Max 
+## -15.168  -3.990  -1.318   2.034  24.500 
+## 
+## Coefficients:
+##             Estimate Std. Error t value Pr(&gt;|t|)    
+## (Intercept) 34.55384    0.56263   61.41   &lt;2e-16 ***
+## lstat       -0.95005    0.03873  -24.53   &lt;2e-16 ***
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+## Residual standard error: 6.216 on 504 degrees of freedom
+## Multiple R-squared:  0.5441, Adjusted R-squared:  0.5432 
+## F-statistic: 601.6 on 1 and 504 DF,  p-value: &lt; 2.2e-16</code></pre>
+<p>Let’s interpret the summary one by one. The first is the call field, it is just
+simply the formula of this model, nothing special. Next one is the statistical
+summary for residuals, actually we can use box plot to show it more concretely.</p>
+<pre class="r"><code>ggplot(data.frame(resi = residuals(lm.fit)), aes(x = &quot;&quot;, y = resi )) +
+  geom_boxplot()</code></pre>
+<p><img src="/post/linear-regression/index_files/figure-html/unnamed-chunk-6-1.png" width="672" /></p>
+<p>As we can see, the plot above matches the summary. The middle thicker horizontal
+line is the median (-1.318) in the summary, and the line above and below the
+median line is the first quantile (1Q) and third quantile (3Q). The points on
+the top and bottom is the min and max value.</p>
+<p>The next important field is Coefficients, by observing this field, we can
+find the how predict variables affect the response variable, this is why linear
+regression model is an interpretable model.</p>
+<p>If you recall from the beginning of this blog, there is a formula <span class="math inline">\(y = ax + b\)</span>
+here the intercept is 34.55384, we can think this value is as <span class="math inline">\(b\)</span> in the formula
+and <span class="math inline">\(a\)</span> is <code>lstat</code> which is -0.95005. Just by these information, we could know
+that <code>lstat</code> and <code>medv</code> is negatively related, which means when <code>lstat</code> increase
+1 unit, <code>medv</code> will decrease -0.95005. <strong>Std. Error</strong> here can be use to calculate
+the confidence interval and <strong>t value</strong> is used to calculate p-value. Therefore,
+if we really want to know the confidence interval for coefficients, we can use
+function confint in R.</p>
+<pre class="r"><code>confint(lm.fit)</code></pre>
+<pre><code>##                 2.5 %     97.5 %
+## (Intercept) 33.448457 35.6592247
+## lstat       -1.026148 -0.8739505</code></pre>
+<p>The confidence interval just like asking people to guess something, suppose ask
+a veteran mechanics what is the probability that a certain engine will be broken,
+he will give his experienced guess but with amount of uncertainty, but if you ask
+an amateur, he will also give his guess but with a more large range of uncertainty.</p>
+<p>Just by knowing the confidence interval you could know that if a coefficient
+significant of not. When there is a 0 appears between the confidence interval
+you could confirm that this coefficient is not significant, because there may
+have a chance the coefficient becomes 0. Which makes that input feature no
+meaning at all.</p>
+<p>After building the model, we can use this model to predict new coming data</p>
+<pre class="r"><code>lm.pred &lt;- predict(lm.fit, data.frame(lstat=(c(5,10,15))), interval = &quot;confidence&quot;)
+lm.pred</code></pre>
+<pre><code>##        fit      lwr      upr
+## 1 29.80359 29.00741 30.59978
+## 2 25.05335 24.47413 25.63256
+## 3 20.30310 19.73159 20.87461</code></pre>
+<p>the test data is confirming our interpretation above, as <code>lstat</code> increasing
+<code>medv</code> decreasing. Notice, here we use a special parameter, <em>interval=“confidence”</em>.
+this parameter will give the prediction around the mean of the prediction. To interpret the result above, with 10 <code>lstat</code> on average the value for <code>medv</code> is
+between 24.47 and 25.63.</p>
+<p>We can set the parameter inverval as “prediction” as well. However, this prediction
+only give the prediction interval around a single value. This setting is highly
+rely on residuals are normally distributed. I will give the methods how to
+test the normality of residuals in the <a href="#Caveats">caveat</a> section.</p>
+</div>
+<div id="caveats" class="section level3">
+<h3>Caveats</h3>
+<p>Linear regression model has its limitation or more precisely saying it has assumption
+For example, as the name indicates, there must be a linear relationship between
+predict variables and response variable, because the solution will either line
+plane or hyperplane which is not curvy. I list several assumptions regard to
+linear regression.</p>
+<ul>
+<li>residuals are roughly normally distributed</li>
+<li>residuals are independent</li>
+<li>linear relation between features and output</li>
+<li>no or little multicollinearity</li>
+<li>homoscedasticity (residuals agains fitted value should keep constant)</li>
+<li>sensitive to outliers</li>
+</ul>
+<p>There are several ways to test the assumptions</p>
+<div id="residual-normality" class="section level4">
+<h4>residual normality</h4>
+<p>By checking residuals normality, we can use Q-Q plot,</p>
+<pre class="r"><code>lm.fit &lt;- lm(medv ~ rm + lstat + crim + dis, data = Boston)
+ggqqplot(residuals(lm.fit))</code></pre>
+<p><img src="/post/linear-regression/index_files/figure-html/unnamed-chunk-9-1.png" width="672" /></p>
+<p>How to interpret this plot? Suppose the residuals are following a normal distribution,
+the points above should be roughly located around the slope line and should be
+with inside the 95% confidence curvy dashed line.</p>
+<p>In a algorithmic way to check, we could utilize Shapiro-Wilk test <span class="citation"><span class="csl-baseline"><span class="smallcaps">[<a href="#ref-Lohninger2012Oct">3</a>]</span></span></span>.</p>
+<pre class="r"><code>shapiro.test(residuals(lm.fit))</code></pre>
+<pre><code>## 
+##  Shapiro-Wilk normality test
+## 
+## data:  residuals(lm.fit)
+## W = 0.91081, p-value &lt; 2.2e-16</code></pre>
+<p>As the result p-value indicates (&lt;0.05). We can reject the null hypothesis
+(normally distributed). Therefore, the residuals is not normally distributed.
+Here we can see, it is important to do both visual and algorithmic test, the plot
+above shows us a roughly normal distributed data. However, the test indicates
+this is <strong>not</strong> a normally distributed data.</p>
+</div>
+<div id="residuals-independency" class="section level4">
+<h4>residuals independency</h4>
+<p>By plotting the residuals along with the order of <span class="math inline">\(Y_i\)</span> we can measure the residuals
+independency.</p>
+<pre class="r"><code>plot(sequence(nrow(Boston)), residuals(lm.fit))
+abline(h=0, col=&#39;red&#39;)</code></pre>
+<p><img src="/post/linear-regression/index_files/figure-html/unnamed-chunk-11-1.png" width="672" /></p>
+<p>Independent residuals should be located around 0 and randomly scattered.</p>
+</div>
+<div id="linearity" class="section level4">
+<h4>linearity</h4>
+<p>linearity is just checking if the predict variables (input X) has the linear
+relation between the response variable. After all, we use linear regression to
+create model, if there is no linear relation we have to use other non-linear
+model.</p>
+<pre class="r"><code>crPlots(lm(medv ~ rm + lstat + crim + dis, data = Boston))</code></pre>
+<p><img src="/post/linear-regression/index_files/figure-html/unnamed-chunk-12-1.png" width="672" /></p>
+<p>what we most case is if there is any pattern inside the plot</p>
+<pre class="r"><code>summary(gvlma::gvlma(x = lm.fit))</code></pre>
+<pre><code>## 
+## Call:
+## lm(formula = medv ~ rm + lstat + crim + dis, data = Boston)
+## 
+## Residuals:
+##     Min      1Q  Median      3Q     Max 
+## -19.006  -3.099  -1.047   1.885  26.571 
+## 
+## Coefficients:
+##             Estimate Std. Error t value Pr(&gt;|t|)    
+## (Intercept)  2.23065    3.32214   0.671    0.502    
+## rm           4.97649    0.43885  11.340  &lt; 2e-16 ***
+## lstat       -0.66174    0.05101 -12.974  &lt; 2e-16 ***
+## crim        -0.12810    0.03209  -3.992 7.53e-05 ***
+## dis         -0.56321    0.13542  -4.159 3.76e-05 ***
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+## Residual standard error: 5.403 on 501 degrees of freedom
+## Multiple R-squared:  0.6577, Adjusted R-squared:  0.6549 
+## F-statistic: 240.6 on 4 and 501 DF,  p-value: &lt; 2.2e-16
+## 
+## 
+## ASSESSMENT OF THE LINEAR MODEL ASSUMPTIONS
+## USING THE GLOBAL TEST ON 4 DEGREES-OF-FREEDOM:
+## Level of Significance =  0.05 
+## 
+## Call:
+##  gvlma::gvlma(x = lm.fit) 
+## 
+##                     Value   p-value                   Decision
+## Global Stat        638.73 0.000e+00 Assumptions NOT satisfied!
+## Skewness           143.63 0.000e+00 Assumptions NOT satisfied!
+## Kurtosis           289.67 0.000e+00 Assumptions NOT satisfied!
+## Link Function      175.67 0.000e+00 Assumptions NOT satisfied!
+## Heteroscedasticity  29.76 4.902e-08 Assumptions NOT satisfied!</code></pre>
+</div>
+<div id="hemoscedasticity" class="section level4">
+<h4>hemoscedasticity</h4>
+<p>For checking hemoscedasticity. Which means the variance of residuals should
+be constant, see the plot below.</p>
+<pre class="r"><code>par(mfrow=c(2,2))
+plot(lm.fit, pch = 16, cex = 0.5)</code></pre>
+<p><img src="/post/linear-regression/index_files/figure-html/unnamed-chunk-14-1.png" width="672" />
+We are intereted in the left side two plots. To express homoscedasticity in a plot,
+it would look like a roughly flat line with random points around it. However, in
+our case here <span class="citation"><span class="csl-baseline"><span class="smallcaps">[<a href="#ref-BibEntry2016Jan">4</a>]</span></span></span>. We could find the red line is curvy and the
+points have a growth trend from left to right.</p>
+<p>If you think visualization is not enough to determine if a model is hemoscedasticity,
+There are several algorithmic ways to test as well.</p>
+<pre class="r"><code>car::ncvTest(lm.fit)</code></pre>
+<pre><code>## Non-constant Variance Score Test 
+## Variance formula: ~ fitted.values 
+## Chisquare = 0.4130551, Df = 1, p = 0.52042</code></pre>
+<p>By checking the p-value, we could see that is significant (&lt;0.05) enough to reject
+the null hypothesis (variance is constant).</p>
+</div>
+<div id="outliers" class="section level4">
+<h4>outliers</h4>
+<p>Because we use RSS to estimate the accuracy, it is obviousely that outliers
+will highly influence the RSS. Which makes the wrong interpretation to the model.</p>
+<p>A data point has high leverage, if it has extreme predictor x values <span class="citation"><span class="csl-baseline"><span class="smallcaps">[<a href="#ref-BibEntry2019Jun">5</a>]</span></span></span>. Let’s using <em>Residuals vs Leverage</em> plot</p>
+<pre class="r"><code>par(mfrow=c(1,2))
+plot(lm.fit, 4)
+plot(lm.fit, 5, pch = 16, cex = 1)</code></pre>
+<p><img src="/post/linear-regression/index_files/figure-html/unnamed-chunk-16-1.png" width="672" /></p>
+<p>The plot above shows that #23, #49 and #39 are influenced points. Among those
+three points, #23 and #49 are close to 3 standard deviation. Which is more influential
+than #39. However, are these outliers really influence the result of the regression
+analysis? Here we need one metric called Cook’s distance to check if data points
+really influential.</p>
+<p>A rule of thumb is that an observation Cook’s distance exceeds
+<span class="math inline">\(4/(n-p-1)\)</span>, where <span class="math inline">\(n\)</span> is the number of observations and <span class="math inline">\(p\)</span> is the predictor
+variables. Thus, we can calculate Cook’s distance for this model, which is
+4/(50-1-1) = 0.08. We can add a horizontal line to the Cook’s distance plot</p>
+<pre class="r"><code>olsrr::ols_plot_cooksd_bar(lm.fit)</code></pre>
+<p><img src="/post/linear-regression/index_files/figure-html/unnamed-chunk-17-1.png" width="672" /></p>
+<p>As we can see above, data point #23 and #49 are really influence the result of
+linear regression analysis.</p>
+</div>
+</div>
+<div id="references" class="section level3 unnumbered">
+<h3>References</h3>
+<div id="refs" class="references">
+<div id="ref-friedman2001elements">
+<p>1. <strong>The elements of statistical learning</strong>.<br />
+Friedman J, Hastie T, Tibshirani R. <br />
+Springer series in statistics New York; 2001. </p>
+</div>
+<div id="ref-james2013introduction">
+<p>2. <strong>An introduction to statistical learning</strong>.<br />
+James G, Witten D, Hastie T, Tibshirani R. <br />
+Springer; 2013. </p>
+</div>
+<div id="ref-Lohninger2012Oct">
+<p>3. <strong>Shapiro-Wilk Test</strong> [Internet].<br />
+Lohninger H. <br />
+2012;Available from: <a href="http://www.statistics4u.info/fundstat_eng/ee_shapiro_wilk_test.html">http://www.statistics4u.info/fundstat_eng/ee_shapiro_wilk_test.html</a></p>
+</div>
+<div id="ref-BibEntry2016Jan">
+<p>4. <strong>How to detect heteroscedasticity and rectify it?</strong> [Internet].R-bloggers2016;Available from: <a href="https://www.r-bloggers.com/how-to-detect-heteroscedasticity-and-rectify-it">https://www.r-bloggers.com/how-to-detect-heteroscedasticity-and-rectify-it</a></p>
+</div>
+<div id="ref-BibEntry2019Jun">
+<p>5. <strong>Linear Regression Assumptions and Diagnostics in R: Essentials - Articles - STHDA</strong> [Internet].2019;Available from: <a href="http://www.sthda.com/english/articles/39-regression-model-diagnostics/161-linear-regression-assumptions-and-diagnostics-in-r-essentials">http://www.sthda.com/english/articles/39-regression-model-diagnostics/161-linear-regression-assumptions-and-diagnostics-in-r-essentials</a></p>
+</div>
+</div>
+</div>
+
+    </div>
+
+    
+
+<div class="article-tags">
+  
+  <a class="badge badge-light" href="/tags/machine-learning/">Machine Learning</a>
+  
+</div>
+
+
+
+    
+      
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+  
+  
+    
+  
+  
+  <div class="media author-card" itemscope itemtype="http://schema.org/Person">
+    
+      
+      <img class="portrait mr-3" src="/authors/admin/avatar_hu7df7bc8efde35ebbcbafd274fec70d86_259521_250x250_fill_lanczos_center_2.png" itemprop="image" alt="Avatar">
+    
+
+    <div class="media-body">
+      <h5 class="card-title" itemprop="name"><a href="https://shuishoudage.github.io">Taotao Pan</a></h5>
+      <h6 class="card-subtitle">Student of Data Science</h6>
+      <p class="card-text" itemprop="description">My research interests include Machine Learning, Data Science, Information Security and Software Engineering. I like to think like a engineer to tackle real world problems.</p>
+      <ul class="network-icon" aria-hidden="true">
+        
+          
+          
+          
+            
+          
+          
+          
+          
+          
+            
+          
+          <li>
+            <a itemprop="sameAs" href="/#contact" >
+              <i class="fas fa-envelope"></i>
+            </a>
+          </li>
+        
+          
+          
+          
+            
+          
+          
+          
+          
+          
+            
+          
+          <li>
+            <a itemprop="sameAs" href="https://www.linkedin.com/in/pan-taotao-43a957b0/" target="_blank" rel="noopener">
+              <i class="fab fa-linkedin-in"></i>
+            </a>
+          </li>
+        
+          
+          
+          
+            
+          
+          
+          
+          
+          
+            
+          
+          <li>
+            <a itemprop="sameAs" href="https://github.com/shuishoudage/" target="_blank" rel="noopener">
+              <i class="fab fa-github"></i>
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+
+
+      
+      
+    
+
+    
+
+    
+<section id="comments">
+  <div id="disqus_thread"></div>
+<script type="application/javascript">
+    var disqus_config = function () {
+    
+    
+    
+    };
+    (function() {
+        if (["localhost", "127.0.0.1"].indexOf(window.location.hostname) != -1) {
+            document.getElementById('disqus_thread').innerHTML = 'Disqus comments not available by default when the website is previewed locally.';
+            return;
+        }
+        var d = document, s = d.createElement('script'); s.async = true;
+        s.src = '//' + "taotaopan" + '.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="https://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+</section>
+
+
+
+  </div>
+</article>
+
+      
+
+    
+    
+    
+    <script src="/js/mathjax-config.js"></script>
+    
+
+    
+    
+    
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.imagesloaded/4.1.4/imagesloaded.pkgd.min.js" integrity="sha256-lqvxZrPLtfffUl2G/e7szqSvPBILGbwmsGE1MKlOi0Q=" crossorigin="anonymous"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.isotope/3.0.6/isotope.pkgd.min.js" integrity="sha256-CBrpuqrMhXwcLLUd5tvQ4euBHCdh7wGlDfNz8vbu/iI=" crossorigin="anonymous"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.2.5/jquery.fancybox.min.js" integrity="sha256-X5PoE3KU5l+JcX+w09p/wHl9AzK333C4hJ2I9S5mD4M=" crossorigin="anonymous"></script>
+
+      
+
+      
+        
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.6/highlight.min.js" integrity="sha256-aYTdUrn6Ow1DDgh5JTc3aDGnnju48y/1c8s1dgkYPQ8=" crossorigin="anonymous"></script>
+        
+      
+
+      
+      
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.4/MathJax.js?config=TeX-AMS_CHTML-full" integrity="sha256-GhM+5JHb6QUzOQPXSJLEWP7R73CbkisjzK5Eyij4U9w=" crossorigin="anonymous" async></script>
+      
+    
+
+    
+    
+
+    
+    
+    
+    <script id="dsq-count-scr" src="//taotaopan.disqus.com/count.js" async></script>
+    
+
+    
+    
+    <script>hljs.initHighlightingOnLoad();</script>
+    
+
+    
+    
+    <script>
+      const search_index_filename = "/index.json";
+      const i18n = {
+        'placeholder': "Search...",
+        'results': "results found",
+        'no_results': "No results found"
+      };
+      const content_type = {
+        'post': "Posts",
+        'project': "Projects",
+        'publication' : "Publications",
+        'talk' : "Talks"
+        };
+    </script>
+    
+
+    
+    
+
+    
+    
+    <script id="search-hit-fuse-template" type="text/x-template">
+      <div class="search-hit" id="summary-{{key}}">
+      <div class="search-hit-content">
+        <div class="search-hit-name">
+          <a href="{{relpermalink}}">{{title}}</a>
+          <div class="article-metadata search-hit-type">{{type}}</div>
+          <p class="search-hit-description">{{snippet}}</p>
+        </div>
+      </div>
+      </div>
+    </script>
+    
+
+    
+    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/3.2.1/fuse.min.js" integrity="sha256-VzgmKYmhsGNNN4Ph1kMW+BjoYJM2jV5i4IlFoeZA9XI=" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/jquery.mark.min.js" integrity="sha256-4HLtjeVgH0eIB3aZ9mLYF6E8oU5chNdjU6p6rrXpl9U=" crossorigin="anonymous"></script>
+    
+
+    
+    
+
+    
+    
+    
+    
+    
+    
+    
+    
+    
+      
+    
+    
+      
+    
+    
+    
+    <script src="/js/academic.min.9ef1b53ee2bde6c7f33b150c6ba4d452.js"></script>
+
+    <script src="https://unpkg.com/popper.js@1"></script>
+<script src="https://unpkg.com/tippy.js@4"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/highlightjs-line-numbers.js/2.7.0/highlightjs-line-numbers.min.js"></script>
+<script>
+  (function(){
+    hljs.initHighlightingOnLoad();
+    hljs.initLineNumbersOnLoad({
+      singleLine: true
+    });
+  })();
+</script>
+
+
+
+  
+  <div class="container">
+    <footer class="site-footer">
+  
+
+  <p class="powered-by">
+    
+
+    Powered by the
+    <a href="https://sourcethemes.com/academic/" target="_blank" rel="noopener">Academic theme</a> for
+    <a href="https://gohugo.io" target="_blank" rel="noopener">Hugo</a>.
+
+    
+    <span class="float-right" aria-hidden="true">
+      <a href="#" id="back_to_top">
+        <span class="button_icon">
+          <i class="fas fa-chevron-up fa-2x"></i>
+        </span>
+      </a>
+    </span>
+    
+  </p>
+</footer>
+
+  </div>
+  
+
+  
+<div id="modal" class="modal fade" role="dialog">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Cite</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <pre><code class="tex hljs"></code></pre>
+      </div>
+      <div class="modal-footer">
+        <a class="btn btn-outline-primary my-1 js-copy-cite" href="#" target="_blank">
+          <i class="fas fa-copy"></i> Copy
+        </a>
+        <a class="btn btn-outline-primary my-1 js-download-cite" href="#" target="_blank">
+          <i class="fas fa-download"></i> Download
+        </a>
+        <div id="modal-error"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+</body>
+</html>

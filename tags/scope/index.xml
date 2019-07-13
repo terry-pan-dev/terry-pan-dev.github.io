@@ -1,0 +1,209 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>scope on TAOTAO PAN</title>
+    <link>https://shuishoudage.github.io/tags/scope/</link>
+    <description>Recent content in scope on TAOTAO PAN</description>
+    <generator>Source Themes Academic (https://sourcethemes.com/academic/)</generator>
+    <language>en-us</language>
+    <lastBuildDate>Tue, 09 Jul 2019 00:00:00 +0000</lastBuildDate>
+    
+	    <atom:link href="https://shuishoudage.github.io/tags/scope/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Javascript scope and context</title>
+      <link>https://shuishoudage.github.io/post/js-scope-context/</link>
+      <pubDate>Tue, 09 Jul 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://shuishoudage.github.io/post/js-scope-context/</guid>
+      <description>
+
+
+&lt;div id=&#34;introduction&#34; class=&#34;section level3&#34;&gt;
+&lt;h3&gt;Introduction&lt;/h3&gt;
+&lt;p&gt;The scope and context of javascript maybe the most bizarre point when learning
+javascript, for people who learn programming from C/C++/JAVA those traditional
+language will find the concept of scope and context are particularly difficult
+to understand. However, it’s essential for a javascript developer to understand
+these.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div id=&#34;global-scope&#34; class=&#34;section level3&#34;&gt;
+&lt;h3&gt;Global scope&lt;/h3&gt;
+&lt;p&gt;When you starting write a javascript, there is a default global scope called
+Window. Have a look at the image below&lt;/p&gt;
+&lt;div class=&#34;figure&#34;&gt;
+&lt;img src=&#34;images/global_scope.png&#34; alt=&#34;global&#34; /&gt;
+&lt;p class=&#34;caption&#34;&gt;global&lt;/p&gt;
+&lt;/div&gt;
+&lt;p&gt;When a variable is in global scope it can be access by any other scope&lt;/p&gt;
+&lt;pre class=&#34;javascript&#34;&gt;&lt;code&gt;var name = &amp;quot;Albert Einstein&amp;quot;;
+
+console.log(&amp;quot;1: &amp;quot;, name)
+function print(){
+    console.log(&amp;quot;2: &amp;quot;,name);
+    (function inner(){
+        console.log(&amp;quot;3: &amp;quot;, name);
+        function inner2(){
+            console.log(&amp;quot;4: &amp;quot;, name);
+        }
+        inner2();
+    })();
+}
+
+print();&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## 1:  Albert Einstein
+## 2:  Albert Einstein
+## 3:  Albert Einstein
+## 4:  Albert Einstein&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;As you can see above, it prints four names. the first print is in the global
+scope, the second print is in the print function scope and so for print 3 and
+print 4.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;let vs var&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;Let’s discuss local scope or function scope, as we mentioned above, global
+scope can be accessed everywhere, but local scope can only be accessed locally.
+In ECMAScript 6, there are two keywords introduced. Which will make the variable
+defined locally. &lt;code&gt;let&lt;/code&gt; is just like &lt;code&gt;var&lt;/code&gt; with local scope restriction and as
+the name shows &lt;code&gt;const&lt;/code&gt; is a constant with local scope, when you try to modify a
+constant variable the interpret will yelling.&lt;/p&gt;
+&lt;pre class=&#34;js&#34;&gt;&lt;code&gt;if(1){
+// global scope
+var name = &amp;quot;Albert Einstein&amp;quot;;
+// local scope
+let age = 140;
+// local scope
+const occupation = &amp;quot;scientist&amp;quot;;
+}
+console.log(name); // can be accessed
+console.log(age); // cannot be accessed
+console.log(occupation); // cannot be accessed&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;div id=&#34;context&#34; class=&#34;section level3&#34;&gt;
+&lt;h3&gt;Context&lt;/h3&gt;
+&lt;p&gt;When we talking about context, we are referring &lt;code&gt;this&lt;/code&gt; keyword. Here is a definition
+from MDN &lt;span class=&#34;citation&#34;&gt;&lt;span class=&#34;csl-baseline&#34;&gt;&lt;span class=&#34;smallcaps&#34;&gt;[&lt;a href=&#34;#ref-BibEntry2019Jul&#34;&gt;1&lt;/a&gt;]&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;.
+&amp;gt; In most cases, the value of this is determined by how a function is called&lt;/p&gt;
+&lt;p&gt;So, what we have to find is who called this function. If a object called a function
+then &lt;code&gt;this&lt;/code&gt; is the object, if a button is called the function, then &lt;code&gt;this&lt;/code&gt; is
+the button. Let’s see several examples&lt;/p&gt;
+&lt;p&gt;calling from window&lt;/p&gt;
+&lt;pre class=&#34;js&#34;&gt;&lt;code&gt;console.log(this); // Window {postMessage: ƒ, blur: ƒ, focus: ƒ, close: ƒ, parent: Window, …}&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;calling from an object&lt;/p&gt;
+&lt;pre class=&#34;js&#34;&gt;&lt;code&gt;var obj = {
+    func: function(){
+        return this;
+    }
+};
+
+console.log(obj.func());// return an object {}&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;strong&gt;strict mode&lt;/strong&gt;
+if we don’t defind &lt;code&gt;use strict&lt;/code&gt; in the beginning of a javascript document. &lt;code&gt;this&lt;/code&gt;
+keyword will be default set to window in &lt;em&gt;browser&lt;/em&gt; and &lt;em&gt;global&lt;/em&gt; in nodejs.&lt;/p&gt;
+&lt;p&gt;without strict mode set&lt;/p&gt;
+&lt;pre class=&#34;js&#34;&gt;&lt;code&gt;function foo(){
+  return this;
+}
+foo() === window; // true&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;setup strict mode&lt;/p&gt;
+&lt;pre class=&#34;js&#34;&gt;&lt;code&gt;function boo(){
+  &amp;#39;use strict&amp;#39;;
+  return this;
+}
+boo() === undefined; // true&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;It’s always a good practice to set the strict mode&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Apply, Call, Bind&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;These three functions are quite useful, &lt;code&gt;apply&lt;/code&gt; and &lt;code&gt;call&lt;/code&gt; are similar. &lt;code&gt;bind&lt;/code&gt;
+is used to bind a function to another context. Here is an example showing that
+how people can change the context to make the calling more dynamic&lt;/p&gt;
+&lt;pre class=&#34;js&#34;&gt;&lt;code&gt;var test = {
+  prop: 42,
+  func: function() {
+    return this.prop;
+  },
+};
+
+var test2 = {
+  prop: &amp;#39;Albert Einstein&amp;#39;
+}
+
+console.log(test.func()); // print 42
+console.log(test.func.call(test2)); // print Albert Einstein&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;like a magic right? Here is the different use of &lt;code&gt;apply&lt;/code&gt;, &lt;code&gt;call&lt;/code&gt; and &lt;code&gt;bind&lt;/code&gt;&lt;/p&gt;
+&lt;pre class=&#34;js&#34;&gt;&lt;code&gt;func.call(context, &amp;quot;arg1&amp;quot;, &amp;quot;arg2&amp;quot;, &amp;quot;argn&amp;quot;);
+func.apply(context, [&amp;quot;arg1&amp;quot;, &amp;quot;arg2&amp;quot;, &amp;quot;argn&amp;quot;]);
+func.bind(context);&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;call has slighly faster in performance than apply &lt;span class=&#34;citation&#34;&gt;&lt;span class=&#34;csl-baseline&#34;&gt;&lt;span class=&#34;smallcaps&#34;&gt;[&lt;a href=&#34;#ref-Ahmed2019Jul&#34;&gt;2&lt;/a&gt;]&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Public and Private&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;The function scope can be used to mimic traditional OOP language properties like
+private variables. Moreover, it can be used to manage namespace.&lt;/p&gt;
+&lt;pre class=&#34;js&#34;&gt;&lt;code&gt;// only expose AwesomeModule keyword globally
+var AwesomeModule = (function(){
+  // private variable and methods
+  let property = &amp;quot;property&amp;quot;;
+  
+  function privateFunc(){
+    ...
+  }
+  
+  // you can access the method by AwesomeModule.publicFunc()
+  // this kind format more like OOP 
+  return {
+    publicFunc: function(){
+      // can access property and privateFunc()
+    }
+  }
+})()&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;the code above has a small bizarre format &lt;code&gt;(function() {})()&lt;/code&gt;. This is called
+immediately invoked function expression (IIFE). How to interpret this code? It’s
+simple, you define a function like this &lt;code&gt;function(){}&lt;/code&gt;, you want to invoke it
+after define it the you just add an parenthesis &lt;code&gt;()&lt;/code&gt;. However, in order to define
+this function you have to use another parenthesis enclose them, that’s all.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div id=&#34;closure&#34; class=&#34;section level3&#34;&gt;
+&lt;h3&gt;Closure&lt;/h3&gt;
+&lt;p&gt;Closure is quite useful, like another magic in javascript. We know when a function
+return the variables define in that scope will be destroied or collected, but
+closure is not working that way, even the function returned, closure can still
+keep the variable. Let’s see an example&lt;/p&gt;
+&lt;pre class=&#34;js&#34;&gt;&lt;code&gt;function outer(outerArg){
+    let property = &amp;quot;property&amp;quot;;
+    return function(innerArg){
+        console.log(outerArg);  
+        console.log(property);  
+        console.log(innerArg);  
+    };
+}
+// notice outer has returned, property should be destroied
+// but closure not working that way
+var func = outer(&amp;quot;from outer function&amp;quot;);
+// what we returned is not a variable is a function, we have to invoke the function
+func(&amp;quot;from inner function&amp;quot;);
+
+// output
+// from outer function
+// property
+// from inner function&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;The example above shows that closure can not only access its own arguments, but
+the arguments from its outer functions and the returned function will not be
+invoked immediately, you can invoke the returned function whenever you want. Which
+is really handy. There is a very good visualization tool created by Tyler McGinnis.
+Which gives a really concrete example of what closure is &lt;span class=&#34;citation&#34;&gt;&lt;span class=&#34;csl-baseline&#34;&gt;&lt;span class=&#34;smallcaps&#34;&gt;[&lt;a href=&#34;#ref-BibEntry2019Jul&#34;&gt;1&lt;/a&gt;]&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/p&gt;
+&lt;/div&gt;
+&lt;div id=&#34;references&#34; class=&#34;section level3 unnumbered&#34;&gt;
+&lt;h3&gt;References&lt;/h3&gt;
+&lt;div id=&#34;refs&#34; class=&#34;references&#34;&gt;
+&lt;div id=&#34;ref-BibEntry2019Jul&#34;&gt;
+&lt;p&gt;1. &lt;strong&gt;The Ultimate Guide to Hoisting, Scopes, and Closures in JavaScript&lt;/strong&gt; [Internet].TylerMcGinnis.com2019;Available from: &lt;a href=&#34;https://tylermcginnis.com/ultimate-guide-to-execution-contexts-hoisting-scopes-and-closures-in-javascript&#34;&gt;https://tylermcginnis.com/ultimate-guide-to-execution-contexts-hoisting-scopes-and-closures-in-javascript&lt;/a&gt;&lt;/p&gt;
+&lt;/div&gt;
+&lt;div id=&#34;ref-Ahmed2019Jul&#34;&gt;
+&lt;p&gt;2. &lt;strong&gt;Understanding Scope in JavaScript&lt;/strong&gt; [Internet].&lt;br /&gt;
+Ahmed H. &lt;br /&gt;
+Scotch2019;Available from: &lt;a href=&#34;https://scotch.io/tutorials/understanding-scope-in-javascript&#34;&gt;https://scotch.io/tutorials/understanding-scope-in-javascript&lt;/a&gt;&lt;/p&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+</description>
+    </item>
+    
+  </channel>
+</rss>

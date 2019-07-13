@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Tags on TAOTAO PAN</title>
+    <link>https://shuishoudage.github.io/tags/</link>
+    <description>Recent content in Tags on TAOTAO PAN</description>
+    <generator>Source Themes Academic (https://sourcethemes.com/academic/)</generator>
+    <language>en-us</language>
+    <lastBuildDate>Thu, 11 Jul 2019 00:00:00 +0000</lastBuildDate>
+    
+	    <atom:link href="https://shuishoudage.github.io/tags/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>event loop</title>
+      <link>https://shuishoudage.github.io/tags/event-loop/</link>
+      <pubDate>Thu, 11 Jul 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://shuishoudage.github.io/tags/event-loop/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>event queue</title>
+      <link>https://shuishoudage.github.io/tags/event-queue/</link>
+      <pubDate>Thu, 11 Jul 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://shuishoudage.github.io/tags/event-queue/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>javascript</title>
+      <link>https://shuishoudage.github.io/tags/javascript/</link>
+      <pubDate>Thu, 11 Jul 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://shuishoudage.github.io/tags/javascript/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>context</title>
+      <link>https://shuishoudage.github.io/tags/context/</link>
+      <pubDate>Tue, 09 Jul 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://shuishoudage.github.io/tags/context/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>scope</title>
+      <link>https://shuishoudage.github.io/tags/scope/</link>
+      <pubDate>Tue, 09 Jul 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://shuishoudage.github.io/tags/scope/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Machine Learning</title>
+      <link>https://shuishoudage.github.io/tags/machine-learning/</link>
+      <pubDate>Fri, 28 Jun 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://shuishoudage.github.io/tags/machine-learning/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>tools</title>
+      <link>https://shuishoudage.github.io/tags/tools/</link>
+      <pubDate>Thu, 11 Apr 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://shuishoudage.github.io/tags/tools/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Source Themes</title>
+      <link>https://shuishoudage.github.io/tags/source-themes/</link>
+      <pubDate>Sun, 07 Apr 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://shuishoudage.github.io/tags/source-themes/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>commonjs</title>
+      <link>https://shuishoudage.github.io/tags/commonjs/</link>
+      <pubDate>Fri, 27 Jul 2018 00:00:00 +0000</pubDate>
+      
+      <guid>https://shuishoudage.github.io/tags/commonjs/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>modular loader</title>
+      <link>https://shuishoudage.github.io/tags/modular-loader/</link>
+      <pubDate>Fri, 27 Jul 2018 00:00:00 +0000</pubDate>
+      
+      <guid>https://shuishoudage.github.io/tags/modular-loader/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>python</title>
+      <link>https://shuishoudage.github.io/tags/python/</link>
+      <pubDate>Mon, 19 Sep 2016 00:00:00 +0000</pubDate>
+      
+      <guid>https://shuishoudage.github.io/tags/python/</guid>
+      <description></description>
+    </item>
+    
+  </channel>
+</rss>

@@ -1,0 +1,192 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>event loop on TAOTAO PAN</title>
+    <link>https://shuishoudage.github.io/tags/event-loop/</link>
+    <description>Recent content in event loop on TAOTAO PAN</description>
+    <generator>Source Themes Academic (https://sourcethemes.com/academic/)</generator>
+    <language>en-us</language>
+    <lastBuildDate>Thu, 11 Jul 2019 00:00:00 +0000</lastBuildDate>
+    
+	    <atom:link href="https://shuishoudage.github.io/tags/event-loop/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Javascript event loop explained</title>
+      <link>https://shuishoudage.github.io/post/js-event-loop/</link>
+      <pubDate>Thu, 11 Jul 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://shuishoudage.github.io/post/js-event-loop/</guid>
+      <description>
+
+
+&lt;div id=&#34;introduction&#34; class=&#34;section level3&#34;&gt;
+&lt;h3&gt;Introduction&lt;/h3&gt;
+&lt;p&gt;Javascript is a single thread language by default. However, as web world moves
+fast, a single thread cannot undertake heavy tasks. It’s hard to change the
+fundamental mechanism from a single thread to multi-threads. To solve this
+problem, people come up with the concept of event loop. The concurrency model
+of javascript is based on &lt;em&gt;event loop&lt;/em&gt; &lt;span class=&#34;citation&#34;&gt;&lt;span class=&#34;csl-baseline&#34;&gt;&lt;span class=&#34;smallcaps&#34;&gt;[&lt;a href=&#34;#ref-BibEntry2019Jul&#34;&gt;1&lt;/a&gt;]&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/p&gt;
+&lt;/div&gt;
+&lt;div id=&#34;event-loop&#34; class=&#34;section level3&#34;&gt;
+&lt;h3&gt;Event loop&lt;/h3&gt;
+&lt;p&gt;Prior to explaining the event loop. It’s better to understand something called
+block I/O and non-block I/O. Suppose the application you are coding is a single
+threaded application, whenever you send a request to the Internet or read files
+from the local file system. It blocks, which means the rest of code can only
+be running after the request finished. for example:&lt;/p&gt;
+&lt;pre class=&#34;python&#34;&gt;&lt;code&gt;import requests
+// this is i/o request
+val = requests.get(&amp;#39;http://example.com&amp;#39;)
+print(val)
+requests.get(&amp;#39;http://example2.com&amp;#39;)
+renderPage()&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Line 3 will run first, depends on the network, we may wait milliseconds or
+seconds, before the fetch finish, the rest code cannot be executed, which
+obviously is inefficient, because code &lt;code&gt;print(val)&lt;/code&gt; may depends on the result
+above. However, the rest code does not, but you still have to wait until the
+request finished to execute the remaining code.&lt;/p&gt;
+&lt;p&gt;So how does event loop work? Here is an image shows the fundamental concept:
+&lt;img src=&#34;featured.png&#34; alt=&#34;eventloop&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;To make it simple, every time when you do any I/O task, this task will be set as
+an event and put inside an event queue then the rest code will be executed
+as normal. After you run out all your functions in your call stack. Event loop
+will come to the event queue to check if there any job has not been done,
+if so, event loop will fetch the event inside the queue based on priority (macro
+and micro event, we will talk it in the next section). There is a event loop
+visualizer created by &lt;em&gt;Philip Roberts&lt;/em&gt; &lt;span class=&#34;citation&#34;&gt;&lt;span class=&#34;csl-baseline&#34;&gt;&lt;span class=&#34;smallcaps&#34;&gt;[&lt;a href=&#34;#ref-BibEntry2014Nov&#34;&gt;2&lt;/a&gt;]&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;.&lt;/p&gt;
+&lt;p&gt;To make it concrete, here is an example code.&lt;/p&gt;
+&lt;pre class=&#34;javascript&#34;&gt;&lt;code&gt;setTimeOut(function(){
+  console.log(&amp;quot;event 1&amp;quot;);
+}, 1000);
+
+setTimeOut(function(){
+  console.log(&amp;quot;event 2&amp;quot;);
+}, 2000);&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;both setTimeOut will be put inside an event queue, waiting to be executed.
+Event 1 will be executed after 1000 milliseconds (1 second), event 2 will be
+executed after 2000 milliseconds (2 seconds). Actually, it is not precisely 1
+second or 2 seconds, we will discuss the reason later on.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div id=&#34;macro-task-vs-micro-task&#34; class=&#34;section level3&#34;&gt;
+&lt;h3&gt;Macro task vs Micro task&lt;/h3&gt;
+&lt;p&gt;Have a look following code, think about what will be printed&lt;/p&gt;
+&lt;pre class=&#34;javascript&#34;&gt;&lt;code&gt;setTimeout(function(){
+  console.log(1);
+}, 0);
+
+new Promise(function(resolve, reject){
+  console.log(2);
+  resolve(3);
+  console.log(4);
+}).then(function(value){
+  console.log(value);
+})
+
+console.log(5);&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## 2
+## 4
+## 5
+## 3
+## 1&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;The output is surprise right? Let’s analyze it,&lt;/p&gt;
+&lt;p&gt;Both setTimeout and Promise are events so that they will be executed
+asynchronously. However, since promise is a micro task which has higher priority
+than setTimeout (macro task), even we have setTimeout is 0, promise will run
+first, the code inside promise will run first, therefore 2 is printed first,
+resolve is a callback function, normally resolve will wait for the result of an
+async call. Therefore, the code will continue running to print 4 and return a
+promise back then we have &lt;code&gt;console.log(5)&lt;/code&gt; which will print number 5. Afterwards,
+the callback of promise running which prints number 3, finally number 1 will be
+printed.&lt;/p&gt;
+&lt;p&gt;Javascript event has two categories&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Macro task&lt;/li&gt;
+&lt;li&gt;Micro task (higher priority)&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;By default, when the single main thread encountering functions (sync), it will
+put functions inside call stack, execute them then pop them out, if the function
+running for a long time without returning value, the main thread has to wait there.
+This is why single thread not effcient. However, javascript will make the time
+consuming task (I/O) return a &lt;code&gt;placehold&lt;/code&gt; value first. The I/O task will be send
+to browser kernel, when task finished, task and its callback functions will be send
+back to task queue. The advantage of this strategy is that the main thread is able
+to continue running without blocking, after the main thread run out off all the
+functions that inside the call stack, the main thread will ask the task queue for
+more jobs to do, once there has any task, it will be pushed into the call stack
+execute, pop up. This kind of steps will be running in a loop, that’s why we
+call it event loop.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Macro task&lt;/strong&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;SetTimeout&lt;/li&gt;
+&lt;li&gt;SetInterval&lt;/li&gt;
+&lt;li&gt;SetImmediate&lt;/li&gt;
+&lt;li&gt;ajax&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;strong&gt;Micro task&lt;/strong&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;async/await&lt;/li&gt;
+&lt;li&gt;promise&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;Let’s do a crazy test to see if we really understand event loop. What will be
+printed the following code?&lt;/p&gt;
+&lt;pre class=&#34;javascript&#34;&gt;&lt;code&gt;async function async1() {
+    console.log(&amp;#39;async1 start&amp;#39;);
+    await async2();
+    console.log(&amp;#39;async1 end&amp;#39;);
+}
+async function async2() {
+    console.log(&amp;#39;async2&amp;#39;);
+}
+
+console.log(&amp;#39;script start&amp;#39;);
+
+setTimeout(function() {
+    console.log(&amp;#39;setTimeout&amp;#39;);
+}, 0)
+
+async1();
+
+new Promise(function(resolve) {
+    console.log(&amp;#39;promise1&amp;#39;);
+    resolve();
+}).then(function() {
+    console.log(&amp;#39;promise2&amp;#39;);
+});
+console.log(&amp;#39;script end&amp;#39;);&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## script start
+## async1 start
+## async2
+## promise1
+## script end
+## async1 end
+## promise2
+## setTimeout&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;So let’s demystify the code above, first of all, async function is essentially
+return a promise. However, async1 and async2 are just defined here not called.
+Therefore &lt;code&gt;script start&lt;/code&gt; print first. Then setTimeout is another async function
+which has lower priority. Afterwards, &lt;em&gt;async1()&lt;/em&gt; is called, &lt;code&gt;async1 start&lt;/code&gt; print
+first, &lt;em&gt;async2()&lt;/em&gt; is another promise, the code inside will be printed, hence,
+&lt;code&gt;async2&lt;/code&gt; was printed. Next, we have another promise, this time &lt;code&gt;promise1&lt;/code&gt; was
+printed, since &lt;em&gt;resolve()&lt;/em&gt; is a callback, the code will continue running.
+&lt;code&gt;script end&lt;/code&gt; prints next. Let’s trace back what we have left, &lt;em&gt;async1()&lt;/em&gt; has not
+finished yet. Therefore, &lt;code&gt;async1 end&lt;/code&gt; will be printed and our callback of promise
+has not finished yet, &lt;code&gt;promise2&lt;/code&gt; will be printed. Finally, the macro task
+&lt;code&gt;setTimeout&lt;/code&gt; will be printed.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div id=&#34;reference&#34; class=&#34;section level3 unnumbered&#34;&gt;
+&lt;h3&gt;Reference&lt;/h3&gt;
+&lt;div id=&#34;refs&#34; class=&#34;references&#34;&gt;
+&lt;div id=&#34;ref-BibEntry2019Jul&#34;&gt;
+&lt;p&gt;1. &lt;strong&gt;Concurrency model and Event Loop&lt;/strong&gt; [Internet].MDN Web Docs2019;Available from: &lt;a href=&#34;https://developer.mozilla.org/en-US/docs/Web/JavaScript/EventLoop&#34;&gt;https://developer.mozilla.org/en-US/docs/Web/JavaScript/EventLoop&lt;/a&gt;&lt;/p&gt;
+&lt;/div&gt;
+&lt;div id=&#34;ref-BibEntry2014Nov&#34;&gt;
+&lt;p&gt;2. 2014;Available from: &lt;a href=&#34;http://latentflip.com/loupe&#34;&gt;http://latentflip.com/loupe&lt;/a&gt;&lt;/p&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+</description>
+    </item>
+    
+  </channel>
+</rss>

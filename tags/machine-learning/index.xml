@@ -1,0 +1,454 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Machine Learning on TAOTAO PAN</title>
+    <link>https://shuishoudage.github.io/tags/machine-learning/</link>
+    <description>Recent content in Machine Learning on TAOTAO PAN</description>
+    <generator>Source Themes Academic (https://sourcethemes.com/academic/)</generator>
+    <language>en-us</language>
+    <lastBuildDate>Fri, 28 Jun 2019 00:00:00 +0000</lastBuildDate>
+    
+	    <atom:link href="https://shuishoudage.github.io/tags/machine-learning/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Linear Regression</title>
+      <link>https://shuishoudage.github.io/post/linear-regression/linear-regression/</link>
+      <pubDate>Fri, 28 Jun 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://shuishoudage.github.io/post/linear-regression/linear-regression/</guid>
+      <description>
+
+
+&lt;div id=&#34;introduction&#34; class=&#34;section level3&#34;&gt;
+&lt;h3&gt;Introduction&lt;/h3&gt;
+&lt;p&gt;Linear regression is probably the first topic that every machine learning
+course will talk. It is simple and often prodivde and adequate and interpretable
+description of how the inputs affect the output &lt;span class=&#34;citation&#34;&gt;&lt;span class=&#34;csl-baseline&#34;&gt;&lt;span class=&#34;smallcaps&#34;&gt;[&lt;a href=&#34;#ref-friedman2001elements&#34;&gt;1&lt;/a&gt;]&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;.
+I will try my best to explain linear regression in a simple way but also with
+depth insight. For those who scare of math, it is okey just give a glance.&lt;/p&gt;
+&lt;p&gt;Let’s start from a very simple equation from high school.&lt;/p&gt;
+&lt;p&gt;&lt;span class=&#34;math display&#34;&gt;\[
+y = ax + b
+\]&lt;/span&gt;
+Here y is outcome or sometimes we will written as &lt;span class=&#34;math inline&#34;&gt;\(f(x)\)&lt;/span&gt;, it is the same thing
+but written in a different format. a is the slope and b is the intercept. Let’s
+giving a plot.&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://shuishoudage.github.io/post/linear-regression/index_files/figure-html/unnamed-chunk-2-1.png&#34; width=&#34;672&#34; /&gt;
+This example is set intercept to 1.4 and slope as 0.5. For this example, we only
+have one input (x) and one output (y)&lt;/p&gt;
+&lt;p&gt;In real world application, we normally have more than one feature. Suppose
+we have an input vector &lt;span class=&#34;math inline&#34;&gt;\(X^T=(X_1, X_2, \dots, X_p)\)&lt;/span&gt;&lt;/p&gt;
+&lt;table&gt;
+&lt;caption&gt;
+&lt;span id=&#34;tab:unnamed-chunk-3&#34;&gt;Table 1: &lt;/span&gt;A table for advertising dataset
+&lt;/caption&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th style=&#34;text-align:right;&#34;&gt;
+X
+&lt;/th&gt;
+&lt;th style=&#34;text-align:right;&#34;&gt;
+TV
+&lt;/th&gt;
+&lt;th style=&#34;text-align:right;&#34;&gt;
+Radio
+&lt;/th&gt;
+&lt;th style=&#34;text-align:right;&#34;&gt;
+Newspaper
+&lt;/th&gt;
+&lt;th style=&#34;text-align:right;&#34;&gt;
+Sales
+&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td style=&#34;text-align:right;&#34;&gt;
+1
+&lt;/td&gt;
+&lt;td style=&#34;text-align:right;&#34;&gt;
+230.1
+&lt;/td&gt;
+&lt;td style=&#34;text-align:right;&#34;&gt;
+37.8
+&lt;/td&gt;
+&lt;td style=&#34;text-align:right;&#34;&gt;
+69.2
+&lt;/td&gt;
+&lt;td style=&#34;text-align:right;&#34;&gt;
+22.1
+&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=&#34;text-align:right;&#34;&gt;
+2
+&lt;/td&gt;
+&lt;td style=&#34;text-align:right;&#34;&gt;
+44.5
+&lt;/td&gt;
+&lt;td style=&#34;text-align:right;&#34;&gt;
+39.3
+&lt;/td&gt;
+&lt;td style=&#34;text-align:right;&#34;&gt;
+45.1
+&lt;/td&gt;
+&lt;td style=&#34;text-align:right;&#34;&gt;
+10.4
+&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=&#34;text-align:right;&#34;&gt;
+3
+&lt;/td&gt;
+&lt;td style=&#34;text-align:right;&#34;&gt;
+17.2
+&lt;/td&gt;
+&lt;td style=&#34;text-align:right;&#34;&gt;
+45.9
+&lt;/td&gt;
+&lt;td style=&#34;text-align:right;&#34;&gt;
+69.3
+&lt;/td&gt;
+&lt;td style=&#34;text-align:right;&#34;&gt;
+9.3
+&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=&#34;text-align:right;&#34;&gt;
+4
+&lt;/td&gt;
+&lt;td style=&#34;text-align:right;&#34;&gt;
+151.5
+&lt;/td&gt;
+&lt;td style=&#34;text-align:right;&#34;&gt;
+41.3
+&lt;/td&gt;
+&lt;td style=&#34;text-align:right;&#34;&gt;
+58.5
+&lt;/td&gt;
+&lt;td style=&#34;text-align:right;&#34;&gt;
+18.5
+&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=&#34;text-align:right;&#34;&gt;
+5
+&lt;/td&gt;
+&lt;td style=&#34;text-align:right;&#34;&gt;
+180.8
+&lt;/td&gt;
+&lt;td style=&#34;text-align:right;&#34;&gt;
+10.8
+&lt;/td&gt;
+&lt;td style=&#34;text-align:right;&#34;&gt;
+58.4
+&lt;/td&gt;
+&lt;td style=&#34;text-align:right;&#34;&gt;
+12.9
+&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+&lt;p&gt;Here the input features we could think as &lt;strong&gt;X1=TV&lt;/strong&gt;, &lt;strong&gt;X2=Radio&lt;/strong&gt;
+and &lt;strong&gt;X3=Newspaper&lt;/strong&gt;. and the y is &lt;strong&gt;Sales&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;We have a simple model for multiple features&lt;/p&gt;
+&lt;p&gt;&lt;span class=&#34;math display&#34;&gt;\[
+f(X)=\beta_{0}+\sum_{j=1}^{p} X_{j} \beta_{j}
+\]&lt;/span&gt;&lt;/p&gt;
+&lt;p&gt;Let’s plot a regression model for iris dataset to see what exactly going on.&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;ggplot(df, aes(TV, Sales)) +
+  geom_point() +
+  geom_smooth(method = &amp;#39;lm&amp;#39;, formula = y~x)&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;img src=&#34;https://shuishoudage.github.io/post/linear-regression/index_files/figure-html/unnamed-chunk-4-1.png&#34; width=&#34;672&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;What we like to do is reduce the residuals.&lt;/p&gt;
+&lt;div class=&#34;figure&#34;&gt;
+&lt;img src=&#34;residuals.png&#34; alt=&#34;png&#34; /&gt;
+&lt;p class=&#34;caption&#34;&gt;png&lt;/p&gt;
+&lt;/div&gt;
+&lt;p&gt;So finally, what we want to do is just minimize the residual sum of squares, which
+is the equation following:
+&lt;span class=&#34;math display&#34;&gt;\[
+\begin{aligned} \operatorname{RSS}(\beta) &amp;amp;=\sum_{i=1}^{N}\left(y_{i}-f\left(x_{i}\right)\right)^{2} \\ &amp;amp;=\sum_{i=1}^{N}\left(y_{i}-\beta_{0}-\sum_{j=1}^{p} x_{i j} \beta_{j}\right)^{2} \end{aligned}
+\]&lt;/span&gt;&lt;/p&gt;
+&lt;p&gt;To make the formula clear little bit. We could using vectorization or vector
+notation to represent it.&lt;/p&gt;
+&lt;p&gt;&lt;span class=&#34;math display&#34;&gt;\[
+\operatorname{RSS}(\beta)=(\mathbf{y}-\mathbf{X} \beta)^{T}(\mathbf{y}-\mathbf{X} \beta)
+\]&lt;/span&gt;&lt;/p&gt;
+&lt;p&gt;let’s take the derivative respect to &lt;span class=&#34;math inline&#34;&gt;\(\beta\)&lt;/span&gt;.
+&lt;span class=&#34;math display&#34;&gt;\[
+\frac{\partial \mathrm{RSS}}{\partial \beta}=-2 \mathbf{X}^{T}(\mathbf{y}-\mathbf{X} \beta)
+\]&lt;/span&gt;&lt;/p&gt;
+&lt;p&gt;Because, if we check the RSS equation above it is a quadratic function. Therefore,
+this equation is always having a global minimal value. Let’s just set the derivative
+equal zero, then find what the &lt;span class=&#34;math inline&#34;&gt;\(\beta\)&lt;/span&gt; is.&lt;/p&gt;
+&lt;p&gt;&lt;span class=&#34;math display&#34;&gt;\[
+\begin{aligned}
+&amp;amp;-2 \mathbf{X}^{T}(\mathbf{y}-\mathbf{X} \beta)=0 \\ &amp;amp;\mathbf{X}^{T}(\mathbf{y}-\mathbf{X} \beta)=0 \quad (1)\\
+&amp;amp;\mathbf{X}^{T}\mathbf{y}-\mathbf{X}^{T}\mathbf{X} \beta=0 \quad (2) \\
+&amp;amp;\mathbf{X}^{T}\mathbf{y}=\mathbf{X}^{T}\mathbf{X} \beta \quad(3)\\
+&amp;amp;(\mathbf{X}^{T}\mathbf{X})^{-1}\mathbf{X}^{T}\mathbf{y}=(\mathbf{X}^{T}\mathbf{X})^{-1}\mathbf{X}^{T}\mathbf{X} \beta \quad (4)\\
+&amp;amp;(\mathbf{X}^{T}\mathbf{X})^{-1}\mathbf{X}^{T}\mathbf{y} = \beta \quad (5)
+\end{aligned}
+\]&lt;/span&gt;&lt;/p&gt;
+&lt;p&gt;Let’s break it down, the first step we just divide both side by -2, hence we can
+eliminate the constant. Second step we just apply distribution rule, the third
+one is to make the equation equal, we just move &lt;span class=&#34;math inline&#34;&gt;\(-X^tX\beta\)&lt;/span&gt; to the right side.
+Step 4 is just using a little trick to make &lt;span class=&#34;math inline&#34;&gt;\(X^TX\)&lt;/span&gt; to an identity matrix by
+multiply &lt;span class=&#34;math inline&#34;&gt;\((X^TX)^{-1}\)&lt;/span&gt;, finally, we get &lt;span class=&#34;math inline&#34;&gt;\(\beta\)&lt;/span&gt;.&lt;/p&gt;
+&lt;p&gt;It is obviously that if we multiply &lt;span class=&#34;math inline&#34;&gt;\(X\)&lt;/span&gt; to the &lt;span class=&#34;math inline&#34;&gt;\(\beta\)&lt;/span&gt; we can calculate the estimated
+&lt;span class=&#34;math inline&#34;&gt;\(\hat{y}\)&lt;/span&gt; value&lt;/p&gt;
+&lt;/div&gt;
+&lt;div id=&#34;case-study&#34; class=&#34;section level3&#34;&gt;
+&lt;h3&gt;Case study&lt;/h3&gt;
+&lt;p&gt;It is important for an analyst to understand the output of a linear model. It is
+not just blindly using some packages without thinking. Here I take an example
+from book An Introduction to Statistical Learning &lt;span class=&#34;citation&#34;&gt;&lt;span class=&#34;csl-baseline&#34;&gt;&lt;span class=&#34;smallcaps&#34;&gt;[&lt;a href=&#34;#ref-james2013introduction&#34;&gt;2&lt;/a&gt;]&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;.&lt;/p&gt;
+&lt;p&gt;Let’s start from single variable linear regression model, then try to give
+a short explanation to the output. Here we use Boosten dataset from R package
+of MASS, this dataset records 506 neighborhoods around Boosten, there are several
+feature columns, like &lt;code&gt;crim&lt;/code&gt; indicates per capita crime rate by town, &lt;code&gt;rm&lt;/code&gt; means
+the average number of rooms per dwelling and &lt;code&gt;ptratia&lt;/code&gt; means pupil-teacher ratio
+by town.&lt;/p&gt;
+&lt;p&gt;Here we use feature &lt;code&gt;lstat&lt;/code&gt; (lower status of the population) to predict
+&lt;code&gt;medv&lt;/code&gt;(median value of owner-occupied homes in $1000).&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;lm.fit &amp;lt;- lm(medv ~ lstat, data = MASS::Boston)
+summary(lm.fit)&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## 
+## Call:
+## lm(formula = medv ~ lstat, data = MASS::Boston)
+## 
+## Residuals:
+##     Min      1Q  Median      3Q     Max 
+## -15.168  -3.990  -1.318   2.034  24.500 
+## 
+## Coefficients:
+##             Estimate Std. Error t value Pr(&amp;gt;|t|)    
+## (Intercept) 34.55384    0.56263   61.41   &amp;lt;2e-16 ***
+## lstat       -0.95005    0.03873  -24.53   &amp;lt;2e-16 ***
+## ---
+## Signif. codes:  0 &amp;#39;***&amp;#39; 0.001 &amp;#39;**&amp;#39; 0.01 &amp;#39;*&amp;#39; 0.05 &amp;#39;.&amp;#39; 0.1 &amp;#39; &amp;#39; 1
+## 
+## Residual standard error: 6.216 on 504 degrees of freedom
+## Multiple R-squared:  0.5441, Adjusted R-squared:  0.5432 
+## F-statistic: 601.6 on 1 and 504 DF,  p-value: &amp;lt; 2.2e-16&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Let’s interpret the summary one by one. The first is the call field, it is just
+simply the formula of this model, nothing special. Next one is the statistical
+summary for residuals, actually we can use box plot to show it more concretely.&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;ggplot(data.frame(resi = residuals(lm.fit)), aes(x = &amp;quot;&amp;quot;, y = resi )) +
+  geom_boxplot()&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;img src=&#34;https://shuishoudage.github.io/post/linear-regression/index_files/figure-html/unnamed-chunk-6-1.png&#34; width=&#34;672&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;As we can see, the plot above matches the summary. The middle thicker horizontal
+line is the median (-1.318) in the summary, and the line above and below the
+median line is the first quantile (1Q) and third quantile (3Q). The points on
+the top and bottom is the min and max value.&lt;/p&gt;
+&lt;p&gt;The next important field is Coefficients, by observing this field, we can
+find the how predict variables affect the response variable, this is why linear
+regression model is an interpretable model.&lt;/p&gt;
+&lt;p&gt;If you recall from the beginning of this blog, there is a formula &lt;span class=&#34;math inline&#34;&gt;\(y = ax + b\)&lt;/span&gt;
+here the intercept is 34.55384, we can think this value is as &lt;span class=&#34;math inline&#34;&gt;\(b\)&lt;/span&gt; in the formula
+and &lt;span class=&#34;math inline&#34;&gt;\(a\)&lt;/span&gt; is &lt;code&gt;lstat&lt;/code&gt; which is -0.95005. Just by these information, we could know
+that &lt;code&gt;lstat&lt;/code&gt; and &lt;code&gt;medv&lt;/code&gt; is negatively related, which means when &lt;code&gt;lstat&lt;/code&gt; increase
+1 unit, &lt;code&gt;medv&lt;/code&gt; will decrease -0.95005. &lt;strong&gt;Std. Error&lt;/strong&gt; here can be use to calculate
+the confidence interval and &lt;strong&gt;t value&lt;/strong&gt; is used to calculate p-value. Therefore,
+if we really want to know the confidence interval for coefficients, we can use
+function confint in R.&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;confint(lm.fit)&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;##                 2.5 %     97.5 %
+## (Intercept) 33.448457 35.6592247
+## lstat       -1.026148 -0.8739505&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;The confidence interval just like asking people to guess something, suppose ask
+a veteran mechanics what is the probability that a certain engine will be broken,
+he will give his experienced guess but with amount of uncertainty, but if you ask
+an amateur, he will also give his guess but with a more large range of uncertainty.&lt;/p&gt;
+&lt;p&gt;Just by knowing the confidence interval you could know that if a coefficient
+significant of not. When there is a 0 appears between the confidence interval
+you could confirm that this coefficient is not significant, because there may
+have a chance the coefficient becomes 0. Which makes that input feature no
+meaning at all.&lt;/p&gt;
+&lt;p&gt;After building the model, we can use this model to predict new coming data&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;lm.pred &amp;lt;- predict(lm.fit, data.frame(lstat=(c(5,10,15))), interval = &amp;quot;confidence&amp;quot;)
+lm.pred&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;##        fit      lwr      upr
+## 1 29.80359 29.00741 30.59978
+## 2 25.05335 24.47413 25.63256
+## 3 20.30310 19.73159 20.87461&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;the test data is confirming our interpretation above, as &lt;code&gt;lstat&lt;/code&gt; increasing
+&lt;code&gt;medv&lt;/code&gt; decreasing. Notice, here we use a special parameter, &lt;em&gt;interval=“confidence”&lt;/em&gt;.
+this parameter will give the prediction around the mean of the prediction. To interpret the result above, with 10 &lt;code&gt;lstat&lt;/code&gt; on average the value for &lt;code&gt;medv&lt;/code&gt; is
+between 24.47 and 25.63.&lt;/p&gt;
+&lt;p&gt;We can set the parameter inverval as “prediction” as well. However, this prediction
+only give the prediction interval around a single value. This setting is highly
+rely on residuals are normally distributed. I will give the methods how to
+test the normality of residuals in the &lt;a href=&#34;#Caveats&#34;&gt;caveat&lt;/a&gt; section.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div id=&#34;caveats&#34; class=&#34;section level3&#34;&gt;
+&lt;h3&gt;Caveats&lt;/h3&gt;
+&lt;p&gt;Linear regression model has its limitation or more precisely saying it has assumption
+For example, as the name indicates, there must be a linear relationship between
+predict variables and response variable, because the solution will either line
+plane or hyperplane which is not curvy. I list several assumptions regard to
+linear regression.&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;residuals are roughly normally distributed&lt;/li&gt;
+&lt;li&gt;residuals are independent&lt;/li&gt;
+&lt;li&gt;linear relation between features and output&lt;/li&gt;
+&lt;li&gt;no or little multicollinearity&lt;/li&gt;
+&lt;li&gt;homoscedasticity (residuals agains fitted value should keep constant)&lt;/li&gt;
+&lt;li&gt;sensitive to outliers&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;There are several ways to test the assumptions&lt;/p&gt;
+&lt;div id=&#34;residual-normality&#34; class=&#34;section level4&#34;&gt;
+&lt;h4&gt;residual normality&lt;/h4&gt;
+&lt;p&gt;By checking residuals normality, we can use Q-Q plot,&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;lm.fit &amp;lt;- lm(medv ~ rm + lstat + crim + dis, data = Boston)
+ggqqplot(residuals(lm.fit))&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;img src=&#34;https://shuishoudage.github.io/post/linear-regression/index_files/figure-html/unnamed-chunk-9-1.png&#34; width=&#34;672&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;How to interpret this plot? Suppose the residuals are following a normal distribution,
+the points above should be roughly located around the slope line and should be
+with inside the 95% confidence curvy dashed line.&lt;/p&gt;
+&lt;p&gt;In a algorithmic way to check, we could utilize Shapiro-Wilk test &lt;span class=&#34;citation&#34;&gt;&lt;span class=&#34;csl-baseline&#34;&gt;&lt;span class=&#34;smallcaps&#34;&gt;[&lt;a href=&#34;#ref-Lohninger2012Oct&#34;&gt;3&lt;/a&gt;]&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;.&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;shapiro.test(residuals(lm.fit))&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## 
+##  Shapiro-Wilk normality test
+## 
+## data:  residuals(lm.fit)
+## W = 0.91081, p-value &amp;lt; 2.2e-16&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;As the result p-value indicates (&amp;lt;0.05). We can reject the null hypothesis
+(normally distributed). Therefore, the residuals is not normally distributed.
+Here we can see, it is important to do both visual and algorithmic test, the plot
+above shows us a roughly normal distributed data. However, the test indicates
+this is &lt;strong&gt;not&lt;/strong&gt; a normally distributed data.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div id=&#34;residuals-independency&#34; class=&#34;section level4&#34;&gt;
+&lt;h4&gt;residuals independency&lt;/h4&gt;
+&lt;p&gt;By plotting the residuals along with the order of &lt;span class=&#34;math inline&#34;&gt;\(Y_i\)&lt;/span&gt; we can measure the residuals
+independency.&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;plot(sequence(nrow(Boston)), residuals(lm.fit))
+abline(h=0, col=&amp;#39;red&amp;#39;)&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;img src=&#34;https://shuishoudage.github.io/post/linear-regression/index_files/figure-html/unnamed-chunk-11-1.png&#34; width=&#34;672&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;Independent residuals should be located around 0 and randomly scattered.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div id=&#34;linearity&#34; class=&#34;section level4&#34;&gt;
+&lt;h4&gt;linearity&lt;/h4&gt;
+&lt;p&gt;linearity is just checking if the predict variables (input X) has the linear
+relation between the response variable. After all, we use linear regression to
+create model, if there is no linear relation we have to use other non-linear
+model.&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;crPlots(lm(medv ~ rm + lstat + crim + dis, data = Boston))&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;img src=&#34;https://shuishoudage.github.io/post/linear-regression/index_files/figure-html/unnamed-chunk-12-1.png&#34; width=&#34;672&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;what we most case is if there is any pattern inside the plot&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;summary(gvlma::gvlma(x = lm.fit))&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## 
+## Call:
+## lm(formula = medv ~ rm + lstat + crim + dis, data = Boston)
+## 
+## Residuals:
+##     Min      1Q  Median      3Q     Max 
+## -19.006  -3.099  -1.047   1.885  26.571 
+## 
+## Coefficients:
+##             Estimate Std. Error t value Pr(&amp;gt;|t|)    
+## (Intercept)  2.23065    3.32214   0.671    0.502    
+## rm           4.97649    0.43885  11.340  &amp;lt; 2e-16 ***
+## lstat       -0.66174    0.05101 -12.974  &amp;lt; 2e-16 ***
+## crim        -0.12810    0.03209  -3.992 7.53e-05 ***
+## dis         -0.56321    0.13542  -4.159 3.76e-05 ***
+## ---
+## Signif. codes:  0 &amp;#39;***&amp;#39; 0.001 &amp;#39;**&amp;#39; 0.01 &amp;#39;*&amp;#39; 0.05 &amp;#39;.&amp;#39; 0.1 &amp;#39; &amp;#39; 1
+## 
+## Residual standard error: 5.403 on 501 degrees of freedom
+## Multiple R-squared:  0.6577, Adjusted R-squared:  0.6549 
+## F-statistic: 240.6 on 4 and 501 DF,  p-value: &amp;lt; 2.2e-16
+## 
+## 
+## ASSESSMENT OF THE LINEAR MODEL ASSUMPTIONS
+## USING THE GLOBAL TEST ON 4 DEGREES-OF-FREEDOM:
+## Level of Significance =  0.05 
+## 
+## Call:
+##  gvlma::gvlma(x = lm.fit) 
+## 
+##                     Value   p-value                   Decision
+## Global Stat        638.73 0.000e+00 Assumptions NOT satisfied!
+## Skewness           143.63 0.000e+00 Assumptions NOT satisfied!
+## Kurtosis           289.67 0.000e+00 Assumptions NOT satisfied!
+## Link Function      175.67 0.000e+00 Assumptions NOT satisfied!
+## Heteroscedasticity  29.76 4.902e-08 Assumptions NOT satisfied!&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;div id=&#34;hemoscedasticity&#34; class=&#34;section level4&#34;&gt;
+&lt;h4&gt;hemoscedasticity&lt;/h4&gt;
+&lt;p&gt;For checking hemoscedasticity. Which means the variance of residuals should
+be constant, see the plot below.&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;par(mfrow=c(2,2))
+plot(lm.fit, pch = 16, cex = 0.5)&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;img src=&#34;https://shuishoudage.github.io/post/linear-regression/index_files/figure-html/unnamed-chunk-14-1.png&#34; width=&#34;672&#34; /&gt;
+We are intereted in the left side two plots. To express homoscedasticity in a plot,
+it would look like a roughly flat line with random points around it. However, in
+our case here &lt;span class=&#34;citation&#34;&gt;&lt;span class=&#34;csl-baseline&#34;&gt;&lt;span class=&#34;smallcaps&#34;&gt;[&lt;a href=&#34;#ref-BibEntry2016Jan&#34;&gt;4&lt;/a&gt;]&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;. We could find the red line is curvy and the
+points have a growth trend from left to right.&lt;/p&gt;
+&lt;p&gt;If you think visualization is not enough to determine if a model is hemoscedasticity,
+There are several algorithmic ways to test as well.&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;car::ncvTest(lm.fit)&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## Non-constant Variance Score Test 
+## Variance formula: ~ fitted.values 
+## Chisquare = 0.4130551, Df = 1, p = 0.52042&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;By checking the p-value, we could see that is significant (&amp;lt;0.05) enough to reject
+the null hypothesis (variance is constant).&lt;/p&gt;
+&lt;/div&gt;
+&lt;div id=&#34;outliers&#34; class=&#34;section level4&#34;&gt;
+&lt;h4&gt;outliers&lt;/h4&gt;
+&lt;p&gt;Because we use RSS to estimate the accuracy, it is obviousely that outliers
+will highly influence the RSS. Which makes the wrong interpretation to the model.&lt;/p&gt;
+&lt;p&gt;A data point has high leverage, if it has extreme predictor x values &lt;span class=&#34;citation&#34;&gt;&lt;span class=&#34;csl-baseline&#34;&gt;&lt;span class=&#34;smallcaps&#34;&gt;[&lt;a href=&#34;#ref-BibEntry2019Jun&#34;&gt;5&lt;/a&gt;]&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;. Let’s using &lt;em&gt;Residuals vs Leverage&lt;/em&gt; plot&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;par(mfrow=c(1,2))
+plot(lm.fit, 4)
+plot(lm.fit, 5, pch = 16, cex = 1)&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;img src=&#34;https://shuishoudage.github.io/post/linear-regression/index_files/figure-html/unnamed-chunk-16-1.png&#34; width=&#34;672&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;The plot above shows that #23, #49 and #39 are influenced points. Among those
+three points, #23 and #49 are close to 3 standard deviation. Which is more influential
+than #39. However, are these outliers really influence the result of the regression
+analysis? Here we need one metric called Cook’s distance to check if data points
+really influential.&lt;/p&gt;
+&lt;p&gt;A rule of thumb is that an observation Cook’s distance exceeds
+&lt;span class=&#34;math inline&#34;&gt;\(4/(n-p-1)\)&lt;/span&gt;, where &lt;span class=&#34;math inline&#34;&gt;\(n\)&lt;/span&gt; is the number of observations and &lt;span class=&#34;math inline&#34;&gt;\(p\)&lt;/span&gt; is the predictor
+variables. Thus, we can calculate Cook’s distance for this model, which is
+4/(50-1-1) = 0.08. We can add a horizontal line to the Cook’s distance plot&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;olsrr::ols_plot_cooksd_bar(lm.fit)&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;img src=&#34;https://shuishoudage.github.io/post/linear-regression/index_files/figure-html/unnamed-chunk-17-1.png&#34; width=&#34;672&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;As we can see above, data point #23 and #49 are really influence the result of
+linear regression analysis.&lt;/p&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div id=&#34;references&#34; class=&#34;section level3 unnumbered&#34;&gt;
+&lt;h3&gt;References&lt;/h3&gt;
+&lt;div id=&#34;refs&#34; class=&#34;references&#34;&gt;
+&lt;div id=&#34;ref-friedman2001elements&#34;&gt;
+&lt;p&gt;1. &lt;strong&gt;The elements of statistical learning&lt;/strong&gt;.&lt;br /&gt;
+Friedman J, Hastie T, Tibshirani R. &lt;br /&gt;
+Springer series in statistics New York; 2001. &lt;/p&gt;
+&lt;/div&gt;
+&lt;div id=&#34;ref-james2013introduction&#34;&gt;
+&lt;p&gt;2. &lt;strong&gt;An introduction to statistical learning&lt;/strong&gt;.&lt;br /&gt;
+James G, Witten D, Hastie T, Tibshirani R. &lt;br /&gt;
+Springer; 2013. &lt;/p&gt;
+&lt;/div&gt;
+&lt;div id=&#34;ref-Lohninger2012Oct&#34;&gt;
+&lt;p&gt;3. &lt;strong&gt;Shapiro-Wilk Test&lt;/strong&gt; [Internet].&lt;br /&gt;
+Lohninger H. &lt;br /&gt;
+2012;Available from: &lt;a href=&#34;http://www.statistics4u.info/fundstat_eng/ee_shapiro_wilk_test.html&#34;&gt;http://www.statistics4u.info/fundstat_eng/ee_shapiro_wilk_test.html&lt;/a&gt;&lt;/p&gt;
+&lt;/div&gt;
+&lt;div id=&#34;ref-BibEntry2016Jan&#34;&gt;
+&lt;p&gt;4. &lt;strong&gt;How to detect heteroscedasticity and rectify it?&lt;/strong&gt; [Internet].R-bloggers2016;Available from: &lt;a href=&#34;https://www.r-bloggers.com/how-to-detect-heteroscedasticity-and-rectify-it&#34;&gt;https://www.r-bloggers.com/how-to-detect-heteroscedasticity-and-rectify-it&lt;/a&gt;&lt;/p&gt;
+&lt;/div&gt;
+&lt;div id=&#34;ref-BibEntry2019Jun&#34;&gt;
+&lt;p&gt;5. &lt;strong&gt;Linear Regression Assumptions and Diagnostics in R: Essentials - Articles - STHDA&lt;/strong&gt; [Internet].2019;Available from: &lt;a href=&#34;http://www.sthda.com/english/articles/39-regression-model-diagnostics/161-linear-regression-assumptions-and-diagnostics-in-r-essentials&#34;&gt;http://www.sthda.com/english/articles/39-regression-model-diagnostics/161-linear-regression-assumptions-and-diagnostics-in-r-essentials&lt;/a&gt;&lt;/p&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+</description>
+    </item>
+    
+  </channel>
+</rss>

@@ -1,0 +1,604 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>javascript on TAOTAO PAN</title>
+    <link>https://shuishoudage.github.io/categories/javascript/</link>
+    <description>Recent content in javascript on TAOTAO PAN</description>
+    <generator>Source Themes Academic (https://sourcethemes.com/academic/)</generator>
+    <language>en-us</language>
+    <lastBuildDate>Thu, 11 Jul 2019 00:00:00 +0000</lastBuildDate>
+    
+	    <atom:link href="https://shuishoudage.github.io/categories/javascript/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Javascript event loop explained</title>
+      <link>https://shuishoudage.github.io/post/js-event-loop/</link>
+      <pubDate>Thu, 11 Jul 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://shuishoudage.github.io/post/js-event-loop/</guid>
+      <description>
+
+
+&lt;div id=&#34;introduction&#34; class=&#34;section level3&#34;&gt;
+&lt;h3&gt;Introduction&lt;/h3&gt;
+&lt;p&gt;Javascript is a single thread language by default. However, as web world moves
+fast, a single thread cannot undertake heavy tasks. It’s hard to change the
+fundamental mechanism from a single thread to multi-threads. To solve this
+problem, people come up with the concept of event loop. The concurrency model
+of javascript is based on &lt;em&gt;event loop&lt;/em&gt; &lt;span class=&#34;citation&#34;&gt;&lt;span class=&#34;csl-baseline&#34;&gt;&lt;span class=&#34;smallcaps&#34;&gt;[&lt;a href=&#34;#ref-BibEntry2019Jul&#34;&gt;1&lt;/a&gt;]&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/p&gt;
+&lt;/div&gt;
+&lt;div id=&#34;event-loop&#34; class=&#34;section level3&#34;&gt;
+&lt;h3&gt;Event loop&lt;/h3&gt;
+&lt;p&gt;Prior to explaining the event loop. It’s better to understand something called
+block I/O and non-block I/O. Suppose the application you are coding is a single
+threaded application, whenever you send a request to the Internet or read files
+from the local file system. It blocks, which means the rest of code can only
+be running after the request finished. for example:&lt;/p&gt;
+&lt;pre class=&#34;python&#34;&gt;&lt;code&gt;import requests
+// this is i/o request
+val = requests.get(&amp;#39;http://example.com&amp;#39;)
+print(val)
+requests.get(&amp;#39;http://example2.com&amp;#39;)
+renderPage()&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Line 3 will run first, depends on the network, we may wait milliseconds or
+seconds, before the fetch finish, the rest code cannot be executed, which
+obviously is inefficient, because code &lt;code&gt;print(val)&lt;/code&gt; may depends on the result
+above. However, the rest code does not, but you still have to wait until the
+request finished to execute the remaining code.&lt;/p&gt;
+&lt;p&gt;So how does event loop work? Here is an image shows the fundamental concept:
+&lt;img src=&#34;featured.png&#34; alt=&#34;eventloop&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;To make it simple, every time when you do any I/O task, this task will be set as
+an event and put inside an event queue then the rest code will be executed
+as normal. After you run out all your functions in your call stack. Event loop
+will come to the event queue to check if there any job has not been done,
+if so, event loop will fetch the event inside the queue based on priority (macro
+and micro event, we will talk it in the next section). There is a event loop
+visualizer created by &lt;em&gt;Philip Roberts&lt;/em&gt; &lt;span class=&#34;citation&#34;&gt;&lt;span class=&#34;csl-baseline&#34;&gt;&lt;span class=&#34;smallcaps&#34;&gt;[&lt;a href=&#34;#ref-BibEntry2014Nov&#34;&gt;2&lt;/a&gt;]&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;.&lt;/p&gt;
+&lt;p&gt;To make it concrete, here is an example code.&lt;/p&gt;
+&lt;pre class=&#34;javascript&#34;&gt;&lt;code&gt;setTimeOut(function(){
+  console.log(&amp;quot;event 1&amp;quot;);
+}, 1000);
+
+setTimeOut(function(){
+  console.log(&amp;quot;event 2&amp;quot;);
+}, 2000);&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;both setTimeOut will be put inside an event queue, waiting to be executed.
+Event 1 will be executed after 1000 milliseconds (1 second), event 2 will be
+executed after 2000 milliseconds (2 seconds). Actually, it is not precisely 1
+second or 2 seconds, we will discuss the reason later on.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div id=&#34;macro-task-vs-micro-task&#34; class=&#34;section level3&#34;&gt;
+&lt;h3&gt;Macro task vs Micro task&lt;/h3&gt;
+&lt;p&gt;Have a look following code, think about what will be printed&lt;/p&gt;
+&lt;pre class=&#34;javascript&#34;&gt;&lt;code&gt;setTimeout(function(){
+  console.log(1);
+}, 0);
+
+new Promise(function(resolve, reject){
+  console.log(2);
+  resolve(3);
+  console.log(4);
+}).then(function(value){
+  console.log(value);
+})
+
+console.log(5);&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## 2
+## 4
+## 5
+## 3
+## 1&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;The output is surprise right? Let’s analyze it,&lt;/p&gt;
+&lt;p&gt;Both setTimeout and Promise are events so that they will be executed
+asynchronously. However, since promise is a micro task which has higher priority
+than setTimeout (macro task), even we have setTimeout is 0, promise will run
+first, the code inside promise will run first, therefore 2 is printed first,
+resolve is a callback function, normally resolve will wait for the result of an
+async call. Therefore, the code will continue running to print 4 and return a
+promise back then we have &lt;code&gt;console.log(5)&lt;/code&gt; which will print number 5. Afterwards,
+the callback of promise running which prints number 3, finally number 1 will be
+printed.&lt;/p&gt;
+&lt;p&gt;Javascript event has two categories&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Macro task&lt;/li&gt;
+&lt;li&gt;Micro task (higher priority)&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;By default, when the single main thread encountering functions (sync), it will
+put functions inside call stack, execute them then pop them out, if the function
+running for a long time without returning value, the main thread has to wait there.
+This is why single thread not effcient. However, javascript will make the time
+consuming task (I/O) return a &lt;code&gt;placehold&lt;/code&gt; value first. The I/O task will be send
+to browser kernel, when task finished, task and its callback functions will be send
+back to task queue. The advantage of this strategy is that the main thread is able
+to continue running without blocking, after the main thread run out off all the
+functions that inside the call stack, the main thread will ask the task queue for
+more jobs to do, once there has any task, it will be pushed into the call stack
+execute, pop up. This kind of steps will be running in a loop, that’s why we
+call it event loop.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Macro task&lt;/strong&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;SetTimeout&lt;/li&gt;
+&lt;li&gt;SetInterval&lt;/li&gt;
+&lt;li&gt;SetImmediate&lt;/li&gt;
+&lt;li&gt;ajax&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;strong&gt;Micro task&lt;/strong&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;async/await&lt;/li&gt;
+&lt;li&gt;promise&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;Let’s do a crazy test to see if we really understand event loop. What will be
+printed the following code?&lt;/p&gt;
+&lt;pre class=&#34;javascript&#34;&gt;&lt;code&gt;async function async1() {
+    console.log(&amp;#39;async1 start&amp;#39;);
+    await async2();
+    console.log(&amp;#39;async1 end&amp;#39;);
+}
+async function async2() {
+    console.log(&amp;#39;async2&amp;#39;);
+}
+
+console.log(&amp;#39;script start&amp;#39;);
+
+setTimeout(function() {
+    console.log(&amp;#39;setTimeout&amp;#39;);
+}, 0)
+
+async1();
+
+new Promise(function(resolve) {
+    console.log(&amp;#39;promise1&amp;#39;);
+    resolve();
+}).then(function() {
+    console.log(&amp;#39;promise2&amp;#39;);
+});
+console.log(&amp;#39;script end&amp;#39;);&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## script start
+## async1 start
+## async2
+## promise1
+## script end
+## async1 end
+## promise2
+## setTimeout&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;So let’s demystify the code above, first of all, async function is essentially
+return a promise. However, async1 and async2 are just defined here not called.
+Therefore &lt;code&gt;script start&lt;/code&gt; print first. Then setTimeout is another async function
+which has lower priority. Afterwards, &lt;em&gt;async1()&lt;/em&gt; is called, &lt;code&gt;async1 start&lt;/code&gt; print
+first, &lt;em&gt;async2()&lt;/em&gt; is another promise, the code inside will be printed, hence,
+&lt;code&gt;async2&lt;/code&gt; was printed. Next, we have another promise, this time &lt;code&gt;promise1&lt;/code&gt; was
+printed, since &lt;em&gt;resolve()&lt;/em&gt; is a callback, the code will continue running.
+&lt;code&gt;script end&lt;/code&gt; prints next. Let’s trace back what we have left, &lt;em&gt;async1()&lt;/em&gt; has not
+finished yet. Therefore, &lt;code&gt;async1 end&lt;/code&gt; will be printed and our callback of promise
+has not finished yet, &lt;code&gt;promise2&lt;/code&gt; will be printed. Finally, the macro task
+&lt;code&gt;setTimeout&lt;/code&gt; will be printed.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div id=&#34;reference&#34; class=&#34;section level3 unnumbered&#34;&gt;
+&lt;h3&gt;Reference&lt;/h3&gt;
+&lt;div id=&#34;refs&#34; class=&#34;references&#34;&gt;
+&lt;div id=&#34;ref-BibEntry2019Jul&#34;&gt;
+&lt;p&gt;1. &lt;strong&gt;Concurrency model and Event Loop&lt;/strong&gt; [Internet].MDN Web Docs2019;Available from: &lt;a href=&#34;https://developer.mozilla.org/en-US/docs/Web/JavaScript/EventLoop&#34;&gt;https://developer.mozilla.org/en-US/docs/Web/JavaScript/EventLoop&lt;/a&gt;&lt;/p&gt;
+&lt;/div&gt;
+&lt;div id=&#34;ref-BibEntry2014Nov&#34;&gt;
+&lt;p&gt;2. 2014;Available from: &lt;a href=&#34;http://latentflip.com/loupe&#34;&gt;http://latentflip.com/loupe&lt;/a&gt;&lt;/p&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Javascript scope and context</title>
+      <link>https://shuishoudage.github.io/post/js-scope-context/</link>
+      <pubDate>Tue, 09 Jul 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://shuishoudage.github.io/post/js-scope-context/</guid>
+      <description>
+
+
+&lt;div id=&#34;introduction&#34; class=&#34;section level3&#34;&gt;
+&lt;h3&gt;Introduction&lt;/h3&gt;
+&lt;p&gt;The scope and context of javascript maybe the most bizarre point when learning
+javascript, for people who learn programming from C/C++/JAVA those traditional
+language will find the concept of scope and context are particularly difficult
+to understand. However, it’s essential for a javascript developer to understand
+these.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div id=&#34;global-scope&#34; class=&#34;section level3&#34;&gt;
+&lt;h3&gt;Global scope&lt;/h3&gt;
+&lt;p&gt;When you starting write a javascript, there is a default global scope called
+Window. Have a look at the image below&lt;/p&gt;
+&lt;div class=&#34;figure&#34;&gt;
+&lt;img src=&#34;images/global_scope.png&#34; alt=&#34;global&#34; /&gt;
+&lt;p class=&#34;caption&#34;&gt;global&lt;/p&gt;
+&lt;/div&gt;
+&lt;p&gt;When a variable is in global scope it can be access by any other scope&lt;/p&gt;
+&lt;pre class=&#34;javascript&#34;&gt;&lt;code&gt;var name = &amp;quot;Albert Einstein&amp;quot;;
+
+console.log(&amp;quot;1: &amp;quot;, name)
+function print(){
+    console.log(&amp;quot;2: &amp;quot;,name);
+    (function inner(){
+        console.log(&amp;quot;3: &amp;quot;, name);
+        function inner2(){
+            console.log(&amp;quot;4: &amp;quot;, name);
+        }
+        inner2();
+    })();
+}
+
+print();&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## 1:  Albert Einstein
+## 2:  Albert Einstein
+## 3:  Albert Einstein
+## 4:  Albert Einstein&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;As you can see above, it prints four names. the first print is in the global
+scope, the second print is in the print function scope and so for print 3 and
+print 4.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;let vs var&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;Let’s discuss local scope or function scope, as we mentioned above, global
+scope can be accessed everywhere, but local scope can only be accessed locally.
+In ECMAScript 6, there are two keywords introduced. Which will make the variable
+defined locally. &lt;code&gt;let&lt;/code&gt; is just like &lt;code&gt;var&lt;/code&gt; with local scope restriction and as
+the name shows &lt;code&gt;const&lt;/code&gt; is a constant with local scope, when you try to modify a
+constant variable the interpret will yelling.&lt;/p&gt;
+&lt;pre class=&#34;js&#34;&gt;&lt;code&gt;if(1){
+// global scope
+var name = &amp;quot;Albert Einstein&amp;quot;;
+// local scope
+let age = 140;
+// local scope
+const occupation = &amp;quot;scientist&amp;quot;;
+}
+console.log(name); // can be accessed
+console.log(age); // cannot be accessed
+console.log(occupation); // cannot be accessed&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;div id=&#34;context&#34; class=&#34;section level3&#34;&gt;
+&lt;h3&gt;Context&lt;/h3&gt;
+&lt;p&gt;When we talking about context, we are referring &lt;code&gt;this&lt;/code&gt; keyword. Here is a definition
+from MDN &lt;span class=&#34;citation&#34;&gt;&lt;span class=&#34;csl-baseline&#34;&gt;&lt;span class=&#34;smallcaps&#34;&gt;[&lt;a href=&#34;#ref-BibEntry2019Jul&#34;&gt;1&lt;/a&gt;]&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;.
+&amp;gt; In most cases, the value of this is determined by how a function is called&lt;/p&gt;
+&lt;p&gt;So, what we have to find is who called this function. If a object called a function
+then &lt;code&gt;this&lt;/code&gt; is the object, if a button is called the function, then &lt;code&gt;this&lt;/code&gt; is
+the button. Let’s see several examples&lt;/p&gt;
+&lt;p&gt;calling from window&lt;/p&gt;
+&lt;pre class=&#34;js&#34;&gt;&lt;code&gt;console.log(this); // Window {postMessage: ƒ, blur: ƒ, focus: ƒ, close: ƒ, parent: Window, …}&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;calling from an object&lt;/p&gt;
+&lt;pre class=&#34;js&#34;&gt;&lt;code&gt;var obj = {
+    func: function(){
+        return this;
+    }
+};
+
+console.log(obj.func());// return an object {}&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;strong&gt;strict mode&lt;/strong&gt;
+if we don’t defind &lt;code&gt;use strict&lt;/code&gt; in the beginning of a javascript document. &lt;code&gt;this&lt;/code&gt;
+keyword will be default set to window in &lt;em&gt;browser&lt;/em&gt; and &lt;em&gt;global&lt;/em&gt; in nodejs.&lt;/p&gt;
+&lt;p&gt;without strict mode set&lt;/p&gt;
+&lt;pre class=&#34;js&#34;&gt;&lt;code&gt;function foo(){
+  return this;
+}
+foo() === window; // true&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;setup strict mode&lt;/p&gt;
+&lt;pre class=&#34;js&#34;&gt;&lt;code&gt;function boo(){
+  &amp;#39;use strict&amp;#39;;
+  return this;
+}
+boo() === undefined; // true&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;It’s always a good practice to set the strict mode&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Apply, Call, Bind&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;These three functions are quite useful, &lt;code&gt;apply&lt;/code&gt; and &lt;code&gt;call&lt;/code&gt; are similar. &lt;code&gt;bind&lt;/code&gt;
+is used to bind a function to another context. Here is an example showing that
+how people can change the context to make the calling more dynamic&lt;/p&gt;
+&lt;pre class=&#34;js&#34;&gt;&lt;code&gt;var test = {
+  prop: 42,
+  func: function() {
+    return this.prop;
+  },
+};
+
+var test2 = {
+  prop: &amp;#39;Albert Einstein&amp;#39;
+}
+
+console.log(test.func()); // print 42
+console.log(test.func.call(test2)); // print Albert Einstein&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;like a magic right? Here is the different use of &lt;code&gt;apply&lt;/code&gt;, &lt;code&gt;call&lt;/code&gt; and &lt;code&gt;bind&lt;/code&gt;&lt;/p&gt;
+&lt;pre class=&#34;js&#34;&gt;&lt;code&gt;func.call(context, &amp;quot;arg1&amp;quot;, &amp;quot;arg2&amp;quot;, &amp;quot;argn&amp;quot;);
+func.apply(context, [&amp;quot;arg1&amp;quot;, &amp;quot;arg2&amp;quot;, &amp;quot;argn&amp;quot;]);
+func.bind(context);&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;call has slighly faster in performance than apply &lt;span class=&#34;citation&#34;&gt;&lt;span class=&#34;csl-baseline&#34;&gt;&lt;span class=&#34;smallcaps&#34;&gt;[&lt;a href=&#34;#ref-Ahmed2019Jul&#34;&gt;2&lt;/a&gt;]&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Public and Private&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;The function scope can be used to mimic traditional OOP language properties like
+private variables. Moreover, it can be used to manage namespace.&lt;/p&gt;
+&lt;pre class=&#34;js&#34;&gt;&lt;code&gt;// only expose AwesomeModule keyword globally
+var AwesomeModule = (function(){
+  // private variable and methods
+  let property = &amp;quot;property&amp;quot;;
+  
+  function privateFunc(){
+    ...
+  }
+  
+  // you can access the method by AwesomeModule.publicFunc()
+  // this kind format more like OOP 
+  return {
+    publicFunc: function(){
+      // can access property and privateFunc()
+    }
+  }
+})()&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;the code above has a small bizarre format &lt;code&gt;(function() {})()&lt;/code&gt;. This is called
+immediately invoked function expression (IIFE). How to interpret this code? It’s
+simple, you define a function like this &lt;code&gt;function(){}&lt;/code&gt;, you want to invoke it
+after define it the you just add an parenthesis &lt;code&gt;()&lt;/code&gt;. However, in order to define
+this function you have to use another parenthesis enclose them, that’s all.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div id=&#34;closure&#34; class=&#34;section level3&#34;&gt;
+&lt;h3&gt;Closure&lt;/h3&gt;
+&lt;p&gt;Closure is quite useful, like another magic in javascript. We know when a function
+return the variables define in that scope will be destroied or collected, but
+closure is not working that way, even the function returned, closure can still
+keep the variable. Let’s see an example&lt;/p&gt;
+&lt;pre class=&#34;js&#34;&gt;&lt;code&gt;function outer(outerArg){
+    let property = &amp;quot;property&amp;quot;;
+    return function(innerArg){
+        console.log(outerArg);  
+        console.log(property);  
+        console.log(innerArg);  
+    };
+}
+// notice outer has returned, property should be destroied
+// but closure not working that way
+var func = outer(&amp;quot;from outer function&amp;quot;);
+// what we returned is not a variable is a function, we have to invoke the function
+func(&amp;quot;from inner function&amp;quot;);
+
+// output
+// from outer function
+// property
+// from inner function&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;The example above shows that closure can not only access its own arguments, but
+the arguments from its outer functions and the returned function will not be
+invoked immediately, you can invoke the returned function whenever you want. Which
+is really handy. There is a very good visualization tool created by Tyler McGinnis.
+Which gives a really concrete example of what closure is &lt;span class=&#34;citation&#34;&gt;&lt;span class=&#34;csl-baseline&#34;&gt;&lt;span class=&#34;smallcaps&#34;&gt;[&lt;a href=&#34;#ref-BibEntry2019Jul&#34;&gt;1&lt;/a&gt;]&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/p&gt;
+&lt;/div&gt;
+&lt;div id=&#34;references&#34; class=&#34;section level3 unnumbered&#34;&gt;
+&lt;h3&gt;References&lt;/h3&gt;
+&lt;div id=&#34;refs&#34; class=&#34;references&#34;&gt;
+&lt;div id=&#34;ref-BibEntry2019Jul&#34;&gt;
+&lt;p&gt;1. &lt;strong&gt;The Ultimate Guide to Hoisting, Scopes, and Closures in JavaScript&lt;/strong&gt; [Internet].TylerMcGinnis.com2019;Available from: &lt;a href=&#34;https://tylermcginnis.com/ultimate-guide-to-execution-contexts-hoisting-scopes-and-closures-in-javascript&#34;&gt;https://tylermcginnis.com/ultimate-guide-to-execution-contexts-hoisting-scopes-and-closures-in-javascript&lt;/a&gt;&lt;/p&gt;
+&lt;/div&gt;
+&lt;div id=&#34;ref-Ahmed2019Jul&#34;&gt;
+&lt;p&gt;2. &lt;strong&gt;Understanding Scope in JavaScript&lt;/strong&gt; [Internet].&lt;br /&gt;
+Ahmed H. &lt;br /&gt;
+Scotch2019;Available from: &lt;a href=&#34;https://scotch.io/tutorials/understanding-scope-in-javascript&#34;&gt;https://scotch.io/tutorials/understanding-scope-in-javascript&lt;/a&gt;&lt;/p&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Javascript modular history</title>
+      <link>https://shuishoudage.github.io/post/js-modular-history/</link>
+      <pubDate>Fri, 27 Jul 2018 00:00:00 +0000</pubDate>
+      
+      <guid>https://shuishoudage.github.io/post/js-modular-history/</guid>
+      <description>&lt;p&gt;Javascript has been dramatically used in front-end and back-end compared to the
+time when it was invented. When the time it was invented, it supposes to be a joy
+programming language, doing some simple interactions between browser. However,
+since the ubiquitous usage of browser. Javascript has become the most important
+language in the web ever.&lt;/p&gt;
+
+&lt;p&gt;Unlike language like Java and Python. Javascript does not have a module loader
+initially. Here are several ways to load module from past to present.&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Classic&lt;/li&gt;
+&lt;li&gt;RequireJs(AMD)&lt;/li&gt;
+&lt;li&gt;CommonJs&lt;/li&gt;
+&lt;li&gt;ES6&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&#34;old-fashion&#34;&gt;Old Fashion&lt;/h2&gt;
+
+&lt;p&gt;In the past, when javascript was still not heavily used. There are probably only
+several js files. It&amp;rsquo;s easy to manipulate it manually. Here is an example.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-javascript&#34;&gt;&amp;lt;script src=&amp;quot;js/jquery.js&amp;quot;&amp;gt;&amp;lt;/script&amp;gt;
+&amp;lt;script src=&amp;quot;js/point.js&amp;quot;&amp;gt;&amp;lt;/script&amp;gt;
+&amp;lt;script src=&amp;quot;js/line.js&amp;quot;&amp;gt;&amp;lt;/script&amp;gt;
+&amp;lt;script src=&amp;quot;js/polygon.js&amp;quot;&amp;gt;&amp;lt;/script&amp;gt;
+&amp;lt;script src=&amp;quot;js/main.js&amp;quot;&amp;gt;&amp;lt;/script&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Since there are many modules/files rely on jQuery, if you put jQuery script tag
+at the end of this file, the modules which rely on jQuery library will not work
+just like building a house you need build basement first, then each level up or
+like draw an image, you need point, line and polygon first. The disadvantage of
+this kind of module loader is you have always take care of them, once you put
+them in a wrong order, the console will yell. If your application is small,
+that&amp;rsquo;s okey, you can well manipulate them manually. Suppose this is a big project
+which involves many developers, to control the dependency manually will be a
+nightmare.&lt;/p&gt;
+
+&lt;h2 id=&#34;requirejs&#34;&gt;RequireJs&lt;/h2&gt;
+
+&lt;p&gt;Here is a paragraph I get from requirejs homepage.&lt;/p&gt;
+
+&lt;blockquote&gt;
+&lt;p&gt;RequireJS is a JavaScript file and module loader. It is optimized for in-browser
+use, but it can be used in other JavaScript environments, like Rhino and Node.
+Using a modular script loader like RequireJS will improve the speed and quality
+of your code.&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;As this quote mentioned requirejs is a module loader, it can be used both in
+front-end and back-end. It&amp;rsquo;s quite simple to use it. Suppose you have a document
+file tree like this.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-markdown&#34;&gt;- project_directory/
+  - index.html
+  - scripts/
+    - main.js
+    - utils.js
+      - someutils.js
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;The main.js is your main entry point, every code should be traced back to main.js,
+unlike old fashion, you don&amp;rsquo;t have to create many script tags. All you need to
+do is like following.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-html&#34;&gt;&amp;lt;!DOCTYPE html&amp;gt;
+&amp;lt;html&amp;gt;
+    &amp;lt;head&amp;gt;
+        &amp;lt;title&amp;gt;My Sample Project&amp;lt;/title&amp;gt;
+        &amp;lt;!-- data-main attribute tells require.js to load
+             scripts/main.js after require.js loads. --&amp;gt;
+        &amp;lt;script data-main=&amp;quot;scripts/main&amp;quot; src=&amp;quot;scripts/require.js&amp;quot;&amp;gt;&amp;lt;/script&amp;gt;
+    &amp;lt;/head&amp;gt;
+    &amp;lt;body&amp;gt;
+        &amp;lt;h1&amp;gt;My Sample Project&amp;lt;/h1&amp;gt;
+    &amp;lt;/body&amp;gt;
+&amp;lt;/html&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;The attribute data-main defines your main entry point, the src attribute will
+load the require.js modular loader first, then run main.js&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-javascript&#34;&gt;requirejs([&amp;quot;utils/someutils.js&amp;quot;], function(util) {
+    //This function is called when scripts/helper/util.js is loaded.
+    //If util.js calls define(), then this function is not fired until
+    //util&#39;s dependencies have loaded, and the util argument will hold
+    //the module value for &amp;quot;helper/util&amp;quot;.
+});
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Inside main.js you could load all dependencies in the first argument of function
+requirejs and this argument will be passed as the first argument of the callback
+function. Simply to say util is the alias of &amp;ldquo;utils/someutils.js&amp;rdquo;&lt;/p&gt;
+
+&lt;p&gt;RequireJs also provide config functionality. Suppose you want to use jQuery.
+Inside your main.js you could add following code&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-javascript&#34;&gt;requirejs.config({
+    baseUrl: &#39;utils/lib&#39;,
+    paths: {
+        // the left side is the module ID,
+        // the right side is the path to
+        // the jQuery file, relative to baseUrl.
+        // Also, the path should NOT include
+        // the &#39;.js&#39; file extension. This example
+        // is using jQuery 1.9.0 located at
+        // utils/lib/jquery-1.9.0.js, relative to
+        // the HTML page.
+        jquery: &#39;jquery-1.9.0&#39;
+    }
+});
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Here the baseUrl can make things much easier. Every time you want to use jQuery
+as a dependency, you don&amp;rsquo;t have to manually type the full path. Here is the example,
+suppose you want to create you own modular called addTitle.js&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-javascript&#34;&gt;define([&amp;quot;jquery&amp;quot;], function($){
+  // create your own module here
+  // can use $ sign as we normally use jQuery
+});
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id=&#34;commonjs&#34;&gt;CommonJs&lt;/h2&gt;
+
+&lt;p&gt;CommonJs is used in backend nodeJs. It&amp;rsquo;s the default module loader for nodeJs.
+It has two main systems: require/import and export.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-javascript&#34;&gt;const myModule = require(&#39;path/to/mymodule&#39;);
+// if this is a class, it&#39;s really to be used
+const myObject = new myModule();
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Some languages like Python and Java, you don&amp;rsquo;t explicitly to export your class
+or methods. However, in commonJs your have to explicitly to export your class
+and methods to be used&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-javascript&#34;&gt;// one way to export
+module.exports = class Dog{
+  constructor(name){
+    this.name = name;
+  }
+  
+  bark(){
+    console.log(&amp;quot;Woooo&amp;quot;);
+  }
+};
+
+// or your can create class first, then export it
+class Dog{
+  // define your class first
+}
+module.exports = Dog;
+
+// only want to export certain methods
+module.exports.add = (a,b)=&amp;gt; a + b;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;I think the grammar of commonJs is more natural and it&amp;rsquo;s easier to understand&lt;/p&gt;
+
+&lt;h2 id=&#34;es6-es2015&#34;&gt;ES6/ES2015&lt;/h2&gt;
+
+&lt;p&gt;ES6 is the new standard for javascript. Unfortunately, it&amp;rsquo;s not supported by
+modern browsers now. It has added many new features and syntactic sugar. These
+new features make developers who come from different language background feel
+easy to learn javascript. In order to use it, you have to use Babel to transpile
+it to current browsers supported javascript code.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-javascript&#34;&gt;// this is your partical.js module
+export default class Partical{
+  // here is your implementation
+}
+
+// this is your personalizedmath.js module
+export function square(x) {
+    return x * x;
+}
+
+export function pow3(x){
+  return x**3
+}
+
+// this is your main.js module
+// since this is not default export, brakets is required
+import { square, pow3 } from &#39;lib/personalizemath&#39;;
+// since this is default export, there is no need to
+// add brakets, and you can rename to what name you want
+import Partical from &#39;lib/partical&#39;
+console.log(square(11)); // -&amp;gt; 121
+console.log(pow3(2)); // -&amp;gt; 8
+let myPartical = new Partical();
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;ES6 adds many features, it worths to study. Here is a short list for ES6 features&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Arrow function &lt;code&gt;(a,b)=&amp;gt; a+b&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;default parameter &lt;code&gt;const myfunc = function(height=50, color=&#39;red&#39;){...}&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;spread operator &lt;code&gt;const listA = [1,2,3]; const listB = [&#39;A&#39;, &#39;B&#39;, ...listA] // listB -&amp;gt; &#39;A&#39;, &#39;B&#39;, 1, 2, 3&lt;/code&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&#34;reference&#34;&gt;Reference&lt;/h3&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;https://www.youtube.com/watch?v=JDDn57_z5Og&amp;amp;t=4s&amp;amp;frags=pl%2Cwn&#34; target=&#34;_blank&#34;&gt;https://www.youtube.com/watch?v=JDDn57_z5Og&amp;amp;t=4s&amp;amp;frags=pl%2Cwn&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://requirejs.org/&#34; target=&#34;_blank&#34;&gt;https://requirejs.org/&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://nodejs.org/&#34; target=&#34;_blank&#34;&gt;https://nodejs.org/&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://babeljs.io/&#34; target=&#34;_blank&#34;&gt;https://babeljs.io/&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/import&#34; target=&#34;_blank&#34;&gt;https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/import&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;</description>
+    </item>
+    
+  </channel>
+</rss>

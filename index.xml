@@ -1,0 +1,1327 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>TAOTAO PAN</title>
+    <link>https://shuishoudage.github.io/</link>
+    <description>Recent content on TAOTAO PAN</description>
+    <generator>Source Themes Academic (https://sourcethemes.com/academic/)</generator>
+    <language>en-us</language>
+    <lastBuildDate>Sat, 01 Jun 2030 13:00:00 +0000</lastBuildDate>
+    
+	    <atom:link href="https://shuishoudage.github.io/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Example Talk</title>
+      <link>https://shuishoudage.github.io/talk/example/</link>
+      <pubDate>Sat, 01 Jun 2030 13:00:00 +0000</pubDate>
+      
+      <guid>https://shuishoudage.github.io/talk/example/</guid>
+      <description>&lt;div class=&#34;alert alert-note&#34;&gt;
+  &lt;div&gt;
+    Click on the &lt;strong&gt;Slides&lt;/strong&gt; button above to view the built-in slides feature.
+  &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;p&gt;Slides can be added in a few ways:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;Create&lt;/strong&gt; slides using Academic&amp;rsquo;s &lt;a href=&#34;https://sourcethemes.com/academic/docs/managing-content/#create-slides&#34; target=&#34;_blank&#34;&gt;&lt;em&gt;Slides&lt;/em&gt;&lt;/a&gt; feature and link using &lt;code&gt;slides&lt;/code&gt; parameter in the front matter of the talk file&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Upload&lt;/strong&gt; an existing slide deck to &lt;code&gt;static/&lt;/code&gt; and link using &lt;code&gt;url_slides&lt;/code&gt; parameter in the front matter of the talk file&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Embed&lt;/strong&gt; your slides (e.g. Google Slides) or presentation video on this page using &lt;a href=&#34;https://sourcethemes.com/academic/docs/writing-markdown-latex/&#34; target=&#34;_blank&#34;&gt;shortcodes&lt;/a&gt;.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;Further talk details can easily be added to this page using &lt;em&gt;Markdown&lt;/em&gt; and $\rm \LaTeX$ math code.&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Javascript event loop explained</title>
+      <link>https://shuishoudage.github.io/post/js-event-loop/</link>
+      <pubDate>Thu, 11 Jul 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://shuishoudage.github.io/post/js-event-loop/</guid>
+      <description>
+
+
+&lt;div id=&#34;introduction&#34; class=&#34;section level3&#34;&gt;
+&lt;h3&gt;Introduction&lt;/h3&gt;
+&lt;p&gt;Javascript is a single thread language by default. However, as web world moves
+fast, a single thread cannot undertake heavy tasks. It’s hard to change the
+fundamental mechanism from a single thread to multi-threads. To solve this
+problem, people come up with the concept of event loop. The concurrency model
+of javascript is based on &lt;em&gt;event loop&lt;/em&gt; &lt;span class=&#34;citation&#34;&gt;&lt;span class=&#34;csl-baseline&#34;&gt;&lt;span class=&#34;smallcaps&#34;&gt;[&lt;a href=&#34;#ref-BibEntry2019Jul&#34;&gt;1&lt;/a&gt;]&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/p&gt;
+&lt;/div&gt;
+&lt;div id=&#34;event-loop&#34; class=&#34;section level3&#34;&gt;
+&lt;h3&gt;Event loop&lt;/h3&gt;
+&lt;p&gt;Prior to explaining the event loop. It’s better to understand something called
+block I/O and non-block I/O. Suppose the application you are coding is a single
+threaded application, whenever you send a request to the Internet or read files
+from the local file system. It blocks, which means the rest of code can only
+be running after the request finished. for example:&lt;/p&gt;
+&lt;pre class=&#34;python&#34;&gt;&lt;code&gt;import requests
+// this is i/o request
+val = requests.get(&amp;#39;http://example.com&amp;#39;)
+print(val)
+requests.get(&amp;#39;http://example2.com&amp;#39;)
+renderPage()&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Line 3 will run first, depends on the network, we may wait milliseconds or
+seconds, before the fetch finish, the rest code cannot be executed, which
+obviously is inefficient, because code &lt;code&gt;print(val)&lt;/code&gt; may depends on the result
+above. However, the rest code does not, but you still have to wait until the
+request finished to execute the remaining code.&lt;/p&gt;
+&lt;p&gt;So how does event loop work? Here is an image shows the fundamental concept:
+&lt;img src=&#34;featured.png&#34; alt=&#34;eventloop&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;To make it simple, every time when you do any I/O task, this task will be set as
+an event and put inside an event queue then the rest code will be executed
+as normal. After you run out all your functions in your call stack. Event loop
+will come to the event queue to check if there any job has not been done,
+if so, event loop will fetch the event inside the queue based on priority (macro
+and micro event, we will talk it in the next section). There is a event loop
+visualizer created by &lt;em&gt;Philip Roberts&lt;/em&gt; &lt;span class=&#34;citation&#34;&gt;&lt;span class=&#34;csl-baseline&#34;&gt;&lt;span class=&#34;smallcaps&#34;&gt;[&lt;a href=&#34;#ref-BibEntry2014Nov&#34;&gt;2&lt;/a&gt;]&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;.&lt;/p&gt;
+&lt;p&gt;To make it concrete, here is an example code.&lt;/p&gt;
+&lt;pre class=&#34;javascript&#34;&gt;&lt;code&gt;setTimeOut(function(){
+  console.log(&amp;quot;event 1&amp;quot;);
+}, 1000);
+
+setTimeOut(function(){
+  console.log(&amp;quot;event 2&amp;quot;);
+}, 2000);&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;both setTimeOut will be put inside an event queue, waiting to be executed.
+Event 1 will be executed after 1000 milliseconds (1 second), event 2 will be
+executed after 2000 milliseconds (2 seconds). Actually, it is not precisely 1
+second or 2 seconds, we will discuss the reason later on.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div id=&#34;macro-task-vs-micro-task&#34; class=&#34;section level3&#34;&gt;
+&lt;h3&gt;Macro task vs Micro task&lt;/h3&gt;
+&lt;p&gt;Have a look following code, think about what will be printed&lt;/p&gt;
+&lt;pre class=&#34;javascript&#34;&gt;&lt;code&gt;setTimeout(function(){
+  console.log(1);
+}, 0);
+
+new Promise(function(resolve, reject){
+  console.log(2);
+  resolve(3);
+  console.log(4);
+}).then(function(value){
+  console.log(value);
+})
+
+console.log(5);&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## 2
+## 4
+## 5
+## 3
+## 1&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;The output is surprise right? Let’s analyze it,&lt;/p&gt;
+&lt;p&gt;Both setTimeout and Promise are events so that they will be executed
+asynchronously. However, since promise is a micro task which has higher priority
+than setTimeout (macro task), even we have setTimeout is 0, promise will run
+first, the code inside promise will run first, therefore 2 is printed first,
+resolve is a callback function, normally resolve will wait for the result of an
+async call. Therefore, the code will continue running to print 4 and return a
+promise back then we have &lt;code&gt;console.log(5)&lt;/code&gt; which will print number 5. Afterwards,
+the callback of promise running which prints number 3, finally number 1 will be
+printed.&lt;/p&gt;
+&lt;p&gt;Javascript event has two categories&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Macro task&lt;/li&gt;
+&lt;li&gt;Micro task (higher priority)&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;By default, when the single main thread encountering functions (sync), it will
+put functions inside call stack, execute them then pop them out, if the function
+running for a long time without returning value, the main thread has to wait there.
+This is why single thread not effcient. However, javascript will make the time
+consuming task (I/O) return a &lt;code&gt;placehold&lt;/code&gt; value first. The I/O task will be send
+to browser kernel, when task finished, task and its callback functions will be send
+back to task queue. The advantage of this strategy is that the main thread is able
+to continue running without blocking, after the main thread run out off all the
+functions that inside the call stack, the main thread will ask the task queue for
+more jobs to do, once there has any task, it will be pushed into the call stack
+execute, pop up. This kind of steps will be running in a loop, that’s why we
+call it event loop.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Macro task&lt;/strong&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;SetTimeout&lt;/li&gt;
+&lt;li&gt;SetInterval&lt;/li&gt;
+&lt;li&gt;SetImmediate&lt;/li&gt;
+&lt;li&gt;ajax&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;strong&gt;Micro task&lt;/strong&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;async/await&lt;/li&gt;
+&lt;li&gt;promise&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;Let’s do a crazy test to see if we really understand event loop. What will be
+printed the following code?&lt;/p&gt;
+&lt;pre class=&#34;javascript&#34;&gt;&lt;code&gt;async function async1() {
+    console.log(&amp;#39;async1 start&amp;#39;);
+    await async2();
+    console.log(&amp;#39;async1 end&amp;#39;);
+}
+async function async2() {
+    console.log(&amp;#39;async2&amp;#39;);
+}
+
+console.log(&amp;#39;script start&amp;#39;);
+
+setTimeout(function() {
+    console.log(&amp;#39;setTimeout&amp;#39;);
+}, 0)
+
+async1();
+
+new Promise(function(resolve) {
+    console.log(&amp;#39;promise1&amp;#39;);
+    resolve();
+}).then(function() {
+    console.log(&amp;#39;promise2&amp;#39;);
+});
+console.log(&amp;#39;script end&amp;#39;);&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## script start
+## async1 start
+## async2
+## promise1
+## script end
+## async1 end
+## promise2
+## setTimeout&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;So let’s demystify the code above, first of all, async function is essentially
+return a promise. However, async1 and async2 are just defined here not called.
+Therefore &lt;code&gt;script start&lt;/code&gt; print first. Then setTimeout is another async function
+which has lower priority. Afterwards, &lt;em&gt;async1()&lt;/em&gt; is called, &lt;code&gt;async1 start&lt;/code&gt; print
+first, &lt;em&gt;async2()&lt;/em&gt; is another promise, the code inside will be printed, hence,
+&lt;code&gt;async2&lt;/code&gt; was printed. Next, we have another promise, this time &lt;code&gt;promise1&lt;/code&gt; was
+printed, since &lt;em&gt;resolve()&lt;/em&gt; is a callback, the code will continue running.
+&lt;code&gt;script end&lt;/code&gt; prints next. Let’s trace back what we have left, &lt;em&gt;async1()&lt;/em&gt; has not
+finished yet. Therefore, &lt;code&gt;async1 end&lt;/code&gt; will be printed and our callback of promise
+has not finished yet, &lt;code&gt;promise2&lt;/code&gt; will be printed. Finally, the macro task
+&lt;code&gt;setTimeout&lt;/code&gt; will be printed.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div id=&#34;reference&#34; class=&#34;section level3 unnumbered&#34;&gt;
+&lt;h3&gt;Reference&lt;/h3&gt;
+&lt;div id=&#34;refs&#34; class=&#34;references&#34;&gt;
+&lt;div id=&#34;ref-BibEntry2019Jul&#34;&gt;
+&lt;p&gt;1. &lt;strong&gt;Concurrency model and Event Loop&lt;/strong&gt; [Internet].MDN Web Docs2019;Available from: &lt;a href=&#34;https://developer.mozilla.org/en-US/docs/Web/JavaScript/EventLoop&#34;&gt;https://developer.mozilla.org/en-US/docs/Web/JavaScript/EventLoop&lt;/a&gt;&lt;/p&gt;
+&lt;/div&gt;
+&lt;div id=&#34;ref-BibEntry2014Nov&#34;&gt;
+&lt;p&gt;2. 2014;Available from: &lt;a href=&#34;http://latentflip.com/loupe&#34;&gt;http://latentflip.com/loupe&lt;/a&gt;&lt;/p&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Javascript scope and context</title>
+      <link>https://shuishoudage.github.io/post/js-scope-context/</link>
+      <pubDate>Tue, 09 Jul 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://shuishoudage.github.io/post/js-scope-context/</guid>
+      <description>
+
+
+&lt;div id=&#34;introduction&#34; class=&#34;section level3&#34;&gt;
+&lt;h3&gt;Introduction&lt;/h3&gt;
+&lt;p&gt;The scope and context of javascript maybe the most bizarre point when learning
+javascript, for people who learn programming from C/C++/JAVA those traditional
+language will find the concept of scope and context are particularly difficult
+to understand. However, it’s essential for a javascript developer to understand
+these.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div id=&#34;global-scope&#34; class=&#34;section level3&#34;&gt;
+&lt;h3&gt;Global scope&lt;/h3&gt;
+&lt;p&gt;When you starting write a javascript, there is a default global scope called
+Window. Have a look at the image below&lt;/p&gt;
+&lt;div class=&#34;figure&#34;&gt;
+&lt;img src=&#34;images/global_scope.png&#34; alt=&#34;global&#34; /&gt;
+&lt;p class=&#34;caption&#34;&gt;global&lt;/p&gt;
+&lt;/div&gt;
+&lt;p&gt;When a variable is in global scope it can be access by any other scope&lt;/p&gt;
+&lt;pre class=&#34;javascript&#34;&gt;&lt;code&gt;var name = &amp;quot;Albert Einstein&amp;quot;;
+
+console.log(&amp;quot;1: &amp;quot;, name)
+function print(){
+    console.log(&amp;quot;2: &amp;quot;,name);
+    (function inner(){
+        console.log(&amp;quot;3: &amp;quot;, name);
+        function inner2(){
+            console.log(&amp;quot;4: &amp;quot;, name);
+        }
+        inner2();
+    })();
+}
+
+print();&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## 1:  Albert Einstein
+## 2:  Albert Einstein
+## 3:  Albert Einstein
+## 4:  Albert Einstein&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;As you can see above, it prints four names. the first print is in the global
+scope, the second print is in the print function scope and so for print 3 and
+print 4.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;let vs var&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;Let’s discuss local scope or function scope, as we mentioned above, global
+scope can be accessed everywhere, but local scope can only be accessed locally.
+In ECMAScript 6, there are two keywords introduced. Which will make the variable
+defined locally. &lt;code&gt;let&lt;/code&gt; is just like &lt;code&gt;var&lt;/code&gt; with local scope restriction and as
+the name shows &lt;code&gt;const&lt;/code&gt; is a constant with local scope, when you try to modify a
+constant variable the interpret will yelling.&lt;/p&gt;
+&lt;pre class=&#34;js&#34;&gt;&lt;code&gt;if(1){
+// global scope
+var name = &amp;quot;Albert Einstein&amp;quot;;
+// local scope
+let age = 140;
+// local scope
+const occupation = &amp;quot;scientist&amp;quot;;
+}
+console.log(name); // can be accessed
+console.log(age); // cannot be accessed
+console.log(occupation); // cannot be accessed&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;div id=&#34;context&#34; class=&#34;section level3&#34;&gt;
+&lt;h3&gt;Context&lt;/h3&gt;
+&lt;p&gt;When we talking about context, we are referring &lt;code&gt;this&lt;/code&gt; keyword. Here is a definition
+from MDN &lt;span class=&#34;citation&#34;&gt;&lt;span class=&#34;csl-baseline&#34;&gt;&lt;span class=&#34;smallcaps&#34;&gt;[&lt;a href=&#34;#ref-BibEntry2019Jul&#34;&gt;1&lt;/a&gt;]&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;.
+&amp;gt; In most cases, the value of this is determined by how a function is called&lt;/p&gt;
+&lt;p&gt;So, what we have to find is who called this function. If a object called a function
+then &lt;code&gt;this&lt;/code&gt; is the object, if a button is called the function, then &lt;code&gt;this&lt;/code&gt; is
+the button. Let’s see several examples&lt;/p&gt;
+&lt;p&gt;calling from window&lt;/p&gt;
+&lt;pre class=&#34;js&#34;&gt;&lt;code&gt;console.log(this); // Window {postMessage: ƒ, blur: ƒ, focus: ƒ, close: ƒ, parent: Window, …}&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;calling from an object&lt;/p&gt;
+&lt;pre class=&#34;js&#34;&gt;&lt;code&gt;var obj = {
+    func: function(){
+        return this;
+    }
+};
+
+console.log(obj.func());// return an object {}&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;strong&gt;strict mode&lt;/strong&gt;
+if we don’t defind &lt;code&gt;use strict&lt;/code&gt; in the beginning of a javascript document. &lt;code&gt;this&lt;/code&gt;
+keyword will be default set to window in &lt;em&gt;browser&lt;/em&gt; and &lt;em&gt;global&lt;/em&gt; in nodejs.&lt;/p&gt;
+&lt;p&gt;without strict mode set&lt;/p&gt;
+&lt;pre class=&#34;js&#34;&gt;&lt;code&gt;function foo(){
+  return this;
+}
+foo() === window; // true&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;setup strict mode&lt;/p&gt;
+&lt;pre class=&#34;js&#34;&gt;&lt;code&gt;function boo(){
+  &amp;#39;use strict&amp;#39;;
+  return this;
+}
+boo() === undefined; // true&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;It’s always a good practice to set the strict mode&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Apply, Call, Bind&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;These three functions are quite useful, &lt;code&gt;apply&lt;/code&gt; and &lt;code&gt;call&lt;/code&gt; are similar. &lt;code&gt;bind&lt;/code&gt;
+is used to bind a function to another context. Here is an example showing that
+how people can change the context to make the calling more dynamic&lt;/p&gt;
+&lt;pre class=&#34;js&#34;&gt;&lt;code&gt;var test = {
+  prop: 42,
+  func: function() {
+    return this.prop;
+  },
+};
+
+var test2 = {
+  prop: &amp;#39;Albert Einstein&amp;#39;
+}
+
+console.log(test.func()); // print 42
+console.log(test.func.call(test2)); // print Albert Einstein&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;like a magic right? Here is the different use of &lt;code&gt;apply&lt;/code&gt;, &lt;code&gt;call&lt;/code&gt; and &lt;code&gt;bind&lt;/code&gt;&lt;/p&gt;
+&lt;pre class=&#34;js&#34;&gt;&lt;code&gt;func.call(context, &amp;quot;arg1&amp;quot;, &amp;quot;arg2&amp;quot;, &amp;quot;argn&amp;quot;);
+func.apply(context, [&amp;quot;arg1&amp;quot;, &amp;quot;arg2&amp;quot;, &amp;quot;argn&amp;quot;]);
+func.bind(context);&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;call has slighly faster in performance than apply &lt;span class=&#34;citation&#34;&gt;&lt;span class=&#34;csl-baseline&#34;&gt;&lt;span class=&#34;smallcaps&#34;&gt;[&lt;a href=&#34;#ref-Ahmed2019Jul&#34;&gt;2&lt;/a&gt;]&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Public and Private&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;The function scope can be used to mimic traditional OOP language properties like
+private variables. Moreover, it can be used to manage namespace.&lt;/p&gt;
+&lt;pre class=&#34;js&#34;&gt;&lt;code&gt;// only expose AwesomeModule keyword globally
+var AwesomeModule = (function(){
+  // private variable and methods
+  let property = &amp;quot;property&amp;quot;;
+  
+  function privateFunc(){
+    ...
+  }
+  
+  // you can access the method by AwesomeModule.publicFunc()
+  // this kind format more like OOP 
+  return {
+    publicFunc: function(){
+      // can access property and privateFunc()
+    }
+  }
+})()&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;the code above has a small bizarre format &lt;code&gt;(function() {})()&lt;/code&gt;. This is called
+immediately invoked function expression (IIFE). How to interpret this code? It’s
+simple, you define a function like this &lt;code&gt;function(){}&lt;/code&gt;, you want to invoke it
+after define it the you just add an parenthesis &lt;code&gt;()&lt;/code&gt;. However, in order to define
+this function you have to use another parenthesis enclose them, that’s all.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div id=&#34;closure&#34; class=&#34;section level3&#34;&gt;
+&lt;h3&gt;Closure&lt;/h3&gt;
+&lt;p&gt;Closure is quite useful, like another magic in javascript. We know when a function
+return the variables define in that scope will be destroied or collected, but
+closure is not working that way, even the function returned, closure can still
+keep the variable. Let’s see an example&lt;/p&gt;
+&lt;pre class=&#34;js&#34;&gt;&lt;code&gt;function outer(outerArg){
+    let property = &amp;quot;property&amp;quot;;
+    return function(innerArg){
+        console.log(outerArg);  
+        console.log(property);  
+        console.log(innerArg);  
+    };
+}
+// notice outer has returned, property should be destroied
+// but closure not working that way
+var func = outer(&amp;quot;from outer function&amp;quot;);
+// what we returned is not a variable is a function, we have to invoke the function
+func(&amp;quot;from inner function&amp;quot;);
+
+// output
+// from outer function
+// property
+// from inner function&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;The example above shows that closure can not only access its own arguments, but
+the arguments from its outer functions and the returned function will not be
+invoked immediately, you can invoke the returned function whenever you want. Which
+is really handy. There is a very good visualization tool created by Tyler McGinnis.
+Which gives a really concrete example of what closure is &lt;span class=&#34;citation&#34;&gt;&lt;span class=&#34;csl-baseline&#34;&gt;&lt;span class=&#34;smallcaps&#34;&gt;[&lt;a href=&#34;#ref-BibEntry2019Jul&#34;&gt;1&lt;/a&gt;]&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/p&gt;
+&lt;/div&gt;
+&lt;div id=&#34;references&#34; class=&#34;section level3 unnumbered&#34;&gt;
+&lt;h3&gt;References&lt;/h3&gt;
+&lt;div id=&#34;refs&#34; class=&#34;references&#34;&gt;
+&lt;div id=&#34;ref-BibEntry2019Jul&#34;&gt;
+&lt;p&gt;1. &lt;strong&gt;The Ultimate Guide to Hoisting, Scopes, and Closures in JavaScript&lt;/strong&gt; [Internet].TylerMcGinnis.com2019;Available from: &lt;a href=&#34;https://tylermcginnis.com/ultimate-guide-to-execution-contexts-hoisting-scopes-and-closures-in-javascript&#34;&gt;https://tylermcginnis.com/ultimate-guide-to-execution-contexts-hoisting-scopes-and-closures-in-javascript&lt;/a&gt;&lt;/p&gt;
+&lt;/div&gt;
+&lt;div id=&#34;ref-Ahmed2019Jul&#34;&gt;
+&lt;p&gt;2. &lt;strong&gt;Understanding Scope in JavaScript&lt;/strong&gt; [Internet].&lt;br /&gt;
+Ahmed H. &lt;br /&gt;
+Scotch2019;Available from: &lt;a href=&#34;https://scotch.io/tutorials/understanding-scope-in-javascript&#34;&gt;https://scotch.io/tutorials/understanding-scope-in-javascript&lt;/a&gt;&lt;/p&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Linear Regression</title>
+      <link>https://shuishoudage.github.io/post/linear-regression/linear-regression/</link>
+      <pubDate>Fri, 28 Jun 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://shuishoudage.github.io/post/linear-regression/linear-regression/</guid>
+      <description>
+
+
+&lt;div id=&#34;introduction&#34; class=&#34;section level3&#34;&gt;
+&lt;h3&gt;Introduction&lt;/h3&gt;
+&lt;p&gt;Linear regression is probably the first topic that every machine learning
+course will talk. It is simple and often prodivde and adequate and interpretable
+description of how the inputs affect the output &lt;span class=&#34;citation&#34;&gt;&lt;span class=&#34;csl-baseline&#34;&gt;&lt;span class=&#34;smallcaps&#34;&gt;[&lt;a href=&#34;#ref-friedman2001elements&#34;&gt;1&lt;/a&gt;]&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;.
+I will try my best to explain linear regression in a simple way but also with
+depth insight. For those who scare of math, it is okey just give a glance.&lt;/p&gt;
+&lt;p&gt;Let’s start from a very simple equation from high school.&lt;/p&gt;
+&lt;p&gt;&lt;span class=&#34;math display&#34;&gt;\[
+y = ax + b
+\]&lt;/span&gt;
+Here y is outcome or sometimes we will written as &lt;span class=&#34;math inline&#34;&gt;\(f(x)\)&lt;/span&gt;, it is the same thing
+but written in a different format. a is the slope and b is the intercept. Let’s
+giving a plot.&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://shuishoudage.github.io/post/linear-regression/index_files/figure-html/unnamed-chunk-2-1.png&#34; width=&#34;672&#34; /&gt;
+This example is set intercept to 1.4 and slope as 0.5. For this example, we only
+have one input (x) and one output (y)&lt;/p&gt;
+&lt;p&gt;In real world application, we normally have more than one feature. Suppose
+we have an input vector &lt;span class=&#34;math inline&#34;&gt;\(X^T=(X_1, X_2, \dots, X_p)\)&lt;/span&gt;&lt;/p&gt;
+&lt;table&gt;
+&lt;caption&gt;
+&lt;span id=&#34;tab:unnamed-chunk-3&#34;&gt;Table 1: &lt;/span&gt;A table for advertising dataset
+&lt;/caption&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th style=&#34;text-align:right;&#34;&gt;
+X
+&lt;/th&gt;
+&lt;th style=&#34;text-align:right;&#34;&gt;
+TV
+&lt;/th&gt;
+&lt;th style=&#34;text-align:right;&#34;&gt;
+Radio
+&lt;/th&gt;
+&lt;th style=&#34;text-align:right;&#34;&gt;
+Newspaper
+&lt;/th&gt;
+&lt;th style=&#34;text-align:right;&#34;&gt;
+Sales
+&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td style=&#34;text-align:right;&#34;&gt;
+1
+&lt;/td&gt;
+&lt;td style=&#34;text-align:right;&#34;&gt;
+230.1
+&lt;/td&gt;
+&lt;td style=&#34;text-align:right;&#34;&gt;
+37.8
+&lt;/td&gt;
+&lt;td style=&#34;text-align:right;&#34;&gt;
+69.2
+&lt;/td&gt;
+&lt;td style=&#34;text-align:right;&#34;&gt;
+22.1
+&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=&#34;text-align:right;&#34;&gt;
+2
+&lt;/td&gt;
+&lt;td style=&#34;text-align:right;&#34;&gt;
+44.5
+&lt;/td&gt;
+&lt;td style=&#34;text-align:right;&#34;&gt;
+39.3
+&lt;/td&gt;
+&lt;td style=&#34;text-align:right;&#34;&gt;
+45.1
+&lt;/td&gt;
+&lt;td style=&#34;text-align:right;&#34;&gt;
+10.4
+&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=&#34;text-align:right;&#34;&gt;
+3
+&lt;/td&gt;
+&lt;td style=&#34;text-align:right;&#34;&gt;
+17.2
+&lt;/td&gt;
+&lt;td style=&#34;text-align:right;&#34;&gt;
+45.9
+&lt;/td&gt;
+&lt;td style=&#34;text-align:right;&#34;&gt;
+69.3
+&lt;/td&gt;
+&lt;td style=&#34;text-align:right;&#34;&gt;
+9.3
+&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=&#34;text-align:right;&#34;&gt;
+4
+&lt;/td&gt;
+&lt;td style=&#34;text-align:right;&#34;&gt;
+151.5
+&lt;/td&gt;
+&lt;td style=&#34;text-align:right;&#34;&gt;
+41.3
+&lt;/td&gt;
+&lt;td style=&#34;text-align:right;&#34;&gt;
+58.5
+&lt;/td&gt;
+&lt;td style=&#34;text-align:right;&#34;&gt;
+18.5
+&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=&#34;text-align:right;&#34;&gt;
+5
+&lt;/td&gt;
+&lt;td style=&#34;text-align:right;&#34;&gt;
+180.8
+&lt;/td&gt;
+&lt;td style=&#34;text-align:right;&#34;&gt;
+10.8
+&lt;/td&gt;
+&lt;td style=&#34;text-align:right;&#34;&gt;
+58.4
+&lt;/td&gt;
+&lt;td style=&#34;text-align:right;&#34;&gt;
+12.9
+&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+&lt;p&gt;Here the input features we could think as &lt;strong&gt;X1=TV&lt;/strong&gt;, &lt;strong&gt;X2=Radio&lt;/strong&gt;
+and &lt;strong&gt;X3=Newspaper&lt;/strong&gt;. and the y is &lt;strong&gt;Sales&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;We have a simple model for multiple features&lt;/p&gt;
+&lt;p&gt;&lt;span class=&#34;math display&#34;&gt;\[
+f(X)=\beta_{0}+\sum_{j=1}^{p} X_{j} \beta_{j}
+\]&lt;/span&gt;&lt;/p&gt;
+&lt;p&gt;Let’s plot a regression model for iris dataset to see what exactly going on.&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;ggplot(df, aes(TV, Sales)) +
+  geom_point() +
+  geom_smooth(method = &amp;#39;lm&amp;#39;, formula = y~x)&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;img src=&#34;https://shuishoudage.github.io/post/linear-regression/index_files/figure-html/unnamed-chunk-4-1.png&#34; width=&#34;672&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;What we like to do is reduce the residuals.&lt;/p&gt;
+&lt;div class=&#34;figure&#34;&gt;
+&lt;img src=&#34;residuals.png&#34; alt=&#34;png&#34; /&gt;
+&lt;p class=&#34;caption&#34;&gt;png&lt;/p&gt;
+&lt;/div&gt;
+&lt;p&gt;So finally, what we want to do is just minimize the residual sum of squares, which
+is the equation following:
+&lt;span class=&#34;math display&#34;&gt;\[
+\begin{aligned} \operatorname{RSS}(\beta) &amp;amp;=\sum_{i=1}^{N}\left(y_{i}-f\left(x_{i}\right)\right)^{2} \\ &amp;amp;=\sum_{i=1}^{N}\left(y_{i}-\beta_{0}-\sum_{j=1}^{p} x_{i j} \beta_{j}\right)^{2} \end{aligned}
+\]&lt;/span&gt;&lt;/p&gt;
+&lt;p&gt;To make the formula clear little bit. We could using vectorization or vector
+notation to represent it.&lt;/p&gt;
+&lt;p&gt;&lt;span class=&#34;math display&#34;&gt;\[
+\operatorname{RSS}(\beta)=(\mathbf{y}-\mathbf{X} \beta)^{T}(\mathbf{y}-\mathbf{X} \beta)
+\]&lt;/span&gt;&lt;/p&gt;
+&lt;p&gt;let’s take the derivative respect to &lt;span class=&#34;math inline&#34;&gt;\(\beta\)&lt;/span&gt;.
+&lt;span class=&#34;math display&#34;&gt;\[
+\frac{\partial \mathrm{RSS}}{\partial \beta}=-2 \mathbf{X}^{T}(\mathbf{y}-\mathbf{X} \beta)
+\]&lt;/span&gt;&lt;/p&gt;
+&lt;p&gt;Because, if we check the RSS equation above it is a quadratic function. Therefore,
+this equation is always having a global minimal value. Let’s just set the derivative
+equal zero, then find what the &lt;span class=&#34;math inline&#34;&gt;\(\beta\)&lt;/span&gt; is.&lt;/p&gt;
+&lt;p&gt;&lt;span class=&#34;math display&#34;&gt;\[
+\begin{aligned}
+&amp;amp;-2 \mathbf{X}^{T}(\mathbf{y}-\mathbf{X} \beta)=0 \\ &amp;amp;\mathbf{X}^{T}(\mathbf{y}-\mathbf{X} \beta)=0 \quad (1)\\
+&amp;amp;\mathbf{X}^{T}\mathbf{y}-\mathbf{X}^{T}\mathbf{X} \beta=0 \quad (2) \\
+&amp;amp;\mathbf{X}^{T}\mathbf{y}=\mathbf{X}^{T}\mathbf{X} \beta \quad(3)\\
+&amp;amp;(\mathbf{X}^{T}\mathbf{X})^{-1}\mathbf{X}^{T}\mathbf{y}=(\mathbf{X}^{T}\mathbf{X})^{-1}\mathbf{X}^{T}\mathbf{X} \beta \quad (4)\\
+&amp;amp;(\mathbf{X}^{T}\mathbf{X})^{-1}\mathbf{X}^{T}\mathbf{y} = \beta \quad (5)
+\end{aligned}
+\]&lt;/span&gt;&lt;/p&gt;
+&lt;p&gt;Let’s break it down, the first step we just divide both side by -2, hence we can
+eliminate the constant. Second step we just apply distribution rule, the third
+one is to make the equation equal, we just move &lt;span class=&#34;math inline&#34;&gt;\(-X^tX\beta\)&lt;/span&gt; to the right side.
+Step 4 is just using a little trick to make &lt;span class=&#34;math inline&#34;&gt;\(X^TX\)&lt;/span&gt; to an identity matrix by
+multiply &lt;span class=&#34;math inline&#34;&gt;\((X^TX)^{-1}\)&lt;/span&gt;, finally, we get &lt;span class=&#34;math inline&#34;&gt;\(\beta\)&lt;/span&gt;.&lt;/p&gt;
+&lt;p&gt;It is obviously that if we multiply &lt;span class=&#34;math inline&#34;&gt;\(X\)&lt;/span&gt; to the &lt;span class=&#34;math inline&#34;&gt;\(\beta\)&lt;/span&gt; we can calculate the estimated
+&lt;span class=&#34;math inline&#34;&gt;\(\hat{y}\)&lt;/span&gt; value&lt;/p&gt;
+&lt;/div&gt;
+&lt;div id=&#34;case-study&#34; class=&#34;section level3&#34;&gt;
+&lt;h3&gt;Case study&lt;/h3&gt;
+&lt;p&gt;It is important for an analyst to understand the output of a linear model. It is
+not just blindly using some packages without thinking. Here I take an example
+from book An Introduction to Statistical Learning &lt;span class=&#34;citation&#34;&gt;&lt;span class=&#34;csl-baseline&#34;&gt;&lt;span class=&#34;smallcaps&#34;&gt;[&lt;a href=&#34;#ref-james2013introduction&#34;&gt;2&lt;/a&gt;]&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;.&lt;/p&gt;
+&lt;p&gt;Let’s start from single variable linear regression model, then try to give
+a short explanation to the output. Here we use Boosten dataset from R package
+of MASS, this dataset records 506 neighborhoods around Boosten, there are several
+feature columns, like &lt;code&gt;crim&lt;/code&gt; indicates per capita crime rate by town, &lt;code&gt;rm&lt;/code&gt; means
+the average number of rooms per dwelling and &lt;code&gt;ptratia&lt;/code&gt; means pupil-teacher ratio
+by town.&lt;/p&gt;
+&lt;p&gt;Here we use feature &lt;code&gt;lstat&lt;/code&gt; (lower status of the population) to predict
+&lt;code&gt;medv&lt;/code&gt;(median value of owner-occupied homes in $1000).&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;lm.fit &amp;lt;- lm(medv ~ lstat, data = MASS::Boston)
+summary(lm.fit)&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## 
+## Call:
+## lm(formula = medv ~ lstat, data = MASS::Boston)
+## 
+## Residuals:
+##     Min      1Q  Median      3Q     Max 
+## -15.168  -3.990  -1.318   2.034  24.500 
+## 
+## Coefficients:
+##             Estimate Std. Error t value Pr(&amp;gt;|t|)    
+## (Intercept) 34.55384    0.56263   61.41   &amp;lt;2e-16 ***
+## lstat       -0.95005    0.03873  -24.53   &amp;lt;2e-16 ***
+## ---
+## Signif. codes:  0 &amp;#39;***&amp;#39; 0.001 &amp;#39;**&amp;#39; 0.01 &amp;#39;*&amp;#39; 0.05 &amp;#39;.&amp;#39; 0.1 &amp;#39; &amp;#39; 1
+## 
+## Residual standard error: 6.216 on 504 degrees of freedom
+## Multiple R-squared:  0.5441, Adjusted R-squared:  0.5432 
+## F-statistic: 601.6 on 1 and 504 DF,  p-value: &amp;lt; 2.2e-16&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Let’s interpret the summary one by one. The first is the call field, it is just
+simply the formula of this model, nothing special. Next one is the statistical
+summary for residuals, actually we can use box plot to show it more concretely.&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;ggplot(data.frame(resi = residuals(lm.fit)), aes(x = &amp;quot;&amp;quot;, y = resi )) +
+  geom_boxplot()&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;img src=&#34;https://shuishoudage.github.io/post/linear-regression/index_files/figure-html/unnamed-chunk-6-1.png&#34; width=&#34;672&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;As we can see, the plot above matches the summary. The middle thicker horizontal
+line is the median (-1.318) in the summary, and the line above and below the
+median line is the first quantile (1Q) and third quantile (3Q). The points on
+the top and bottom is the min and max value.&lt;/p&gt;
+&lt;p&gt;The next important field is Coefficients, by observing this field, we can
+find the how predict variables affect the response variable, this is why linear
+regression model is an interpretable model.&lt;/p&gt;
+&lt;p&gt;If you recall from the beginning of this blog, there is a formula &lt;span class=&#34;math inline&#34;&gt;\(y = ax + b\)&lt;/span&gt;
+here the intercept is 34.55384, we can think this value is as &lt;span class=&#34;math inline&#34;&gt;\(b\)&lt;/span&gt; in the formula
+and &lt;span class=&#34;math inline&#34;&gt;\(a\)&lt;/span&gt; is &lt;code&gt;lstat&lt;/code&gt; which is -0.95005. Just by these information, we could know
+that &lt;code&gt;lstat&lt;/code&gt; and &lt;code&gt;medv&lt;/code&gt; is negatively related, which means when &lt;code&gt;lstat&lt;/code&gt; increase
+1 unit, &lt;code&gt;medv&lt;/code&gt; will decrease -0.95005. &lt;strong&gt;Std. Error&lt;/strong&gt; here can be use to calculate
+the confidence interval and &lt;strong&gt;t value&lt;/strong&gt; is used to calculate p-value. Therefore,
+if we really want to know the confidence interval for coefficients, we can use
+function confint in R.&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;confint(lm.fit)&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;##                 2.5 %     97.5 %
+## (Intercept) 33.448457 35.6592247
+## lstat       -1.026148 -0.8739505&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;The confidence interval just like asking people to guess something, suppose ask
+a veteran mechanics what is the probability that a certain engine will be broken,
+he will give his experienced guess but with amount of uncertainty, but if you ask
+an amateur, he will also give his guess but with a more large range of uncertainty.&lt;/p&gt;
+&lt;p&gt;Just by knowing the confidence interval you could know that if a coefficient
+significant of not. When there is a 0 appears between the confidence interval
+you could confirm that this coefficient is not significant, because there may
+have a chance the coefficient becomes 0. Which makes that input feature no
+meaning at all.&lt;/p&gt;
+&lt;p&gt;After building the model, we can use this model to predict new coming data&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;lm.pred &amp;lt;- predict(lm.fit, data.frame(lstat=(c(5,10,15))), interval = &amp;quot;confidence&amp;quot;)
+lm.pred&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;##        fit      lwr      upr
+## 1 29.80359 29.00741 30.59978
+## 2 25.05335 24.47413 25.63256
+## 3 20.30310 19.73159 20.87461&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;the test data is confirming our interpretation above, as &lt;code&gt;lstat&lt;/code&gt; increasing
+&lt;code&gt;medv&lt;/code&gt; decreasing. Notice, here we use a special parameter, &lt;em&gt;interval=“confidence”&lt;/em&gt;.
+this parameter will give the prediction around the mean of the prediction. To interpret the result above, with 10 &lt;code&gt;lstat&lt;/code&gt; on average the value for &lt;code&gt;medv&lt;/code&gt; is
+between 24.47 and 25.63.&lt;/p&gt;
+&lt;p&gt;We can set the parameter inverval as “prediction” as well. However, this prediction
+only give the prediction interval around a single value. This setting is highly
+rely on residuals are normally distributed. I will give the methods how to
+test the normality of residuals in the &lt;a href=&#34;#Caveats&#34;&gt;caveat&lt;/a&gt; section.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div id=&#34;caveats&#34; class=&#34;section level3&#34;&gt;
+&lt;h3&gt;Caveats&lt;/h3&gt;
+&lt;p&gt;Linear regression model has its limitation or more precisely saying it has assumption
+For example, as the name indicates, there must be a linear relationship between
+predict variables and response variable, because the solution will either line
+plane or hyperplane which is not curvy. I list several assumptions regard to
+linear regression.&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;residuals are roughly normally distributed&lt;/li&gt;
+&lt;li&gt;residuals are independent&lt;/li&gt;
+&lt;li&gt;linear relation between features and output&lt;/li&gt;
+&lt;li&gt;no or little multicollinearity&lt;/li&gt;
+&lt;li&gt;homoscedasticity (residuals agains fitted value should keep constant)&lt;/li&gt;
+&lt;li&gt;sensitive to outliers&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;There are several ways to test the assumptions&lt;/p&gt;
+&lt;div id=&#34;residual-normality&#34; class=&#34;section level4&#34;&gt;
+&lt;h4&gt;residual normality&lt;/h4&gt;
+&lt;p&gt;By checking residuals normality, we can use Q-Q plot,&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;lm.fit &amp;lt;- lm(medv ~ rm + lstat + crim + dis, data = Boston)
+ggqqplot(residuals(lm.fit))&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;img src=&#34;https://shuishoudage.github.io/post/linear-regression/index_files/figure-html/unnamed-chunk-9-1.png&#34; width=&#34;672&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;How to interpret this plot? Suppose the residuals are following a normal distribution,
+the points above should be roughly located around the slope line and should be
+with inside the 95% confidence curvy dashed line.&lt;/p&gt;
+&lt;p&gt;In a algorithmic way to check, we could utilize Shapiro-Wilk test &lt;span class=&#34;citation&#34;&gt;&lt;span class=&#34;csl-baseline&#34;&gt;&lt;span class=&#34;smallcaps&#34;&gt;[&lt;a href=&#34;#ref-Lohninger2012Oct&#34;&gt;3&lt;/a&gt;]&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;.&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;shapiro.test(residuals(lm.fit))&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## 
+##  Shapiro-Wilk normality test
+## 
+## data:  residuals(lm.fit)
+## W = 0.91081, p-value &amp;lt; 2.2e-16&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;As the result p-value indicates (&amp;lt;0.05). We can reject the null hypothesis
+(normally distributed). Therefore, the residuals is not normally distributed.
+Here we can see, it is important to do both visual and algorithmic test, the plot
+above shows us a roughly normal distributed data. However, the test indicates
+this is &lt;strong&gt;not&lt;/strong&gt; a normally distributed data.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div id=&#34;residuals-independency&#34; class=&#34;section level4&#34;&gt;
+&lt;h4&gt;residuals independency&lt;/h4&gt;
+&lt;p&gt;By plotting the residuals along with the order of &lt;span class=&#34;math inline&#34;&gt;\(Y_i\)&lt;/span&gt; we can measure the residuals
+independency.&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;plot(sequence(nrow(Boston)), residuals(lm.fit))
+abline(h=0, col=&amp;#39;red&amp;#39;)&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;img src=&#34;https://shuishoudage.github.io/post/linear-regression/index_files/figure-html/unnamed-chunk-11-1.png&#34; width=&#34;672&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;Independent residuals should be located around 0 and randomly scattered.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div id=&#34;linearity&#34; class=&#34;section level4&#34;&gt;
+&lt;h4&gt;linearity&lt;/h4&gt;
+&lt;p&gt;linearity is just checking if the predict variables (input X) has the linear
+relation between the response variable. After all, we use linear regression to
+create model, if there is no linear relation we have to use other non-linear
+model.&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;crPlots(lm(medv ~ rm + lstat + crim + dis, data = Boston))&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;img src=&#34;https://shuishoudage.github.io/post/linear-regression/index_files/figure-html/unnamed-chunk-12-1.png&#34; width=&#34;672&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;what we most case is if there is any pattern inside the plot&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;summary(gvlma::gvlma(x = lm.fit))&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## 
+## Call:
+## lm(formula = medv ~ rm + lstat + crim + dis, data = Boston)
+## 
+## Residuals:
+##     Min      1Q  Median      3Q     Max 
+## -19.006  -3.099  -1.047   1.885  26.571 
+## 
+## Coefficients:
+##             Estimate Std. Error t value Pr(&amp;gt;|t|)    
+## (Intercept)  2.23065    3.32214   0.671    0.502    
+## rm           4.97649    0.43885  11.340  &amp;lt; 2e-16 ***
+## lstat       -0.66174    0.05101 -12.974  &amp;lt; 2e-16 ***
+## crim        -0.12810    0.03209  -3.992 7.53e-05 ***
+## dis         -0.56321    0.13542  -4.159 3.76e-05 ***
+## ---
+## Signif. codes:  0 &amp;#39;***&amp;#39; 0.001 &amp;#39;**&amp;#39; 0.01 &amp;#39;*&amp;#39; 0.05 &amp;#39;.&amp;#39; 0.1 &amp;#39; &amp;#39; 1
+## 
+## Residual standard error: 5.403 on 501 degrees of freedom
+## Multiple R-squared:  0.6577, Adjusted R-squared:  0.6549 
+## F-statistic: 240.6 on 4 and 501 DF,  p-value: &amp;lt; 2.2e-16
+## 
+## 
+## ASSESSMENT OF THE LINEAR MODEL ASSUMPTIONS
+## USING THE GLOBAL TEST ON 4 DEGREES-OF-FREEDOM:
+## Level of Significance =  0.05 
+## 
+## Call:
+##  gvlma::gvlma(x = lm.fit) 
+## 
+##                     Value   p-value                   Decision
+## Global Stat        638.73 0.000e+00 Assumptions NOT satisfied!
+## Skewness           143.63 0.000e+00 Assumptions NOT satisfied!
+## Kurtosis           289.67 0.000e+00 Assumptions NOT satisfied!
+## Link Function      175.67 0.000e+00 Assumptions NOT satisfied!
+## Heteroscedasticity  29.76 4.902e-08 Assumptions NOT satisfied!&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;div id=&#34;hemoscedasticity&#34; class=&#34;section level4&#34;&gt;
+&lt;h4&gt;hemoscedasticity&lt;/h4&gt;
+&lt;p&gt;For checking hemoscedasticity. Which means the variance of residuals should
+be constant, see the plot below.&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;par(mfrow=c(2,2))
+plot(lm.fit, pch = 16, cex = 0.5)&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;img src=&#34;https://shuishoudage.github.io/post/linear-regression/index_files/figure-html/unnamed-chunk-14-1.png&#34; width=&#34;672&#34; /&gt;
+We are intereted in the left side two plots. To express homoscedasticity in a plot,
+it would look like a roughly flat line with random points around it. However, in
+our case here &lt;span class=&#34;citation&#34;&gt;&lt;span class=&#34;csl-baseline&#34;&gt;&lt;span class=&#34;smallcaps&#34;&gt;[&lt;a href=&#34;#ref-BibEntry2016Jan&#34;&gt;4&lt;/a&gt;]&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;. We could find the red line is curvy and the
+points have a growth trend from left to right.&lt;/p&gt;
+&lt;p&gt;If you think visualization is not enough to determine if a model is hemoscedasticity,
+There are several algorithmic ways to test as well.&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;car::ncvTest(lm.fit)&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## Non-constant Variance Score Test 
+## Variance formula: ~ fitted.values 
+## Chisquare = 0.4130551, Df = 1, p = 0.52042&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;By checking the p-value, we could see that is significant (&amp;lt;0.05) enough to reject
+the null hypothesis (variance is constant).&lt;/p&gt;
+&lt;/div&gt;
+&lt;div id=&#34;outliers&#34; class=&#34;section level4&#34;&gt;
+&lt;h4&gt;outliers&lt;/h4&gt;
+&lt;p&gt;Because we use RSS to estimate the accuracy, it is obviousely that outliers
+will highly influence the RSS. Which makes the wrong interpretation to the model.&lt;/p&gt;
+&lt;p&gt;A data point has high leverage, if it has extreme predictor x values &lt;span class=&#34;citation&#34;&gt;&lt;span class=&#34;csl-baseline&#34;&gt;&lt;span class=&#34;smallcaps&#34;&gt;[&lt;a href=&#34;#ref-BibEntry2019Jun&#34;&gt;5&lt;/a&gt;]&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;. Let’s using &lt;em&gt;Residuals vs Leverage&lt;/em&gt; plot&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;par(mfrow=c(1,2))
+plot(lm.fit, 4)
+plot(lm.fit, 5, pch = 16, cex = 1)&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;img src=&#34;https://shuishoudage.github.io/post/linear-regression/index_files/figure-html/unnamed-chunk-16-1.png&#34; width=&#34;672&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;The plot above shows that #23, #49 and #39 are influenced points. Among those
+three points, #23 and #49 are close to 3 standard deviation. Which is more influential
+than #39. However, are these outliers really influence the result of the regression
+analysis? Here we need one metric called Cook’s distance to check if data points
+really influential.&lt;/p&gt;
+&lt;p&gt;A rule of thumb is that an observation Cook’s distance exceeds
+&lt;span class=&#34;math inline&#34;&gt;\(4/(n-p-1)\)&lt;/span&gt;, where &lt;span class=&#34;math inline&#34;&gt;\(n\)&lt;/span&gt; is the number of observations and &lt;span class=&#34;math inline&#34;&gt;\(p\)&lt;/span&gt; is the predictor
+variables. Thus, we can calculate Cook’s distance for this model, which is
+4/(50-1-1) = 0.08. We can add a horizontal line to the Cook’s distance plot&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;olsrr::ols_plot_cooksd_bar(lm.fit)&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;img src=&#34;https://shuishoudage.github.io/post/linear-regression/index_files/figure-html/unnamed-chunk-17-1.png&#34; width=&#34;672&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;As we can see above, data point #23 and #49 are really influence the result of
+linear regression analysis.&lt;/p&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div id=&#34;references&#34; class=&#34;section level3 unnumbered&#34;&gt;
+&lt;h3&gt;References&lt;/h3&gt;
+&lt;div id=&#34;refs&#34; class=&#34;references&#34;&gt;
+&lt;div id=&#34;ref-friedman2001elements&#34;&gt;
+&lt;p&gt;1. &lt;strong&gt;The elements of statistical learning&lt;/strong&gt;.&lt;br /&gt;
+Friedman J, Hastie T, Tibshirani R. &lt;br /&gt;
+Springer series in statistics New York; 2001. &lt;/p&gt;
+&lt;/div&gt;
+&lt;div id=&#34;ref-james2013introduction&#34;&gt;
+&lt;p&gt;2. &lt;strong&gt;An introduction to statistical learning&lt;/strong&gt;.&lt;br /&gt;
+James G, Witten D, Hastie T, Tibshirani R. &lt;br /&gt;
+Springer; 2013. &lt;/p&gt;
+&lt;/div&gt;
+&lt;div id=&#34;ref-Lohninger2012Oct&#34;&gt;
+&lt;p&gt;3. &lt;strong&gt;Shapiro-Wilk Test&lt;/strong&gt; [Internet].&lt;br /&gt;
+Lohninger H. &lt;br /&gt;
+2012;Available from: &lt;a href=&#34;http://www.statistics4u.info/fundstat_eng/ee_shapiro_wilk_test.html&#34;&gt;http://www.statistics4u.info/fundstat_eng/ee_shapiro_wilk_test.html&lt;/a&gt;&lt;/p&gt;
+&lt;/div&gt;
+&lt;div id=&#34;ref-BibEntry2016Jan&#34;&gt;
+&lt;p&gt;4. &lt;strong&gt;How to detect heteroscedasticity and rectify it?&lt;/strong&gt; [Internet].R-bloggers2016;Available from: &lt;a href=&#34;https://www.r-bloggers.com/how-to-detect-heteroscedasticity-and-rectify-it&#34;&gt;https://www.r-bloggers.com/how-to-detect-heteroscedasticity-and-rectify-it&lt;/a&gt;&lt;/p&gt;
+&lt;/div&gt;
+&lt;div id=&#34;ref-BibEntry2019Jun&#34;&gt;
+&lt;p&gt;5. &lt;strong&gt;Linear Regression Assumptions and Diagnostics in R: Essentials - Articles - STHDA&lt;/strong&gt; [Internet].2019;Available from: &lt;a href=&#34;http://www.sthda.com/english/articles/39-regression-model-diagnostics/161-linear-regression-assumptions-and-diagnostics-in-r-essentials&#34;&gt;http://www.sthda.com/english/articles/39-regression-model-diagnostics/161-linear-regression-assumptions-and-diagnostics-in-r-essentials&lt;/a&gt;&lt;/p&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>draw2data</title>
+      <link>https://shuishoudage.github.io/project/draw2data/</link>
+      <pubDate>Thu, 11 Apr 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://shuishoudage.github.io/project/draw2data/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>An example preprint / working paper</title>
+      <link>https://shuishoudage.github.io/publication/preprint/</link>
+      <pubDate>Sun, 07 Apr 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://shuishoudage.github.io/publication/preprint/</guid>
+      <description>&lt;div class=&#34;alert alert-note&#34;&gt;
+  &lt;div&gt;
+    Click the &lt;em&gt;Slides&lt;/em&gt; button above to demo Academic&amp;rsquo;s Markdown slides feature.
+  &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;p&gt;Supplementary notes can be added here, including &lt;a href=&#34;https://sourcethemes.com/academic/docs/writing-markdown-latex/&#34; target=&#34;_blank&#34;&gt;code and math&lt;/a&gt;.&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Slides</title>
+      <link>https://shuishoudage.github.io/slides/example/</link>
+      <pubDate>Tue, 05 Feb 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://shuishoudage.github.io/slides/example/</guid>
+      <description>
+
+&lt;h1 id=&#34;welcome-to-slides&#34;&gt;Welcome to Slides&lt;/h1&gt;
+
+&lt;p&gt;&lt;a href=&#34;https://sourcethemes.com/academic/&#34; target=&#34;_blank&#34;&gt;Academic&lt;/a&gt;&lt;/p&gt;
+
+&lt;hr /&gt;
+
+&lt;h2 id=&#34;features&#34;&gt;Features&lt;/h2&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Efficiently write slides in Markdown&lt;/li&gt;
+&lt;li&gt;3-in-1: Create, Present, and Publish your slides&lt;/li&gt;
+&lt;li&gt;Supports speaker notes&lt;/li&gt;
+&lt;li&gt;Mobile friendly slides&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;hr /&gt;
+
+&lt;h2 id=&#34;controls&#34;&gt;Controls&lt;/h2&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Next: &lt;code&gt;Right Arrow&lt;/code&gt; or &lt;code&gt;Space&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;Previous: &lt;code&gt;Left Arrow&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;Start: &lt;code&gt;Home&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;Finish: &lt;code&gt;End&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;Overview: &lt;code&gt;Esc&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;Speaker notes: &lt;code&gt;S&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;Fullscreen: &lt;code&gt;F&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;Zoom: &lt;code&gt;Alt + Click&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://github.com/hakimel/reveal.js#pdf-export&#34; target=&#34;_blank&#34;&gt;PDF Export&lt;/a&gt;: &lt;code&gt;E&lt;/code&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;hr /&gt;
+
+&lt;h2 id=&#34;code-highlighting&#34;&gt;Code Highlighting&lt;/h2&gt;
+
+&lt;p&gt;Inline code: &lt;code&gt;variable&lt;/code&gt;&lt;/p&gt;
+
+&lt;p&gt;Code block:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-python&#34;&gt;porridge = &amp;quot;blueberry&amp;quot;
+if porridge == &amp;quot;blueberry&amp;quot;:
+    print(&amp;quot;Eating...&amp;quot;)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;hr /&gt;
+
+&lt;h2 id=&#34;math&#34;&gt;Math&lt;/h2&gt;
+
+&lt;p&gt;In-line math: $x + y = z$&lt;/p&gt;
+
+&lt;p&gt;Block math:&lt;/p&gt;
+
+&lt;p&gt;$$
+f\left( x \right) = \;\frac{{2\left( {x + 4} \right)\left( {x - 4} \right)}}{{\left( {x + 4} \right)\left( {x + 1} \right)}}
+$$&lt;/p&gt;
+
+&lt;hr /&gt;
+
+&lt;h2 id=&#34;fragments&#34;&gt;Fragments&lt;/h2&gt;
+
+&lt;p&gt;Make content appear incrementally&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;{{% fragment %}} One {{% /fragment %}}
+{{% fragment %}} **Two** {{% /fragment %}}
+{{% fragment %}} Three {{% /fragment %}}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Press &lt;code&gt;Space&lt;/code&gt; to play!&lt;/p&gt;
+
+&lt;p&gt;&lt;span class=&#34;fragment &#34; &gt;
+   One
+&lt;/span&gt;
+&lt;span class=&#34;fragment &#34; &gt;
+   &lt;strong&gt;Two&lt;/strong&gt;
+&lt;/span&gt;
+&lt;span class=&#34;fragment &#34; &gt;
+   Three
+&lt;/span&gt;&lt;/p&gt;
+
+&lt;hr /&gt;
+
+&lt;p&gt;A fragment can accept two optional parameters:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;class&lt;/code&gt;: use a custom style (requires definition in custom CSS)&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;weight&lt;/code&gt;: sets the order in which a fragment appears&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;hr /&gt;
+
+&lt;h2 id=&#34;speaker-notes&#34;&gt;Speaker Notes&lt;/h2&gt;
+
+&lt;p&gt;Add speaker notes to your presentation&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-markdown&#34;&gt;{{% speaker_note %}}
+- Only the speaker can read these notes
+- Press `S` key to view
+{{% /speaker_note %}}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Press the &lt;code&gt;S&lt;/code&gt; key to view the speaker notes!&lt;/p&gt;
+
+&lt;aside class=&#34;notes&#34;&gt;
+  &lt;ul&gt;
+&lt;li&gt;Only the speaker can read these notes&lt;/li&gt;
+&lt;li&gt;Press &lt;code&gt;S&lt;/code&gt; key to view&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/aside&gt;
+
+&lt;hr /&gt;
+
+&lt;h2 id=&#34;themes&#34;&gt;Themes&lt;/h2&gt;
+
+&lt;ul&gt;
+&lt;li&gt;black: Black background, white text, blue links (default)&lt;/li&gt;
+&lt;li&gt;white: White background, black text, blue links&lt;/li&gt;
+&lt;li&gt;league: Gray background, white text, blue links&lt;/li&gt;
+&lt;li&gt;beige: Beige background, dark text, brown links&lt;/li&gt;
+&lt;li&gt;sky: Blue background, thin dark text, blue links&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;hr /&gt;
+
+&lt;ul&gt;
+&lt;li&gt;night: Black background, thick white text, orange links&lt;/li&gt;
+&lt;li&gt;serif: Cappuccino background, gray text, brown links&lt;/li&gt;
+&lt;li&gt;simple: White background, black text, blue links&lt;/li&gt;
+&lt;li&gt;solarized: Cream-colored background, dark green text, blue links&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;hr /&gt;
+
+
+&lt;section data-noprocess data-shortcode-slide
+  
+      
+      data-background-image=&#34;/img/boards.jpg&#34;
+  &gt;
+
+
+&lt;h2 id=&#34;custom-slide&#34;&gt;Custom Slide&lt;/h2&gt;
+
+&lt;p&gt;Customize the slide style and background&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-markdown&#34;&gt;{{&amp;lt; slide background-image=&amp;quot;/img/boards.jpg&amp;quot; &amp;gt;}}
+{{&amp;lt; slide background-color=&amp;quot;#0000FF&amp;quot; &amp;gt;}}
+{{&amp;lt; slide class=&amp;quot;my-style&amp;quot; &amp;gt;}}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;hr /&gt;
+
+&lt;h2 id=&#34;custom-css-example&#34;&gt;Custom CSS Example&lt;/h2&gt;
+
+&lt;p&gt;Let&amp;rsquo;s make headers navy colored.&lt;/p&gt;
+
+&lt;p&gt;Create &lt;code&gt;assets/css/reveal_custom.css&lt;/code&gt; with:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-css&#34;&gt;.reveal section h1,
+.reveal section h2,
+.reveal section h3 {
+  color: navy;
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;hr /&gt;
+
+&lt;h1 id=&#34;questions&#34;&gt;Questions?&lt;/h1&gt;
+
+&lt;p&gt;&lt;a href=&#34;https://discourse.gohugo.io&#34; target=&#34;_blank&#34;&gt;Ask&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&#34;https://sourcethemes.com/academic/docs/&#34; target=&#34;_blank&#34;&gt;Documentation&lt;/a&gt;&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Javascript modular history</title>
+      <link>https://shuishoudage.github.io/post/js-modular-history/</link>
+      <pubDate>Fri, 27 Jul 2018 00:00:00 +0000</pubDate>
+      
+      <guid>https://shuishoudage.github.io/post/js-modular-history/</guid>
+      <description>&lt;p&gt;Javascript has been dramatically used in front-end and back-end compared to the
+time when it was invented. When the time it was invented, it supposes to be a joy
+programming language, doing some simple interactions between browser. However,
+since the ubiquitous usage of browser. Javascript has become the most important
+language in the web ever.&lt;/p&gt;
+
+&lt;p&gt;Unlike language like Java and Python. Javascript does not have a module loader
+initially. Here are several ways to load module from past to present.&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Classic&lt;/li&gt;
+&lt;li&gt;RequireJs(AMD)&lt;/li&gt;
+&lt;li&gt;CommonJs&lt;/li&gt;
+&lt;li&gt;ES6&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&#34;old-fashion&#34;&gt;Old Fashion&lt;/h2&gt;
+
+&lt;p&gt;In the past, when javascript was still not heavily used. There are probably only
+several js files. It&amp;rsquo;s easy to manipulate it manually. Here is an example.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-javascript&#34;&gt;&amp;lt;script src=&amp;quot;js/jquery.js&amp;quot;&amp;gt;&amp;lt;/script&amp;gt;
+&amp;lt;script src=&amp;quot;js/point.js&amp;quot;&amp;gt;&amp;lt;/script&amp;gt;
+&amp;lt;script src=&amp;quot;js/line.js&amp;quot;&amp;gt;&amp;lt;/script&amp;gt;
+&amp;lt;script src=&amp;quot;js/polygon.js&amp;quot;&amp;gt;&amp;lt;/script&amp;gt;
+&amp;lt;script src=&amp;quot;js/main.js&amp;quot;&amp;gt;&amp;lt;/script&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Since there are many modules/files rely on jQuery, if you put jQuery script tag
+at the end of this file, the modules which rely on jQuery library will not work
+just like building a house you need build basement first, then each level up or
+like draw an image, you need point, line and polygon first. The disadvantage of
+this kind of module loader is you have always take care of them, once you put
+them in a wrong order, the console will yell. If your application is small,
+that&amp;rsquo;s okey, you can well manipulate them manually. Suppose this is a big project
+which involves many developers, to control the dependency manually will be a
+nightmare.&lt;/p&gt;
+
+&lt;h2 id=&#34;requirejs&#34;&gt;RequireJs&lt;/h2&gt;
+
+&lt;p&gt;Here is a paragraph I get from requirejs homepage.&lt;/p&gt;
+
+&lt;blockquote&gt;
+&lt;p&gt;RequireJS is a JavaScript file and module loader. It is optimized for in-browser
+use, but it can be used in other JavaScript environments, like Rhino and Node.
+Using a modular script loader like RequireJS will improve the speed and quality
+of your code.&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;As this quote mentioned requirejs is a module loader, it can be used both in
+front-end and back-end. It&amp;rsquo;s quite simple to use it. Suppose you have a document
+file tree like this.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-markdown&#34;&gt;- project_directory/
+  - index.html
+  - scripts/
+    - main.js
+    - utils.js
+      - someutils.js
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;The main.js is your main entry point, every code should be traced back to main.js,
+unlike old fashion, you don&amp;rsquo;t have to create many script tags. All you need to
+do is like following.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-html&#34;&gt;&amp;lt;!DOCTYPE html&amp;gt;
+&amp;lt;html&amp;gt;
+    &amp;lt;head&amp;gt;
+        &amp;lt;title&amp;gt;My Sample Project&amp;lt;/title&amp;gt;
+        &amp;lt;!-- data-main attribute tells require.js to load
+             scripts/main.js after require.js loads. --&amp;gt;
+        &amp;lt;script data-main=&amp;quot;scripts/main&amp;quot; src=&amp;quot;scripts/require.js&amp;quot;&amp;gt;&amp;lt;/script&amp;gt;
+    &amp;lt;/head&amp;gt;
+    &amp;lt;body&amp;gt;
+        &amp;lt;h1&amp;gt;My Sample Project&amp;lt;/h1&amp;gt;
+    &amp;lt;/body&amp;gt;
+&amp;lt;/html&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;The attribute data-main defines your main entry point, the src attribute will
+load the require.js modular loader first, then run main.js&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-javascript&#34;&gt;requirejs([&amp;quot;utils/someutils.js&amp;quot;], function(util) {
+    //This function is called when scripts/helper/util.js is loaded.
+    //If util.js calls define(), then this function is not fired until
+    //util&#39;s dependencies have loaded, and the util argument will hold
+    //the module value for &amp;quot;helper/util&amp;quot;.
+});
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Inside main.js you could load all dependencies in the first argument of function
+requirejs and this argument will be passed as the first argument of the callback
+function. Simply to say util is the alias of &amp;ldquo;utils/someutils.js&amp;rdquo;&lt;/p&gt;
+
+&lt;p&gt;RequireJs also provide config functionality. Suppose you want to use jQuery.
+Inside your main.js you could add following code&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-javascript&#34;&gt;requirejs.config({
+    baseUrl: &#39;utils/lib&#39;,
+    paths: {
+        // the left side is the module ID,
+        // the right side is the path to
+        // the jQuery file, relative to baseUrl.
+        // Also, the path should NOT include
+        // the &#39;.js&#39; file extension. This example
+        // is using jQuery 1.9.0 located at
+        // utils/lib/jquery-1.9.0.js, relative to
+        // the HTML page.
+        jquery: &#39;jquery-1.9.0&#39;
+    }
+});
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Here the baseUrl can make things much easier. Every time you want to use jQuery
+as a dependency, you don&amp;rsquo;t have to manually type the full path. Here is the example,
+suppose you want to create you own modular called addTitle.js&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-javascript&#34;&gt;define([&amp;quot;jquery&amp;quot;], function($){
+  // create your own module here
+  // can use $ sign as we normally use jQuery
+});
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id=&#34;commonjs&#34;&gt;CommonJs&lt;/h2&gt;
+
+&lt;p&gt;CommonJs is used in backend nodeJs. It&amp;rsquo;s the default module loader for nodeJs.
+It has two main systems: require/import and export.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-javascript&#34;&gt;const myModule = require(&#39;path/to/mymodule&#39;);
+// if this is a class, it&#39;s really to be used
+const myObject = new myModule();
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Some languages like Python and Java, you don&amp;rsquo;t explicitly to export your class
+or methods. However, in commonJs your have to explicitly to export your class
+and methods to be used&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-javascript&#34;&gt;// one way to export
+module.exports = class Dog{
+  constructor(name){
+    this.name = name;
+  }
+  
+  bark(){
+    console.log(&amp;quot;Woooo&amp;quot;);
+  }
+};
+
+// or your can create class first, then export it
+class Dog{
+  // define your class first
+}
+module.exports = Dog;
+
+// only want to export certain methods
+module.exports.add = (a,b)=&amp;gt; a + b;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;I think the grammar of commonJs is more natural and it&amp;rsquo;s easier to understand&lt;/p&gt;
+
+&lt;h2 id=&#34;es6-es2015&#34;&gt;ES6/ES2015&lt;/h2&gt;
+
+&lt;p&gt;ES6 is the new standard for javascript. Unfortunately, it&amp;rsquo;s not supported by
+modern browsers now. It has added many new features and syntactic sugar. These
+new features make developers who come from different language background feel
+easy to learn javascript. In order to use it, you have to use Babel to transpile
+it to current browsers supported javascript code.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-javascript&#34;&gt;// this is your partical.js module
+export default class Partical{
+  // here is your implementation
+}
+
+// this is your personalizedmath.js module
+export function square(x) {
+    return x * x;
+}
+
+export function pow3(x){
+  return x**3
+}
+
+// this is your main.js module
+// since this is not default export, brakets is required
+import { square, pow3 } from &#39;lib/personalizemath&#39;;
+// since this is default export, there is no need to
+// add brakets, and you can rename to what name you want
+import Partical from &#39;lib/partical&#39;
+console.log(square(11)); // -&amp;gt; 121
+console.log(pow3(2)); // -&amp;gt; 8
+let myPartical = new Partical();
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;ES6 adds many features, it worths to study. Here is a short list for ES6 features&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Arrow function &lt;code&gt;(a,b)=&amp;gt; a+b&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;default parameter &lt;code&gt;const myfunc = function(height=50, color=&#39;red&#39;){...}&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;spread operator &lt;code&gt;const listA = [1,2,3]; const listB = [&#39;A&#39;, &#39;B&#39;, ...listA] // listB -&amp;gt; &#39;A&#39;, &#39;B&#39;, 1, 2, 3&lt;/code&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&#34;reference&#34;&gt;Reference&lt;/h3&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;https://www.youtube.com/watch?v=JDDn57_z5Og&amp;amp;t=4s&amp;amp;frags=pl%2Cwn&#34; target=&#34;_blank&#34;&gt;https://www.youtube.com/watch?v=JDDn57_z5Og&amp;amp;t=4s&amp;amp;frags=pl%2Cwn&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://requirejs.org/&#34; target=&#34;_blank&#34;&gt;https://requirejs.org/&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://nodejs.org/&#34; target=&#34;_blank&#34;&gt;https://nodejs.org/&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://babeljs.io/&#34; target=&#34;_blank&#34;&gt;https://babeljs.io/&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/import&#34; target=&#34;_blank&#34;&gt;https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/import&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;</description>
+    </item>
+    
+    <item>
+      <title>Honeypot</title>
+      <link>https://shuishoudage.github.io/project/honeypot/</link>
+      <pubDate>Mon, 19 Sep 2016 00:00:00 +0000</pubDate>
+      
+      <guid>https://shuishoudage.github.io/project/honeypot/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>An example journal article</title>
+      <link>https://shuishoudage.github.io/publication/journal-article/</link>
+      <pubDate>Tue, 01 Sep 2015 00:00:00 +0000</pubDate>
+      
+      <guid>https://shuishoudage.github.io/publication/journal-article/</guid>
+      <description>&lt;div class=&#34;alert alert-note&#34;&gt;
+  &lt;div&gt;
+    Click the &lt;em&gt;Cite&lt;/em&gt; button above to demo the feature to enable visitors to import publication metadata into their reference management software.
+  &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;div class=&#34;alert alert-note&#34;&gt;
+  &lt;div&gt;
+    Click the &lt;em&gt;Slides&lt;/em&gt; button above to demo Academic&amp;rsquo;s Markdown slides feature.
+  &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;p&gt;Supplementary notes can be added here, including &lt;a href=&#34;https://sourcethemes.com/academic/docs/writing-markdown-latex/&#34; target=&#34;_blank&#34;&gt;code and math&lt;/a&gt;.&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>An example conference paper</title>
+      <link>https://shuishoudage.github.io/publication/conference-paper/</link>
+      <pubDate>Mon, 01 Jul 2013 00:00:00 +0000</pubDate>
+      
+      <guid>https://shuishoudage.github.io/publication/conference-paper/</guid>
+      <description>&lt;div class=&#34;alert alert-note&#34;&gt;
+  &lt;div&gt;
+    Click the &lt;em&gt;Cite&lt;/em&gt; button above to demo the feature to enable visitors to import publication metadata into their reference management software.
+  &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;div class=&#34;alert alert-note&#34;&gt;
+  &lt;div&gt;
+    Click the &lt;em&gt;Slides&lt;/em&gt; button above to demo Academic&amp;rsquo;s Markdown slides feature.
+  &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;p&gt;Supplementary notes can be added here, including &lt;a href=&#34;https://sourcethemes.com/academic/docs/writing-markdown-latex/&#34; target=&#34;_blank&#34;&gt;code and math&lt;/a&gt;.&lt;/p&gt;
+</description>
+    </item>
+    
+  </channel>
+</rss>
