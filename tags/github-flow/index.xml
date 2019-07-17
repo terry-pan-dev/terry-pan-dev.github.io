@@ -1,0 +1,144 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>github flow on TAOTAO PAN</title>
+    <link>/tags/github-flow/</link>
+    <description>Recent content in github flow on TAOTAO PAN</description>
+    <generator>Source Themes Academic (https://sourcethemes.com/academic/)</generator>
+    <language>en-us</language>
+    <lastBuildDate>Wed, 17 Jul 2019 00:00:00 +0000</lastBuildDate>
+    
+	    <atom:link href="/tags/github-flow/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Tips and tricks for git</title>
+      <link>/post/git-flow/</link>
+      <pubDate>Wed, 17 Jul 2019 00:00:00 +0000</pubDate>
+      
+      <guid>/post/git-flow/</guid>
+      <description>
+
+
+&lt;div id=&#34;introduction&#34; class=&#34;section level3&#34;&gt;
+&lt;h3&gt;Introduction&lt;/h3&gt;
+&lt;p&gt;Git is a version control system, the author Linus Torvalds is very famous. He is
+famous by anther system called Linux. Someone may not know him, but I suppose
+everyone knows Linux. Git is like a state machine which tracks what you have done
+and makes things safe. When you regret you can go back to history.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div id=&#34;key-concepts&#34; class=&#34;section level3&#34;&gt;
+&lt;h3&gt;Key concepts&lt;/h3&gt;
+&lt;p&gt;The state concept of git is essential for every developer. Here is an image
+I take from git official website.&lt;/p&gt;
+&lt;div class=&#34;figure&#34;&gt;
+&lt;img src=&#34;images/git.png&#34; alt=&#34;&#34; /&gt;
+&lt;p class=&#34;caption&#34;&gt;git&lt;/p&gt;
+&lt;/div&gt;
+&lt;p&gt;The three states are &lt;em&gt;modified&lt;/em&gt;, &lt;em&gt;staged&lt;/em&gt; and &lt;em&gt;committed&lt;/em&gt;. Modified means you
+have modified files or added new files but have not been using command &lt;code&gt;add&lt;/code&gt; to
+add those changes in &lt;code&gt;stage&lt;/code&gt;. After you &lt;code&gt;git add&lt;/code&gt; files, those files are meant
+&lt;code&gt;staged&lt;/code&gt;. Afterwards, you are ready to &lt;code&gt;commit&lt;/code&gt;. &lt;code&gt;committed&lt;/code&gt; means your data is
+safely stored in your local database. You can find those commits whenever you
+want as like checking database.&lt;/p&gt;
+&lt;p&gt;Let us give several examples. command &lt;code&gt;git status&lt;/code&gt; is often use to check status.
+Suppose you have not modified anything in your git repository.&lt;/p&gt;
+&lt;pre class=&#34;sh&#34;&gt;&lt;code&gt;git status&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;the output will be&lt;/p&gt;
+&lt;pre class=&#34;sh&#34;&gt;&lt;code&gt;nothing to commit, working tree clean.&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;What if you modified somthing?&lt;/p&gt;
+&lt;pre class=&#34;sh&#34;&gt;&lt;code&gt;Changes not staged for commit:
+  (use &amp;quot;git add &amp;lt;file&amp;gt;...&amp;quot; to update what will be committed)
+  (use &amp;quot;git checkout -- &amp;lt;file&amp;gt;...&amp;quot; to discard changes in working directory)
+
+    modified:   sample.txt
+
+no changes added to commit (use &amp;quot;git add&amp;quot; and/or &amp;quot;git commit -a&amp;quot;)&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Notice, the word from &lt;em&gt;working tree clean&lt;/em&gt; becomes &lt;em&gt;changes not staged&lt;/em&gt;. Now you
+can stage the modified files.&lt;/p&gt;
+&lt;pre class=&#34;sh&#34;&gt;&lt;code&gt;# add all modified files
+git add .&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;The output is&lt;/p&gt;
+&lt;pre class=&#34;sh&#34;&gt;&lt;code&gt;Changes to be committed:
+  (use &amp;quot;git reset HEAD &amp;lt;file&amp;gt;...&amp;quot; to unstage)
+
+    modified:   sample.txt&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;The information git given is quite friendly, it tells you that &lt;em&gt;changes to be
+committed&lt;/em&gt;. Now you are ready to commit your staging files. After committed,
+your modification is meant safe.&lt;/p&gt;
+&lt;pre class=&#34;sh&#34;&gt;&lt;code&gt;git commit -m &amp;quot;first commit&amp;quot;&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;after committed, if you issue &lt;code&gt;git status&lt;/code&gt; you’ll notice that the message becomes
+&lt;em&gt;working tree clean&lt;/em&gt; again. This is a cycle, we can repeat this cycles as many
+times as we want. So where is the record of our modifications? using &lt;code&gt;git log&lt;/code&gt;
+to check the commits we have done.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div id=&#34;regret-medicine&#34; class=&#34;section level3&#34;&gt;
+&lt;h3&gt;Regret medicine&lt;/h3&gt;
+&lt;p&gt;It’s fairly common that we make mistakes when &lt;code&gt;commit&lt;/code&gt; or &lt;code&gt;push&lt;/code&gt;.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Scenario 1&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;before staging. Which means you have modified something but have not &lt;code&gt;add&lt;/code&gt; to
+stage. If you want to discard the change, you can do&lt;/p&gt;
+&lt;pre class=&#34;sh&#34;&gt;&lt;code&gt;# for specific file
+git checkout -- filename&lt;/code&gt;&lt;/pre&gt;
+&lt;pre class=&#34;sh&#34;&gt;&lt;code&gt;# for all modified files
+git checkout -- .&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;strong&gt;Scenario 2&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;You have already &lt;code&gt;add&lt;/code&gt; to the stage. However, you found something wrong with
+it, you want to discard the &lt;code&gt;add&lt;/code&gt; action.&lt;/p&gt;
+&lt;pre class=&#34;sh&#34;&gt;&lt;code&gt;# for specific file
+git reset HEAD filename&lt;/code&gt;&lt;/pre&gt;
+&lt;pre class=&#34;sh&#34;&gt;&lt;code&gt;# for all staging files
+git reset HEAD .&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Notice, what you have done above will not affect what you have modified. The action
+just put files from staging to workspace. Your modification is still there.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Scenario 3&lt;/strong&gt;
+You have &lt;code&gt;commit&lt;/code&gt; the modification. However, you found this is not a proper commit.
+You can use following command to go back the previous commit.&lt;/p&gt;
+&lt;pre class=&#34;sh&#34;&gt;&lt;code&gt;git reset --hard HEAD~&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;This action completely discard what you have modified. Therefore, be careful with
+each commit.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div id=&#34;tips-and-tricks&#34; class=&#34;section level3&#34;&gt;
+&lt;h3&gt;Tips and tricks&lt;/h3&gt;
+&lt;div id=&#34;alias&#34; class=&#34;section level4&#34;&gt;
+&lt;h4&gt;Alias&lt;/h4&gt;
+&lt;p&gt;A developer has to use git frequently. Therefore, sometimes, certain git commands
+seem too lengthy. The way to overcome this is to create alias. There are three
+ways to create alias.&lt;/p&gt;
+&lt;p&gt;First, you can set your alias in &lt;em&gt;bashrc&lt;/em&gt; file, the syntax is same as set other
+alias.&lt;/p&gt;
+&lt;pre class=&#34;sh&#34;&gt;&lt;code&gt;alias gst=&amp;#39;git status&amp;#39;&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Or git provides alias functionality as well, for example&lt;/p&gt;
+&lt;pre class=&#34;sh&#34;&gt;&lt;code&gt;git config --global alias.co checkout
+git config --global alias.st status&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;If you use zsh instead of bash. Zsh provides a plugin call oh-my-zsh, it has
+git extension which has many git alias created for you.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div id=&#34;adddelete-features&#34; class=&#34;section level4&#34;&gt;
+&lt;h4&gt;Add/delete features&lt;/h4&gt;
+&lt;p&gt;In a rapid development environment, business requirements are often unstable. You
+may have to implement certain feature but finally is discarded. Clients may change
+their mind and you have to retrieve the feature again. There are two useful commands
+in git are used to tackle these two issues, &lt;code&gt;git revert&lt;/code&gt; and &lt;code&gt;git cherry-pick&lt;/code&gt;.&lt;/p&gt;
+&lt;p&gt;Suppose you have branch like following:
+&lt;img src=&#34;images/gitflow1.png&#34; alt=&#34;git1&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;What if you don’t need feature B? delete B? it seems not a good idea, beacuse
+you may need the feature B later on as we mentioned above. Moreover, since git
+is a version control system we want to record history not modify it. Here we can
+use following command to discard feature B.&lt;/p&gt;
+&lt;pre class=&#34;sh&#34;&gt;&lt;code&gt;git revert B&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;then you can get a new commit which only contain feature A and C. However, if your
+manager tell you, you have to add feature B back in the feature, what do you do?
+write again? not a good idea. Then we have command called &lt;code&gt;git cherry-pick&lt;/code&gt;. We
+can utilize this command to retrieve history back. First, use &lt;code&gt;git log&lt;/code&gt; find the
+sha1 of the feature you want to retrieve back, then using following command&lt;/p&gt;
+&lt;pre class=&#34;sh&#34;&gt;&lt;code&gt;git cherry-pick B-sha1&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Now we have the feature B back. Both actions did not change the history. Nice
+and cool!&lt;/p&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+</description>
+    </item>
+    
+  </channel>
+</rss>

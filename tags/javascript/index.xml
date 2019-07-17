@@ -2,21 +2,21 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>javascript on TAOTAO PAN</title>
-    <link>https://shuishoudage.github.io/tags/javascript/</link>
+    <link>/tags/javascript/</link>
     <description>Recent content in javascript on TAOTAO PAN</description>
     <generator>Source Themes Academic (https://sourcethemes.com/academic/)</generator>
     <language>en-us</language>
     <lastBuildDate>Thu, 11 Jul 2019 00:00:00 +0000</lastBuildDate>
     
-	    <atom:link href="https://shuishoudage.github.io/tags/javascript/index.xml" rel="self" type="application/rss+xml" />
+	    <atom:link href="/tags/javascript/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
       <title>Javascript event loop explained</title>
-      <link>https://shuishoudage.github.io/post/js-event-loop/</link>
+      <link>/post/js-event-loop/</link>
       <pubDate>Thu, 11 Jul 2019 00:00:00 +0000</pubDate>
       
-      <guid>https://shuishoudage.github.io/post/js-event-loop/</guid>
+      <guid>/post/js-event-loop/</guid>
       <description>
 
 
@@ -26,7 +26,7 @@
 fast, a single thread cannot undertake heavy tasks. It’s hard to change the
 fundamental mechanism from a single thread to multi-threads. To solve this
 problem, people come up with the concept of event loop. The concurrency model
-of javascript is based on &lt;em&gt;event loop&lt;/em&gt; &lt;span class=&#34;citation&#34;&gt;&lt;span class=&#34;csl-baseline&#34;&gt;&lt;span class=&#34;smallcaps&#34;&gt;[&lt;a href=&#34;#ref-BibEntry2019Jul&#34;&gt;1&lt;/a&gt;]&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/p&gt;
+of javascript is based on &lt;em&gt;event loop&lt;/em&gt; &lt;span class=&#34;citation&#34;&gt;&lt;span class=&#34;csl-baseline&#34;&gt;&lt;span class=&#34;smallcaps&#34;&gt;[&lt;a href=&#34;#ref-BibEntry2019Jul&#34; role=&#34;doc-biblioref&#34;&gt;1&lt;/a&gt;]&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/p&gt;
 &lt;/div&gt;
 &lt;div id=&#34;event-loop&#34; class=&#34;section level3&#34;&gt;
 &lt;h3&gt;Event loop&lt;/h3&gt;
@@ -54,7 +54,7 @@ as normal. After you run out all your functions in your call stack. Event loop
 will come to the event queue to check if there any job has not been done,
 if so, event loop will fetch the event inside the queue based on priority (macro
 and micro event, we will talk it in the next section). There is a event loop
-visualizer created by &lt;em&gt;Philip Roberts&lt;/em&gt; &lt;span class=&#34;citation&#34;&gt;&lt;span class=&#34;csl-baseline&#34;&gt;&lt;span class=&#34;smallcaps&#34;&gt;[&lt;a href=&#34;#ref-BibEntry2014Nov&#34;&gt;2&lt;/a&gt;]&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;.&lt;/p&gt;
+visualizer created by &lt;em&gt;Philip Roberts&lt;/em&gt; &lt;span class=&#34;citation&#34;&gt;&lt;span class=&#34;csl-baseline&#34;&gt;&lt;span class=&#34;smallcaps&#34;&gt;[&lt;a href=&#34;#ref-BibEntry2014Nov&#34; role=&#34;doc-biblioref&#34;&gt;2&lt;/a&gt;]&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;.&lt;/p&gt;
 &lt;p&gt;To make it concrete, here is an example code.&lt;/p&gt;
 &lt;pre class=&#34;javascript&#34;&gt;&lt;code&gt;setTimeOut(function(){
   console.log(&amp;quot;event 1&amp;quot;);
@@ -190,10 +190,10 @@ has not finished yet, &lt;code&gt;promise2&lt;/code&gt; will be printed. Finally
     
     <item>
       <title>Javascript scope and context</title>
-      <link>https://shuishoudage.github.io/post/js-scope-context/</link>
+      <link>/post/js-scope-context/</link>
       <pubDate>Tue, 09 Jul 2019 00:00:00 +0000</pubDate>
       
-      <guid>https://shuishoudage.github.io/post/js-scope-context/</guid>
+      <guid>/post/js-scope-context/</guid>
       <description>
 
 
@@ -210,7 +210,7 @@ these.&lt;/p&gt;
 &lt;p&gt;When you starting write a javascript, there is a default global scope called
 Window. Have a look at the image below&lt;/p&gt;
 &lt;div class=&#34;figure&#34;&gt;
-&lt;img src=&#34;images/global_scope.png&#34; alt=&#34;global&#34; /&gt;
+&lt;img src=&#34;images/global_scope.png&#34; alt=&#34;&#34; /&gt;
 &lt;p class=&#34;caption&#34;&gt;global&lt;/p&gt;
 &lt;/div&gt;
 &lt;p&gt;When a variable is in global scope it can be access by any other scope&lt;/p&gt;
@@ -258,7 +258,7 @@ console.log(occupation); // cannot be accessed&lt;/code&gt;&lt;/pre&gt;
 &lt;div id=&#34;context&#34; class=&#34;section level3&#34;&gt;
 &lt;h3&gt;Context&lt;/h3&gt;
 &lt;p&gt;When we talking about context, we are referring &lt;code&gt;this&lt;/code&gt; keyword. Here is a definition
-from MDN &lt;span class=&#34;citation&#34;&gt;&lt;span class=&#34;csl-baseline&#34;&gt;&lt;span class=&#34;smallcaps&#34;&gt;[&lt;a href=&#34;#ref-BibEntry2019Jul&#34;&gt;1&lt;/a&gt;]&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;.
+from MDN &lt;span class=&#34;citation&#34;&gt;&lt;span class=&#34;csl-baseline&#34;&gt;&lt;span class=&#34;smallcaps&#34;&gt;[&lt;a href=&#34;#ref-BibEntry2019Jul&#34; role=&#34;doc-biblioref&#34;&gt;1&lt;/a&gt;]&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;.
 &amp;gt; In most cases, the value of this is determined by how a function is called&lt;/p&gt;
 &lt;p&gt;So, what we have to find is who called this function. If a object called a function
 then &lt;code&gt;this&lt;/code&gt; is the object, if a button is called the function, then &lt;code&gt;this&lt;/code&gt; is
@@ -309,7 +309,7 @@ console.log(test.func.call(test2)); // print Albert Einstein&lt;/code&gt;&lt;/pr
 &lt;pre class=&#34;js&#34;&gt;&lt;code&gt;func.call(context, &amp;quot;arg1&amp;quot;, &amp;quot;arg2&amp;quot;, &amp;quot;argn&amp;quot;);
 func.apply(context, [&amp;quot;arg1&amp;quot;, &amp;quot;arg2&amp;quot;, &amp;quot;argn&amp;quot;]);
 func.bind(context);&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;call has slighly faster in performance than apply &lt;span class=&#34;citation&#34;&gt;&lt;span class=&#34;csl-baseline&#34;&gt;&lt;span class=&#34;smallcaps&#34;&gt;[&lt;a href=&#34;#ref-Ahmed2019Jul&#34;&gt;2&lt;/a&gt;]&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/p&gt;
+&lt;p&gt;call has slighly faster in performance than apply &lt;span class=&#34;citation&#34;&gt;&lt;span class=&#34;csl-baseline&#34;&gt;&lt;span class=&#34;smallcaps&#34;&gt;[&lt;a href=&#34;#ref-Ahmed2019Jul&#34; role=&#34;doc-biblioref&#34;&gt;2&lt;/a&gt;]&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;Public and Private&lt;/strong&gt;&lt;/p&gt;
 &lt;p&gt;The function scope can be used to mimic traditional OOP language properties like
 private variables. Moreover, it can be used to manage namespace.&lt;/p&gt;
@@ -364,7 +364,7 @@ func(&amp;quot;from inner function&amp;quot;);
 the arguments from its outer functions and the returned function will not be
 invoked immediately, you can invoke the returned function whenever you want. Which
 is really handy. There is a very good visualization tool created by Tyler McGinnis.
-Which gives a really concrete example of what closure is &lt;span class=&#34;citation&#34;&gt;&lt;span class=&#34;csl-baseline&#34;&gt;&lt;span class=&#34;smallcaps&#34;&gt;[&lt;a href=&#34;#ref-BibEntry2019Jul&#34;&gt;1&lt;/a&gt;]&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/p&gt;
+Which gives a really concrete example of what closure is &lt;span class=&#34;citation&#34;&gt;&lt;span class=&#34;csl-baseline&#34;&gt;&lt;span class=&#34;smallcaps&#34;&gt;[&lt;a href=&#34;#ref-BibEntry2019Jul&#34; role=&#34;doc-biblioref&#34;&gt;1&lt;/a&gt;]&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/p&gt;
 &lt;/div&gt;
 &lt;div id=&#34;references&#34; class=&#34;section level3 unnumbered&#34;&gt;
 &lt;h3&gt;References&lt;/h3&gt;
@@ -384,10 +384,10 @@ Scotch2019;Available from: &lt;a href=&#34;https://scotch.io/tutorials/understan
     
     <item>
       <title>Javascript modular history</title>
-      <link>https://shuishoudage.github.io/post/js-modular-history/</link>
+      <link>/post/js-modular-history/</link>
       <pubDate>Fri, 27 Jul 2018 00:00:00 +0000</pubDate>
       
-      <guid>https://shuishoudage.github.io/post/js-modular-history/</guid>
+      <guid>/post/js-modular-history/</guid>
       <description>&lt;p&gt;Javascript has been dramatically used in front-end and back-end compared to the
 time when it was invented. When the time it was invented, it supposes to be a joy
 programming language, doing some simple interactions between browser. However,

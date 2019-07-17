@@ -2,21 +2,21 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Authors on TAOTAO PAN</title>
-    <link>https://shuishoudage.github.io/authors/</link>
+    <link>/authors/</link>
     <description>Recent content in Authors on TAOTAO PAN</description>
     <generator>Source Themes Academic (https://sourcethemes.com/academic/)</generator>
     <language>en-us</language>
-    <lastBuildDate>Thu, 11 Jul 2019 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Wed, 17 Jul 2019 00:00:00 +0000</lastBuildDate>
     
-	    <atom:link href="https://shuishoudage.github.io/authors/index.xml" rel="self" type="application/rss+xml" />
+	    <atom:link href="/authors/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
       <title></title>
-      <link>https://shuishoudage.github.io/authors/admin/</link>
-      <pubDate>Thu, 11 Jul 2019 00:00:00 +0000</pubDate>
+      <link>/authors/admin/</link>
+      <pubDate>Wed, 17 Jul 2019 00:00:00 +0000</pubDate>
       
-      <guid>https://shuishoudage.github.io/authors/admin/</guid>
+      <guid>/authors/admin/</guid>
       <description>&lt;p&gt;Taotao Pan is a student of Data Science at the University of Queensland. His research interests include Machine Learning, Data Science and Software Engineering. He tends to solve real world problems
 by thinking like a engineer.&lt;/p&gt;
 </description>
@@ -24,10 +24,10 @@ by thinking like a engineer.&lt;/p&gt;
     
     <item>
       <title>Robert Ford</title>
-      <link>https://shuishoudage.github.io/authors/robert-ford/</link>
+      <link>/authors/robert-ford/</link>
       <pubDate>Tue, 01 Sep 2015 00:00:00 +0000</pubDate>
       
-      <guid>https://shuishoudage.github.io/authors/robert-ford/</guid>
+      <guid>/authors/robert-ford/</guid>
       <description></description>
     </item>
     
