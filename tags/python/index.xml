@@ -2,21 +2,21 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>python on TAOTAO PAN</title>
-    <link>/tags/python/</link>
+    <link>https://shuishoudage.github.io/tags/python/</link>
     <description>Recent content in python on TAOTAO PAN</description>
     <generator>Source Themes Academic (https://sourcethemes.com/academic/)</generator>
     <language>en-us</language>
     <lastBuildDate>Mon, 19 Sep 2016 00:00:00 +0000</lastBuildDate>
     
-	    <atom:link href="/tags/python/index.xml" rel="self" type="application/rss+xml" />
+	    <atom:link href="https://shuishoudage.github.io/tags/python/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
       <title>Honeypot</title>
-      <link>/project/honeypot/</link>
+      <link>https://shuishoudage.github.io/project/honeypot/</link>
       <pubDate>Mon, 19 Sep 2016 00:00:00 +0000</pubDate>
       
-      <guid>/project/honeypot/</guid>
+      <guid>https://shuishoudage.github.io/project/honeypot/</guid>
       <description></description>
     </item>
     

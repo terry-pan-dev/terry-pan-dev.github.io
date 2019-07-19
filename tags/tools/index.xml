@@ -2,21 +2,21 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>tools on TAOTAO PAN</title>
-    <link>/tags/tools/</link>
+    <link>https://shuishoudage.github.io/tags/tools/</link>
     <description>Recent content in tools on TAOTAO PAN</description>
     <generator>Source Themes Academic (https://sourcethemes.com/academic/)</generator>
     <language>en-us</language>
     <lastBuildDate>Thu, 11 Apr 2019 00:00:00 +0000</lastBuildDate>
     
-	    <atom:link href="/tags/tools/index.xml" rel="self" type="application/rss+xml" />
+	    <atom:link href="https://shuishoudage.github.io/tags/tools/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
       <title>draw2data</title>
-      <link>/project/draw2data/</link>
+      <link>https://shuishoudage.github.io/project/draw2data/</link>
       <pubDate>Thu, 11 Apr 2019 00:00:00 +0000</pubDate>
       
-      <guid>/project/draw2data/</guid>
+      <guid>https://shuishoudage.github.io/project/draw2data/</guid>
       <description></description>
     </item>
     
