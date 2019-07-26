@@ -2,21 +2,21 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Software Engineering on TAOTAO PAN</title>
-    <link>https://shuishoudage.github.io/categories/software-engineering/</link>
+    <link>/categories/software-engineering/</link>
     <description>Recent content in Software Engineering on TAOTAO PAN</description>
     <generator>Source Themes Academic (https://sourcethemes.com/academic/)</generator>
     <language>en-us</language>
     <lastBuildDate>Wed, 17 Jul 2019 00:00:00 +0000</lastBuildDate>
     
-	    <atom:link href="https://shuishoudage.github.io/categories/software-engineering/index.xml" rel="self" type="application/rss+xml" />
+	    <atom:link href="/categories/software-engineering/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
       <title>Tips and tricks for git</title>
-      <link>https://shuishoudage.github.io/post/git-flow/</link>
+      <link>/post/git-flow/</link>
       <pubDate>Wed, 17 Jul 2019 00:00:00 +0000</pubDate>
       
-      <guid>https://shuishoudage.github.io/post/git-flow/</guid>
+      <guid>/post/git-flow/</guid>
       <description>
 
 
@@ -141,6 +141,46 @@ sha1 of the feature you want to retrieve back, then using following command&lt;/
 &lt;p&gt;Now we have the feature B back. Both actions did not change the history. Nice
 and cool!&lt;/p&gt;
 &lt;/div&gt;
+&lt;/div&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Docker</title>
+      <link>/post/docker/docker/</link>
+      <pubDate>Mon, 01 Jul 2019 00:00:00 +0000</pubDate>
+      
+      <guid>/post/docker/docker/</guid>
+      <description>
+
+
+&lt;div id=&#34;introduction&#34; class=&#34;section level3&#34;&gt;
+&lt;h3&gt;Introduction&lt;/h3&gt;
+&lt;p&gt;Docker is a light weight virtual machine, it does not have the OS level abstraction
+like VMWare or Parallel. Therefore, it is light and resource saving. The main
+issue it wants to tackle it is the pain of deploying service in different systems.
+Like developers develope and test projects in their own system but when deploy
+in the remote server, it may not work.&lt;/p&gt;
+&lt;div id=&#34;images-vs-containers&#34; class=&#34;section level4&#34;&gt;
+&lt;h4&gt;Images vs containers&lt;/h4&gt;
+&lt;p&gt;Images are similar as the concept class in object oriented programming. It can
+be considered as a blueprint. Users can create their own images based on others
+this is just like inheritance in OOP. Whereas, containers just like the concept
+of object in OOP, we can create multiple containers from one image, suppose
+each image is just a blueprint of a server, the advantages of this feature make
+expand server much easier. That’s why container technology is a hot topic in
+distributed system.&lt;/p&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div id=&#34;useful-docker-commands&#34; class=&#34;section level3&#34;&gt;
+&lt;h3&gt;Useful docker commands&lt;/h3&gt;
+&lt;pre class=&#34;sh&#34;&gt;&lt;code&gt;docker ps -a&lt;/code&gt;&lt;/pre&gt;
+&lt;pre class=&#34;sh&#34;&gt;&lt;code&gt;docker inspect youthful_elion&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Here is a image shows the differences between Docker and OS-based virtual machine
+&lt;img src=&#34;https://i2.wp.com/blog.docker.com/wp-content/uploads/Blog.-Are-containers-..VM-Image-1-1024x435.png?ssl=1&#34; alt=&#34;dock-os&#34; /&gt;&lt;/p&gt;
+&lt;/div&gt;
+&lt;div id=&#34;references&#34; class=&#34;section level3&#34;&gt;
+&lt;h3&gt;References&lt;/h3&gt;
 &lt;/div&gt;
 </description>
     </item>

@@ -2,21 +2,21 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>TAOTAO PAN</title>
-    <link>https://shuishoudage.github.io/</link>
+    <link>/</link>
     <description>Recent content on TAOTAO PAN</description>
     <generator>Source Themes Academic (https://sourcethemes.com/academic/)</generator>
     <language>en-us</language>
     <lastBuildDate>Sat, 01 Jun 2030 13:00:00 +0000</lastBuildDate>
     
-	    <atom:link href="https://shuishoudage.github.io/index.xml" rel="self" type="application/rss+xml" />
+	    <atom:link href="/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
       <title>Example Talk</title>
-      <link>https://shuishoudage.github.io/talk/example/</link>
+      <link>/talk/example/</link>
       <pubDate>Sat, 01 Jun 2030 13:00:00 +0000</pubDate>
       
-      <guid>https://shuishoudage.github.io/talk/example/</guid>
+      <guid>/talk/example/</guid>
       <description>&lt;div class=&#34;alert alert-note&#34;&gt;
   &lt;div&gt;
     Click on the &lt;strong&gt;Slides&lt;/strong&gt; button above to view the built-in slides feature.
@@ -36,11 +36,188 @@
     </item>
     
     <item>
+      <title>Permutation and combination</title>
+      <link>/post/permutation-combination/</link>
+      <pubDate>Sat, 27 Jul 2019 00:00:00 +0000</pubDate>
+      
+      <guid>/post/permutation-combination/</guid>
+      <description>
+
+
+&lt;div id=&#34;introduction&#34; class=&#34;section level3&#34;&gt;
+&lt;h3&gt;Introduction&lt;/h3&gt;
+&lt;p&gt;Permutation and Combination is an important concept in statistics. The reason is
+because in order to know the probability of an event. we often have to calculate
+sample space.&lt;/p&gt;
+&lt;p&gt;Two words are essential regard to permutation and combination, one is &lt;strong&gt;order&lt;/strong&gt;
+another is &lt;strong&gt;replacement&lt;/strong&gt;. One quick example will be the combination (general meaning)
+of letters &lt;code&gt;AB&lt;/code&gt;. If order matters &lt;code&gt;AB&lt;/code&gt; and &lt;code&gt;BA&lt;/code&gt; are different, we count them as 2,
+but if order does not matter, we only count as 1. Next, if we take account of
+replacement, we have &lt;code&gt;AA&lt;/code&gt;, &lt;code&gt;AB&lt;/code&gt;, &lt;code&gt;BA&lt;/code&gt;, &lt;code&gt;BB&lt;/code&gt;, we count to 4 in terms of order matters.
+However, if we do not allow replacement, we only have &lt;code&gt;AB&lt;/code&gt; and &lt;code&gt;BA&lt;/code&gt;. Which we
+can count to 2. The general idea behind it is that when we allow replacement and
+order matters, there are more combinations (general meaning).&lt;/p&gt;
+&lt;p&gt;The main differece between permutation and combination is that permutaion order
+matters whereas combination does not.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div id=&#34;anatomy&#34; class=&#34;section level3&#34;&gt;
+&lt;h3&gt;Anatomy&lt;/h3&gt;
+
+&lt;div class=&#34;example&#34;&gt;
+&lt;span id=&#34;exm:unnamed-chunk-1&#34; class=&#34;example&#34;&gt;&lt;strong&gt;Example 1  &lt;/strong&gt;&lt;/span&gt;two letters are choosen with from the word PING, what are the sample space?
+&lt;/div&gt;
+
+&lt;p&gt;We can create a table to cover the four cases&lt;/p&gt;
+&lt;table&gt;
+&lt;colgroup&gt;
+&lt;col width=&#34;15%&#34; /&gt;
+&lt;col width=&#34;18%&#34; /&gt;
+&lt;col width=&#34;18%&#34; /&gt;
+&lt;col width=&#34;24%&#34; /&gt;
+&lt;col width=&#34;24%&#34; /&gt;
+&lt;/colgroup&gt;
+&lt;thead&gt;
+&lt;tr class=&#34;header&#34;&gt;
+&lt;th&gt;case&lt;/th&gt;
+&lt;th&gt;replacement&lt;/th&gt;
+&lt;th&gt;order&lt;/th&gt;
+&lt;th&gt;outcome&lt;/th&gt;
+&lt;th&gt;calculation&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;
+&lt;tr class=&#34;odd&#34;&gt;
+&lt;td&gt;1&lt;/td&gt;
+&lt;td&gt;0&lt;/td&gt;
+&lt;td&gt;0&lt;/td&gt;
+&lt;td&gt;(PI),(PN),(PG),(IN),(IG),(NG)&lt;/td&gt;
+&lt;td&gt;3+2+1=6&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr class=&#34;even&#34;&gt;
+&lt;td&gt;2&lt;/td&gt;
+&lt;td&gt;0&lt;/td&gt;
+&lt;td&gt;1&lt;/td&gt;
+&lt;td&gt;(PI),(PN),(PG),(IP),(IN),(IG),(NP),(NI),(NG),(GP),(GI),(GN)&lt;/td&gt;
+&lt;td&gt;3+3+3+3=12&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr class=&#34;odd&#34;&gt;
+&lt;td&gt;3&lt;/td&gt;
+&lt;td&gt;1&lt;/td&gt;
+&lt;td&gt;0&lt;/td&gt;
+&lt;td&gt;(PP),(PI),(PN),(PG),(II),(IN),(IG),(NN),(NG),(GG)&lt;/td&gt;
+&lt;td&gt;4+3+2+1=10&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr class=&#34;even&#34;&gt;
+&lt;td&gt;4&lt;/td&gt;
+&lt;td&gt;1&lt;/td&gt;
+&lt;td&gt;1&lt;/td&gt;
+&lt;td&gt;(PP),(PI),(PN),(PG),(II),(IP),(IN),(IG),(NN),(NP),(NI),(NG),(GG),(GP),(GI),(GN)&lt;/td&gt;
+&lt;td&gt;4x4=16&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+&lt;p&gt;When we have the term &lt;strong&gt;replacement&lt;/strong&gt;, it’s like we have a bag of balls. We can
+draw a ball then put it back to the bag then draw another one. In terms of example
+above, we can have the combination with itself. For term &lt;strong&gt;order&lt;/strong&gt;, when order
+matters, we are able to go backwards, like when we try to find the combination
+for letter &lt;code&gt;I&lt;/code&gt;, we are able to go backwards to letter &lt;code&gt;P&lt;/code&gt;, which we have &lt;code&gt;IP&lt;/code&gt;.
+Whereas, when order does not matter, we can only move forward.&lt;/p&gt;
+&lt;p&gt;it seems there are centain patterns in the calculation like &lt;code&gt;3+2+1&lt;/code&gt; and &lt;code&gt;4+3+2+1&lt;/code&gt;.
+If there are certain patterns, we can find formulas to make calculation easier.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div id=&#34;formulas&#34; class=&#34;section level3&#34;&gt;
+&lt;h3&gt;Formulas&lt;/h3&gt;
+&lt;p&gt;the formulation for permutation
+&lt;span class=&#34;math display&#34;&gt;\[
+^{n} P_{k} = \frac{n!}{(n-k)!}
+\]&lt;/span&gt;
+we read this as n choose k&lt;/p&gt;
+&lt;p&gt;and the formula for combination is
+&lt;span class=&#34;math display&#34;&gt;\[
+\left(\begin{array}{l}{n} \\ {k}\end{array}\right)=n C_{k}=\frac{n !}{k !(n-k) !}
+\]&lt;/span&gt;&lt;/p&gt;
+&lt;p&gt;Let’s calculate the result of above question by formulas. First of all, permutation&lt;/p&gt;
+&lt;p&gt;&lt;span class=&#34;math display&#34;&gt;\[
+\frac{4!}{(4-2)!} = 4\times 3=12
+\]&lt;/span&gt;&lt;/p&gt;
+&lt;p&gt;the result matches the calculation above which is without replacement but order
+matters (case 2), then combination&lt;/p&gt;
+&lt;p&gt;&lt;span class=&#34;math display&#34;&gt;\[
+\frac{4!}{2!(4-2)!}=\frac{4\times 3}{2}=6
+\]&lt;/span&gt;&lt;/p&gt;
+&lt;p&gt;Which also matches our case 1.&lt;/p&gt;
+&lt;p&gt;What is the formulas for case 3 and case 4? Which we take account of replacement.
+for case 3 we have
+&lt;span class=&#34;math display&#34;&gt;\[
+^{n} C_{r}=\frac{(n+r-1) !}{r !(n-1) !}
+\]&lt;/span&gt;&lt;/p&gt;
+&lt;p&gt;Let’s further verify it
+&lt;span class=&#34;math display&#34;&gt;\[
+\frac{(4+2-1)!}{2!(4-1)!} = \frac{5!}{2!3!}=\frac{5\times 4}{2}=10
+\]&lt;/span&gt;&lt;/p&gt;
+&lt;p&gt;it matches our result. Last one is permutation with replacement.
+&lt;span class=&#34;math display&#34;&gt;\[
+^{n} P_{r}=n^{r}
+\]&lt;/span&gt;&lt;/p&gt;
+&lt;/div&gt;
+&lt;div id=&#34;summary&#34; class=&#34;section level3&#34;&gt;
+&lt;h3&gt;Summary&lt;/h3&gt;
+&lt;p&gt;Here is a summary table for the result&lt;/p&gt;
+&lt;table&gt;
+&lt;colgroup&gt;
+&lt;col width=&#34;12%&#34; /&gt;
+&lt;col width=&#34;39%&#34; /&gt;
+&lt;col width=&#34;21%&#34; /&gt;
+&lt;col width=&#34;27%&#34; /&gt;
+&lt;/colgroup&gt;
+&lt;thead&gt;
+&lt;tr class=&#34;header&#34;&gt;
+&lt;th&gt;case&lt;/th&gt;
+&lt;th&gt;replacement&lt;/th&gt;
+&lt;th&gt;order&lt;/th&gt;
+&lt;th&gt;formula&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;
+&lt;tr class=&#34;odd&#34;&gt;
+&lt;td&gt;combination&lt;/td&gt;
+&lt;td&gt;0&lt;/td&gt;
+&lt;td&gt;0&lt;/td&gt;
+&lt;td&gt;&lt;span class=&#34;math inline&#34;&gt;\(\left(\begin{array}{l}{n} \\ {k}\end{array}\right)=n C_{k}=\frac{n !}{k !(n-k) !}\)&lt;/span&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr class=&#34;even&#34;&gt;
+&lt;td&gt;permutation&lt;/td&gt;
+&lt;td&gt;0&lt;/td&gt;
+&lt;td&gt;1&lt;/td&gt;
+&lt;td&gt;&lt;span class=&#34;math inline&#34;&gt;\(^{n} P_{k} = \frac{n!}{(n-k)!}\)&lt;/span&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr class=&#34;odd&#34;&gt;
+&lt;td&gt;combination&lt;/td&gt;
+&lt;td&gt;1&lt;/td&gt;
+&lt;td&gt;0&lt;/td&gt;
+&lt;td&gt;&lt;span class=&#34;math inline&#34;&gt;\(^{n} C_{r}=\frac{(n+r-1) !}{r !(n-1) !}\)&lt;/span&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr class=&#34;even&#34;&gt;
+&lt;td&gt;permutation&lt;/td&gt;
+&lt;td&gt;1&lt;/td&gt;
+&lt;td&gt;1&lt;/td&gt;
+&lt;td&gt;&lt;span class=&#34;math inline&#34;&gt;\(^{n} P_{r}=n^{r}\)&lt;/span&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+&lt;p&gt;as you can see above, when order is 0, we have combination. Whereas, when order
+is 1, we have permutation. This is the difference between permutation and
+combination we have discussed on section 1.&lt;/p&gt;
+&lt;/div&gt;
+</description>
+    </item>
+    
+    <item>
       <title>Tips and tricks for git</title>
-      <link>https://shuishoudage.github.io/post/git-flow/</link>
+      <link>/post/git-flow/</link>
       <pubDate>Wed, 17 Jul 2019 00:00:00 +0000</pubDate>
       
-      <guid>https://shuishoudage.github.io/post/git-flow/</guid>
+      <guid>/post/git-flow/</guid>
       <description>
 
 
@@ -171,10 +348,10 @@ and cool!&lt;/p&gt;
     
     <item>
       <title>Javascript event loop explained</title>
-      <link>https://shuishoudage.github.io/post/js-event-loop/</link>
+      <link>/post/js-event-loop/</link>
       <pubDate>Thu, 11 Jul 2019 00:00:00 +0000</pubDate>
       
-      <guid>https://shuishoudage.github.io/post/js-event-loop/</guid>
+      <guid>/post/js-event-loop/</guid>
       <description>
 
 
@@ -348,10 +525,10 @@ has not finished yet, &lt;code&gt;promise2&lt;/code&gt; will be printed. Finally
     
     <item>
       <title>Javascript scope and context</title>
-      <link>https://shuishoudage.github.io/post/js-scope-context/</link>
+      <link>/post/js-scope-context/</link>
       <pubDate>Tue, 09 Jul 2019 00:00:00 +0000</pubDate>
       
-      <guid>https://shuishoudage.github.io/post/js-scope-context/</guid>
+      <guid>/post/js-scope-context/</guid>
       <description>
 
 
@@ -541,11 +718,51 @@ Scotch2019;Available from: &lt;a href=&#34;https://scotch.io/tutorials/understan
     </item>
     
     <item>
+      <title>Docker</title>
+      <link>/post/docker/docker/</link>
+      <pubDate>Mon, 01 Jul 2019 00:00:00 +0000</pubDate>
+      
+      <guid>/post/docker/docker/</guid>
+      <description>
+
+
+&lt;div id=&#34;introduction&#34; class=&#34;section level3&#34;&gt;
+&lt;h3&gt;Introduction&lt;/h3&gt;
+&lt;p&gt;Docker is a light weight virtual machine, it does not have the OS level abstraction
+like VMWare or Parallel. Therefore, it is light and resource saving. The main
+issue it wants to tackle it is the pain of deploying service in different systems.
+Like developers develope and test projects in their own system but when deploy
+in the remote server, it may not work.&lt;/p&gt;
+&lt;div id=&#34;images-vs-containers&#34; class=&#34;section level4&#34;&gt;
+&lt;h4&gt;Images vs containers&lt;/h4&gt;
+&lt;p&gt;Images are similar as the concept class in object oriented programming. It can
+be considered as a blueprint. Users can create their own images based on others
+this is just like inheritance in OOP. Whereas, containers just like the concept
+of object in OOP, we can create multiple containers from one image, suppose
+each image is just a blueprint of a server, the advantages of this feature make
+expand server much easier. That’s why container technology is a hot topic in
+distributed system.&lt;/p&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div id=&#34;useful-docker-commands&#34; class=&#34;section level3&#34;&gt;
+&lt;h3&gt;Useful docker commands&lt;/h3&gt;
+&lt;pre class=&#34;sh&#34;&gt;&lt;code&gt;docker ps -a&lt;/code&gt;&lt;/pre&gt;
+&lt;pre class=&#34;sh&#34;&gt;&lt;code&gt;docker inspect youthful_elion&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Here is a image shows the differences between Docker and OS-based virtual machine
+&lt;img src=&#34;https://i2.wp.com/blog.docker.com/wp-content/uploads/Blog.-Are-containers-..VM-Image-1-1024x435.png?ssl=1&#34; alt=&#34;dock-os&#34; /&gt;&lt;/p&gt;
+&lt;/div&gt;
+&lt;div id=&#34;references&#34; class=&#34;section level3&#34;&gt;
+&lt;h3&gt;References&lt;/h3&gt;
+&lt;/div&gt;
+</description>
+    </item>
+    
+    <item>
       <title>Linear Regression</title>
-      <link>https://shuishoudage.github.io/post/linear-regression/linear-regression/</link>
+      <link>/post/linear-regression/linear-regression/</link>
       <pubDate>Fri, 28 Jun 2019 00:00:00 +0000</pubDate>
       
-      <guid>https://shuishoudage.github.io/post/linear-regression/linear-regression/</guid>
+      <guid>/post/linear-regression/linear-regression/</guid>
       <description>
 
 
@@ -563,7 +780,7 @@ y = ax + b
 Here y is outcome or sometimes we will written as &lt;span class=&#34;math inline&#34;&gt;\(f(x)\)&lt;/span&gt;, it is the same thing
 but written in a different format. a is the slope and b is the intercept. Let’s
 giving a plot.&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;https://shuishoudage.github.io/post/linear-regression/index_files/figure-html/unnamed-chunk-2-1.png&#34; width=&#34;672&#34; /&gt;
+&lt;p&gt;&lt;img src=&#34;/post/linear-regression/index_files/figure-html/unnamed-chunk-2-1.png&#34; width=&#34;672&#34; /&gt;
 This example is set intercept to 1.4 and slope as 0.5. For this example, we only
 have one input (x) and one output (y)&lt;/p&gt;
 &lt;p&gt;In real world application, we normally have more than one feature. Suppose
@@ -689,7 +906,7 @@ f(X)=\beta_{0}+\sum_{j=1}^{p} X_{j} \beta_{j}
 &lt;pre class=&#34;r&#34;&gt;&lt;code&gt;ggplot(df, aes(TV, Sales)) +
   geom_point() +
   geom_smooth(method = &amp;#39;lm&amp;#39;, formula = y~x)&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;&lt;img src=&#34;https://shuishoudage.github.io/post/linear-regression/index_files/figure-html/unnamed-chunk-4-1.png&#34; width=&#34;672&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;/post/linear-regression/index_files/figure-html/unnamed-chunk-4-1.png&#34; width=&#34;672&#34; /&gt;&lt;/p&gt;
 &lt;p&gt;What we like to do is reduce the residuals.&lt;/p&gt;
 &lt;div class=&#34;figure&#34;&gt;
 &lt;img src=&#34;residuals.png&#34; alt=&#34;&#34; /&gt;
@@ -767,7 +984,7 @@ simply the formula of this model, nothing special. Next one is the statistical
 summary for residuals, actually we can use box plot to show it more concretely.&lt;/p&gt;
 &lt;pre class=&#34;r&#34;&gt;&lt;code&gt;ggplot(data.frame(resi = residuals(lm.fit)), aes(x = &amp;quot;&amp;quot;, y = resi )) +
   geom_boxplot()&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;&lt;img src=&#34;https://shuishoudage.github.io/post/linear-regression/index_files/figure-html/unnamed-chunk-6-1.png&#34; width=&#34;672&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;/post/linear-regression/index_files/figure-html/unnamed-chunk-6-1.png&#34; width=&#34;672&#34; /&gt;&lt;/p&gt;
 &lt;p&gt;As we can see, the plot above matches the summary. The middle thicker horizontal
 line is the median (-1.318) in the summary, and the line above and below the
 median line is the first quantile (1Q) and third quantile (3Q). The points on
@@ -833,7 +1050,7 @@ linear regression.&lt;/p&gt;
 &lt;p&gt;By checking residuals normality, we can use Q-Q plot,&lt;/p&gt;
 &lt;pre class=&#34;r&#34;&gt;&lt;code&gt;lm.fit &amp;lt;- lm(medv ~ rm + lstat + crim + dis, data = Boston)
 ggqqplot(residuals(lm.fit))&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;&lt;img src=&#34;https://shuishoudage.github.io/post/linear-regression/index_files/figure-html/unnamed-chunk-9-1.png&#34; width=&#34;672&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;/post/linear-regression/index_files/figure-html/unnamed-chunk-9-1.png&#34; width=&#34;672&#34; /&gt;&lt;/p&gt;
 &lt;p&gt;How to interpret this plot? Suppose the residuals are following a normal distribution,
 the points above should be roughly located around the slope line and should be
 with inside the 95% confidence curvy dashed line.&lt;/p&gt;
@@ -856,7 +1073,7 @@ this is &lt;strong&gt;not&lt;/strong&gt; a normally distributed data.&lt;/p&gt;
 independency.&lt;/p&gt;
 &lt;pre class=&#34;r&#34;&gt;&lt;code&gt;plot(sequence(nrow(Boston)), residuals(lm.fit))
 abline(h=0, col=&amp;#39;red&amp;#39;)&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;&lt;img src=&#34;https://shuishoudage.github.io/post/linear-regression/index_files/figure-html/unnamed-chunk-11-1.png&#34; width=&#34;672&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;/post/linear-regression/index_files/figure-html/unnamed-chunk-11-1.png&#34; width=&#34;672&#34; /&gt;&lt;/p&gt;
 &lt;p&gt;Independent residuals should be located around 0 and randomly scattered.&lt;/p&gt;
 &lt;/div&gt;
 &lt;div id=&#34;linearity&#34; class=&#34;section level4&#34;&gt;
@@ -866,7 +1083,7 @@ relation between the response variable. After all, we use linear regression to
 create model, if there is no linear relation we have to use other non-linear
 model.&lt;/p&gt;
 &lt;pre class=&#34;r&#34;&gt;&lt;code&gt;crPlots(lm(medv ~ rm + lstat + crim + dis, data = Boston))&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;&lt;img src=&#34;https://shuishoudage.github.io/post/linear-regression/index_files/figure-html/unnamed-chunk-12-1.png&#34; width=&#34;672&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;/post/linear-regression/index_files/figure-html/unnamed-chunk-12-1.png&#34; width=&#34;672&#34; /&gt;&lt;/p&gt;
 &lt;p&gt;what we most case is if there is any pattern inside the plot&lt;/p&gt;
 &lt;pre class=&#34;r&#34;&gt;&lt;code&gt;summary(gvlma::gvlma(x = lm.fit))&lt;/code&gt;&lt;/pre&gt;
 &lt;pre&gt;&lt;code&gt;## 
@@ -912,7 +1129,7 @@ model.&lt;/p&gt;
 be constant, see the plot below.&lt;/p&gt;
 &lt;pre class=&#34;r&#34;&gt;&lt;code&gt;par(mfrow=c(2,2))
 plot(lm.fit, pch = 16, cex = 0.5)&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;&lt;img src=&#34;https://shuishoudage.github.io/post/linear-regression/index_files/figure-html/unnamed-chunk-14-1.png&#34; width=&#34;672&#34; /&gt;
+&lt;p&gt;&lt;img src=&#34;/post/linear-regression/index_files/figure-html/unnamed-chunk-14-1.png&#34; width=&#34;672&#34; /&gt;
 We are intereted in the left side two plots. To express homoscedasticity in a plot,
 it would look like a roughly flat line with random points around it. However, in
 our case here &lt;span class=&#34;citation&#34;&gt;&lt;span class=&#34;csl-baseline&#34;&gt;&lt;span class=&#34;smallcaps&#34;&gt;[&lt;a href=&#34;#ref-BibEntry2016Jan&#34; role=&#34;doc-biblioref&#34;&gt;4&lt;/a&gt;]&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;. We could find the red line is curvy and the
@@ -934,7 +1151,7 @@ will highly influence the RSS. Which makes the wrong interpretation to the model
 &lt;pre class=&#34;r&#34;&gt;&lt;code&gt;par(mfrow=c(1,2))
 plot(lm.fit, 4)
 plot(lm.fit, 5, pch = 16, cex = 1)&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;&lt;img src=&#34;https://shuishoudage.github.io/post/linear-regression/index_files/figure-html/unnamed-chunk-16-1.png&#34; width=&#34;672&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;/post/linear-regression/index_files/figure-html/unnamed-chunk-16-1.png&#34; width=&#34;672&#34; /&gt;&lt;/p&gt;
 &lt;p&gt;The plot above shows that #23, #49 and #39 are influenced points. Among those
 three points, #23 and #49 are close to 3 standard deviation. Which is more influential
 than #39. However, are these outliers really influence the result of the regression
@@ -945,7 +1162,7 @@ really influential.&lt;/p&gt;
 variables. Thus, we can calculate Cook’s distance for this model, which is
 4/(50-1-1) = 0.08. We can add a horizontal line to the Cook’s distance plot&lt;/p&gt;
 &lt;pre class=&#34;r&#34;&gt;&lt;code&gt;olsrr::ols_plot_cooksd_bar(lm.fit)&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;&lt;img src=&#34;https://shuishoudage.github.io/post/linear-regression/index_files/figure-html/unnamed-chunk-17-1.png&#34; width=&#34;672&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;/post/linear-regression/index_files/figure-html/unnamed-chunk-17-1.png&#34; width=&#34;672&#34; /&gt;&lt;/p&gt;
 &lt;p&gt;As we can see above, data point #23 and #49 are really influence the result of
 linear regression analysis.&lt;/p&gt;
 &lt;/div&gt;
@@ -981,19 +1198,19 @@ Lohninger H. &lt;br /&gt;
     
     <item>
       <title>draw2data</title>
-      <link>https://shuishoudage.github.io/project/draw2data/</link>
+      <link>/project/draw2data/</link>
       <pubDate>Thu, 11 Apr 2019 00:00:00 +0000</pubDate>
       
-      <guid>https://shuishoudage.github.io/project/draw2data/</guid>
+      <guid>/project/draw2data/</guid>
       <description></description>
     </item>
     
     <item>
       <title>An example preprint / working paper</title>
-      <link>https://shuishoudage.github.io/publication/preprint/</link>
+      <link>/publication/preprint/</link>
       <pubDate>Sun, 07 Apr 2019 00:00:00 +0000</pubDate>
       
-      <guid>https://shuishoudage.github.io/publication/preprint/</guid>
+      <guid>/publication/preprint/</guid>
       <description>&lt;div class=&#34;alert alert-note&#34;&gt;
   &lt;div&gt;
     Click the &lt;em&gt;Slides&lt;/em&gt; button above to demo Academic&amp;rsquo;s Markdown slides feature.
@@ -1006,10 +1223,10 @@ Lohninger H. &lt;br /&gt;
     
     <item>
       <title>Slides</title>
-      <link>https://shuishoudage.github.io/slides/example/</link>
+      <link>/slides/example/</link>
       <pubDate>Tue, 05 Feb 2019 00:00:00 +0000</pubDate>
       
-      <guid>https://shuishoudage.github.io/slides/example/</guid>
+      <guid>/slides/example/</guid>
       <description>
 
 &lt;h1 id=&#34;welcome-to-slides&#34;&gt;Welcome to Slides&lt;/h1&gt;
@@ -1188,10 +1405,10 @@ $$&lt;/p&gt;
     
     <item>
       <title>Javascript modular history</title>
-      <link>https://shuishoudage.github.io/post/js-modular-history/</link>
+      <link>/post/js-modular-history/</link>
       <pubDate>Fri, 27 Jul 2018 00:00:00 +0000</pubDate>
       
-      <guid>https://shuishoudage.github.io/post/js-modular-history/</guid>
+      <guid>/post/js-modular-history/</guid>
       <description>&lt;p&gt;Javascript has been dramatically used in front-end and back-end compared to the
 time when it was invented. When the time it was invented, it supposes to be a joy
 programming language, doing some simple interactions between browser. However,
@@ -1405,20 +1622,30 @@ let myPartical = new Partical();
     </item>
     
     <item>
+      <title>Privacy Policy</title>
+      <link>/privacy/</link>
+      <pubDate>Thu, 28 Jun 2018 00:00:00 +0100</pubDate>
+      
+      <guid>/privacy/</guid>
+      <description>&lt;p&gt;&amp;hellip;&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
       <title>Honeypot</title>
-      <link>https://shuishoudage.github.io/project/honeypot/</link>
+      <link>/project/honeypot/</link>
       <pubDate>Mon, 19 Sep 2016 00:00:00 +0000</pubDate>
       
-      <guid>https://shuishoudage.github.io/project/honeypot/</guid>
+      <guid>/project/honeypot/</guid>
       <description></description>
     </item>
     
     <item>
       <title>An example journal article</title>
-      <link>https://shuishoudage.github.io/publication/journal-article/</link>
+      <link>/publication/journal-article/</link>
       <pubDate>Tue, 01 Sep 2015 00:00:00 +0000</pubDate>
       
-      <guid>https://shuishoudage.github.io/publication/journal-article/</guid>
+      <guid>/publication/journal-article/</guid>
       <description>&lt;div class=&#34;alert alert-note&#34;&gt;
   &lt;div&gt;
     Click the &lt;em&gt;Cite&lt;/em&gt; button above to demo the feature to enable visitors to import publication metadata into their reference management software.
@@ -1437,10 +1664,10 @@ let myPartical = new Partical();
     
     <item>
       <title>An example conference paper</title>
-      <link>https://shuishoudage.github.io/publication/conference-paper/</link>
+      <link>/publication/conference-paper/</link>
       <pubDate>Mon, 01 Jul 2013 00:00:00 +0000</pubDate>
       
-      <guid>https://shuishoudage.github.io/publication/conference-paper/</guid>
+      <guid>/publication/conference-paper/</guid>
       <description>&lt;div class=&#34;alert alert-note&#34;&gt;
   &lt;div&gt;
     Click the &lt;em&gt;Cite&lt;/em&gt; button above to demo the feature to enable visitors to import publication metadata into their reference management software.

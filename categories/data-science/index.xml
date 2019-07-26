@@ -2,21 +2,21 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Data Science on TAOTAO PAN</title>
-    <link>https://shuishoudage.github.io/categories/data-science/</link>
+    <link>/categories/data-science/</link>
     <description>Recent content in Data Science on TAOTAO PAN</description>
     <generator>Source Themes Academic (https://sourcethemes.com/academic/)</generator>
     <language>en-us</language>
     <lastBuildDate>Fri, 28 Jun 2019 00:00:00 +0000</lastBuildDate>
     
-	    <atom:link href="https://shuishoudage.github.io/categories/data-science/index.xml" rel="self" type="application/rss+xml" />
+	    <atom:link href="/categories/data-science/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
       <title>Linear Regression</title>
-      <link>https://shuishoudage.github.io/post/linear-regression/linear-regression/</link>
+      <link>/post/linear-regression/linear-regression/</link>
       <pubDate>Fri, 28 Jun 2019 00:00:00 +0000</pubDate>
       
-      <guid>https://shuishoudage.github.io/post/linear-regression/linear-regression/</guid>
+      <guid>/post/linear-regression/linear-regression/</guid>
       <description>
 
 
@@ -34,7 +34,7 @@ y = ax + b
 Here y is outcome or sometimes we will written as &lt;span class=&#34;math inline&#34;&gt;\(f(x)\)&lt;/span&gt;, it is the same thing
 but written in a different format. a is the slope and b is the intercept. Let’s
 giving a plot.&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;https://shuishoudage.github.io/post/linear-regression/index_files/figure-html/unnamed-chunk-2-1.png&#34; width=&#34;672&#34; /&gt;
+&lt;p&gt;&lt;img src=&#34;/post/linear-regression/index_files/figure-html/unnamed-chunk-2-1.png&#34; width=&#34;672&#34; /&gt;
 This example is set intercept to 1.4 and slope as 0.5. For this example, we only
 have one input (x) and one output (y)&lt;/p&gt;
 &lt;p&gt;In real world application, we normally have more than one feature. Suppose
@@ -160,7 +160,7 @@ f(X)=\beta_{0}+\sum_{j=1}^{p} X_{j} \beta_{j}
 &lt;pre class=&#34;r&#34;&gt;&lt;code&gt;ggplot(df, aes(TV, Sales)) +
   geom_point() +
   geom_smooth(method = &amp;#39;lm&amp;#39;, formula = y~x)&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;&lt;img src=&#34;https://shuishoudage.github.io/post/linear-regression/index_files/figure-html/unnamed-chunk-4-1.png&#34; width=&#34;672&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;/post/linear-regression/index_files/figure-html/unnamed-chunk-4-1.png&#34; width=&#34;672&#34; /&gt;&lt;/p&gt;
 &lt;p&gt;What we like to do is reduce the residuals.&lt;/p&gt;
 &lt;div class=&#34;figure&#34;&gt;
 &lt;img src=&#34;residuals.png&#34; alt=&#34;&#34; /&gt;
@@ -238,7 +238,7 @@ simply the formula of this model, nothing special. Next one is the statistical
 summary for residuals, actually we can use box plot to show it more concretely.&lt;/p&gt;
 &lt;pre class=&#34;r&#34;&gt;&lt;code&gt;ggplot(data.frame(resi = residuals(lm.fit)), aes(x = &amp;quot;&amp;quot;, y = resi )) +
   geom_boxplot()&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;&lt;img src=&#34;https://shuishoudage.github.io/post/linear-regression/index_files/figure-html/unnamed-chunk-6-1.png&#34; width=&#34;672&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;/post/linear-regression/index_files/figure-html/unnamed-chunk-6-1.png&#34; width=&#34;672&#34; /&gt;&lt;/p&gt;
 &lt;p&gt;As we can see, the plot above matches the summary. The middle thicker horizontal
 line is the median (-1.318) in the summary, and the line above and below the
 median line is the first quantile (1Q) and third quantile (3Q). The points on
@@ -304,7 +304,7 @@ linear regression.&lt;/p&gt;
 &lt;p&gt;By checking residuals normality, we can use Q-Q plot,&lt;/p&gt;
 &lt;pre class=&#34;r&#34;&gt;&lt;code&gt;lm.fit &amp;lt;- lm(medv ~ rm + lstat + crim + dis, data = Boston)
 ggqqplot(residuals(lm.fit))&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;&lt;img src=&#34;https://shuishoudage.github.io/post/linear-regression/index_files/figure-html/unnamed-chunk-9-1.png&#34; width=&#34;672&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;/post/linear-regression/index_files/figure-html/unnamed-chunk-9-1.png&#34; width=&#34;672&#34; /&gt;&lt;/p&gt;
 &lt;p&gt;How to interpret this plot? Suppose the residuals are following a normal distribution,
 the points above should be roughly located around the slope line and should be
 with inside the 95% confidence curvy dashed line.&lt;/p&gt;
@@ -327,7 +327,7 @@ this is &lt;strong&gt;not&lt;/strong&gt; a normally distributed data.&lt;/p&gt;
 independency.&lt;/p&gt;
 &lt;pre class=&#34;r&#34;&gt;&lt;code&gt;plot(sequence(nrow(Boston)), residuals(lm.fit))
 abline(h=0, col=&amp;#39;red&amp;#39;)&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;&lt;img src=&#34;https://shuishoudage.github.io/post/linear-regression/index_files/figure-html/unnamed-chunk-11-1.png&#34; width=&#34;672&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;/post/linear-regression/index_files/figure-html/unnamed-chunk-11-1.png&#34; width=&#34;672&#34; /&gt;&lt;/p&gt;
 &lt;p&gt;Independent residuals should be located around 0 and randomly scattered.&lt;/p&gt;
 &lt;/div&gt;
 &lt;div id=&#34;linearity&#34; class=&#34;section level4&#34;&gt;
@@ -337,7 +337,7 @@ relation between the response variable. After all, we use linear regression to
 create model, if there is no linear relation we have to use other non-linear
 model.&lt;/p&gt;
 &lt;pre class=&#34;r&#34;&gt;&lt;code&gt;crPlots(lm(medv ~ rm + lstat + crim + dis, data = Boston))&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;&lt;img src=&#34;https://shuishoudage.github.io/post/linear-regression/index_files/figure-html/unnamed-chunk-12-1.png&#34; width=&#34;672&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;/post/linear-regression/index_files/figure-html/unnamed-chunk-12-1.png&#34; width=&#34;672&#34; /&gt;&lt;/p&gt;
 &lt;p&gt;what we most case is if there is any pattern inside the plot&lt;/p&gt;
 &lt;pre class=&#34;r&#34;&gt;&lt;code&gt;summary(gvlma::gvlma(x = lm.fit))&lt;/code&gt;&lt;/pre&gt;
 &lt;pre&gt;&lt;code&gt;## 
@@ -383,7 +383,7 @@ model.&lt;/p&gt;
 be constant, see the plot below.&lt;/p&gt;
 &lt;pre class=&#34;r&#34;&gt;&lt;code&gt;par(mfrow=c(2,2))
 plot(lm.fit, pch = 16, cex = 0.5)&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;&lt;img src=&#34;https://shuishoudage.github.io/post/linear-regression/index_files/figure-html/unnamed-chunk-14-1.png&#34; width=&#34;672&#34; /&gt;
+&lt;p&gt;&lt;img src=&#34;/post/linear-regression/index_files/figure-html/unnamed-chunk-14-1.png&#34; width=&#34;672&#34; /&gt;
 We are intereted in the left side two plots. To express homoscedasticity in a plot,
 it would look like a roughly flat line with random points around it. However, in
 our case here &lt;span class=&#34;citation&#34;&gt;&lt;span class=&#34;csl-baseline&#34;&gt;&lt;span class=&#34;smallcaps&#34;&gt;[&lt;a href=&#34;#ref-BibEntry2016Jan&#34; role=&#34;doc-biblioref&#34;&gt;4&lt;/a&gt;]&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;. We could find the red line is curvy and the
@@ -405,7 +405,7 @@ will highly influence the RSS. Which makes the wrong interpretation to the model
 &lt;pre class=&#34;r&#34;&gt;&lt;code&gt;par(mfrow=c(1,2))
 plot(lm.fit, 4)
 plot(lm.fit, 5, pch = 16, cex = 1)&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;&lt;img src=&#34;https://shuishoudage.github.io/post/linear-regression/index_files/figure-html/unnamed-chunk-16-1.png&#34; width=&#34;672&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;/post/linear-regression/index_files/figure-html/unnamed-chunk-16-1.png&#34; width=&#34;672&#34; /&gt;&lt;/p&gt;
 &lt;p&gt;The plot above shows that #23, #49 and #39 are influenced points. Among those
 three points, #23 and #49 are close to 3 standard deviation. Which is more influential
 than #39. However, are these outliers really influence the result of the regression
@@ -416,7 +416,7 @@ really influential.&lt;/p&gt;
 variables. Thus, we can calculate Cook’s distance for this model, which is
 4/(50-1-1) = 0.08. We can add a horizontal line to the Cook’s distance plot&lt;/p&gt;
 &lt;pre class=&#34;r&#34;&gt;&lt;code&gt;olsrr::ols_plot_cooksd_bar(lm.fit)&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;&lt;img src=&#34;https://shuishoudage.github.io/post/linear-regression/index_files/figure-html/unnamed-chunk-17-1.png&#34; width=&#34;672&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;/post/linear-regression/index_files/figure-html/unnamed-chunk-17-1.png&#34; width=&#34;672&#34; /&gt;&lt;/p&gt;
 &lt;p&gt;As we can see above, data point #23 and #49 are really influence the result of
 linear regression analysis.&lt;/p&gt;
 &lt;/div&gt;

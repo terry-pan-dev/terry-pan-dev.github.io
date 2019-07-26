@@ -2,30 +2,30 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Projects on TAOTAO PAN</title>
-    <link>https://shuishoudage.github.io/project/</link>
+    <link>/project/</link>
     <description>Recent content in Projects on TAOTAO PAN</description>
     <generator>Source Themes Academic (https://sourcethemes.com/academic/)</generator>
     <language>en-us</language>
     <lastBuildDate>Thu, 11 Apr 2019 00:00:00 +0000</lastBuildDate>
     
-	    <atom:link href="https://shuishoudage.github.io/project/index.xml" rel="self" type="application/rss+xml" />
+	    <atom:link href="/project/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
       <title>draw2data</title>
-      <link>https://shuishoudage.github.io/project/draw2data/</link>
+      <link>/project/draw2data/</link>
       <pubDate>Thu, 11 Apr 2019 00:00:00 +0000</pubDate>
       
-      <guid>https://shuishoudage.github.io/project/draw2data/</guid>
+      <guid>/project/draw2data/</guid>
       <description></description>
     </item>
     
     <item>
       <title>Honeypot</title>
-      <link>https://shuishoudage.github.io/project/honeypot/</link>
+      <link>/project/honeypot/</link>
       <pubDate>Mon, 19 Sep 2016 00:00:00 +0000</pubDate>
       
-      <guid>https://shuishoudage.github.io/project/honeypot/</guid>
+      <guid>/project/honeypot/</guid>
       <description></description>
     </item>
     
