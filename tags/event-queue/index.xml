@@ -2,21 +2,21 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>event queue on TAOTAO PAN</title>
-    <link>/tags/event-queue/</link>
+    <link>https://shuishoudage.github.io/tags/event-queue/</link>
     <description>Recent content in event queue on TAOTAO PAN</description>
     <generator>Source Themes Academic (https://sourcethemes.com/academic/)</generator>
     <language>en-us</language>
     <lastBuildDate>Thu, 11 Jul 2019 00:00:00 +0000</lastBuildDate>
     
-	    <atom:link href="/tags/event-queue/index.xml" rel="self" type="application/rss+xml" />
+	    <atom:link href="https://shuishoudage.github.io/tags/event-queue/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
       <title>Javascript event loop explained</title>
-      <link>/post/js-event-loop/</link>
+      <link>https://shuishoudage.github.io/post/js-event-loop/</link>
       <pubDate>Thu, 11 Jul 2019 00:00:00 +0000</pubDate>
       
-      <guid>/post/js-event-loop/</guid>
+      <guid>https://shuishoudage.github.io/post/js-event-loop/</guid>
       <description>
 
 
