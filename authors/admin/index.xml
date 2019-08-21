@@ -2,21 +2,21 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>TAOTAO PAN</title>
-    <link>https://shuishoudage.github.io/authors/admin/</link>
+    <link>/authors/admin/</link>
     <description>Recent content on TAOTAO PAN</description>
     <generator>Source Themes Academic (https://sourcethemes.com/academic/)</generator>
     <language>en-us</language>
     <lastBuildDate>Sat, 27 Jul 2019 00:00:00 +0000</lastBuildDate>
     
-	    <atom:link href="https://shuishoudage.github.io/authors/admin/index.xml" rel="self" type="application/rss+xml" />
+	    <atom:link href="/authors/admin/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
       <title>Permutation and combination</title>
-      <link>https://shuishoudage.github.io/post/permutation-combination/</link>
+      <link>/post/permutation-combination/</link>
       <pubDate>Sat, 27 Jul 2019 00:00:00 +0000</pubDate>
       
-      <guid>https://shuishoudage.github.io/post/permutation-combination/</guid>
+      <guid>/post/permutation-combination/</guid>
       <description>
 
 
@@ -190,10 +190,10 @@ combination we have discussed on section 1.&lt;/p&gt;
     
     <item>
       <title>Tips and tricks for git</title>
-      <link>https://shuishoudage.github.io/post/git-flow/</link>
+      <link>/post/git-flow/</link>
       <pubDate>Wed, 17 Jul 2019 00:00:00 +0000</pubDate>
       
-      <guid>https://shuishoudage.github.io/post/git-flow/</guid>
+      <guid>/post/git-flow/</guid>
       <description>
 
 
@@ -324,10 +324,10 @@ and cool!&lt;/p&gt;
     
     <item>
       <title>Javascript event loop explained</title>
-      <link>https://shuishoudage.github.io/post/js-event-loop/</link>
+      <link>/post/js-event-loop/</link>
       <pubDate>Thu, 11 Jul 2019 00:00:00 +0000</pubDate>
       
-      <guid>https://shuishoudage.github.io/post/js-event-loop/</guid>
+      <guid>/post/js-event-loop/</guid>
       <description>
 
 
@@ -501,10 +501,10 @@ has not finished yet, &lt;code&gt;promise2&lt;/code&gt; will be printed. Finally
     
     <item>
       <title>Javascript scope and context</title>
-      <link>https://shuishoudage.github.io/post/js-scope-context/</link>
+      <link>/post/js-scope-context/</link>
       <pubDate>Tue, 09 Jul 2019 00:00:00 +0000</pubDate>
       
-      <guid>https://shuishoudage.github.io/post/js-scope-context/</guid>
+      <guid>/post/js-scope-context/</guid>
       <description>
 
 
@@ -695,10 +695,10 @@ Scotch2019;Available from: &lt;a href=&#34;https://scotch.io/tutorials/understan
     
     <item>
       <title>An example preprint / working paper</title>
-      <link>https://shuishoudage.github.io/publication/preprint/</link>
+      <link>/publication/preprint/</link>
       <pubDate>Sun, 07 Apr 2019 00:00:00 +0000</pubDate>
       
-      <guid>https://shuishoudage.github.io/publication/preprint/</guid>
+      <guid>/publication/preprint/</guid>
       <description>&lt;div class=&#34;alert alert-note&#34;&gt;
   &lt;div&gt;
     Click the &lt;em&gt;Slides&lt;/em&gt; button above to demo Academic&amp;rsquo;s Markdown slides feature.
@@ -711,10 +711,10 @@ Scotch2019;Available from: &lt;a href=&#34;https://scotch.io/tutorials/understan
     
     <item>
       <title>Javascript modular history</title>
-      <link>https://shuishoudage.github.io/post/js-modular-history/</link>
+      <link>/post/js-modular-history/</link>
       <pubDate>Fri, 27 Jul 2018 00:00:00 +0000</pubDate>
       
-      <guid>https://shuishoudage.github.io/post/js-modular-history/</guid>
+      <guid>/post/js-modular-history/</guid>
       <description>&lt;p&gt;Javascript has been dramatically used in front-end and back-end compared to the
 time when it was invented. When the time it was invented, it supposes to be a joy
 programming language, doing some simple interactions between browser. However,
@@ -929,10 +929,10 @@ let myPartical = new Partical();
     
     <item>
       <title>An example journal article</title>
-      <link>https://shuishoudage.github.io/publication/journal-article/</link>
+      <link>/publication/journal-article/</link>
       <pubDate>Tue, 01 Sep 2015 00:00:00 +0000</pubDate>
       
-      <guid>https://shuishoudage.github.io/publication/journal-article/</guid>
+      <guid>/publication/journal-article/</guid>
       <description>&lt;div class=&#34;alert alert-note&#34;&gt;
   &lt;div&gt;
     Click the &lt;em&gt;Cite&lt;/em&gt; button above to demo the feature to enable visitors to import publication metadata into their reference management software.
@@ -951,10 +951,10 @@ let myPartical = new Partical();
     
     <item>
       <title>An example conference paper</title>
-      <link>https://shuishoudage.github.io/publication/conference-paper/</link>
+      <link>/publication/conference-paper/</link>
       <pubDate>Mon, 01 Jul 2013 00:00:00 +0000</pubDate>
       
-      <guid>https://shuishoudage.github.io/publication/conference-paper/</guid>
+      <guid>/publication/conference-paper/</guid>
       <description>&lt;div class=&#34;alert alert-note&#34;&gt;
   &lt;div&gt;
     Click the &lt;em&gt;Cite&lt;/em&gt; button above to demo the feature to enable visitors to import publication metadata into their reference management software.
@@ -973,10 +973,10 @@ let myPartical = new Partical();
     
     <item>
       <title></title>
-      <link>https://shuishoudage.github.io/authors/admin/</link>
+      <link>/authors/admin/</link>
       <pubDate>Sat, 27 Jul 2019 00:00:00 +0000</pubDate>
       
-      <guid>https://shuishoudage.github.io/authors/admin/</guid>
+      <guid>/authors/admin/</guid>
       <description>&lt;p&gt;Taotao Pan is a student of Data Science at the University of Queensland. His research interests include Machine Learning, Data Science and Software Engineering. He tends to solve real world problems
 by thinking like a engineer.&lt;/p&gt;
 </description>
