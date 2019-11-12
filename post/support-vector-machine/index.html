@@ -780,8 +780,22 @@ neural network in practice.</p>
 <p>Before really dive into SVM, there are several terminologies worth to introduce,
 one is call <strong>hyperplane</strong>, it defines as in a p-dimensional space, a hyperplane
 is a flat affine subspace of dimension p-1 <span class="citation"><span class="csl-baseline"><span class="smallcaps">[<a href="#ref-james_introduction_2013" role="doc-biblioref">1</a>]</span></span></span>, to make
-it more concrete, in 3-d, the hyperplan is a plane. Whereas, in 2-d, the hyperplan
-is a line.</p>
+it more concrete, in 3-d, the hyperplane is a plane. Whereas, in 2-d, the hyperplane
+is a line. I have to give a math definition for later use, to define a hyperplane
+in math equation
+<span class="math display">\[
+\beta_0 + \beta_1X_1 + \beta_2X2 + \cdots + \beta_pX_p = 0
+\]</span>
+if <span class="math inline">\(p=2\)</span> we have a line, if <span class="math inline">\(p=3\)</span> we will have a plane. Supposing we have a point
+in p-dimension that satisfies the equation above, we say that this point is sitting
+on this plane. If not, this point is either in
+<span class="math display">\[
+\beta_0 + \beta_1X_1 + \beta_2X2 + \cdots + \beta_pX_p &gt; 0
+\]</span>
+or
+<span class="math display">\[
+\beta_0 + \beta_1X_1 + \beta_2X2 + \cdots + \beta_pX_p &lt; 0
+\]</span></p>
 </div>
 <div id="svm" class="section level3">
 <h3>SVM</h3>

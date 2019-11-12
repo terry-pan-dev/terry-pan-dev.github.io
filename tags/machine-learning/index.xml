@@ -27,8 +27,22 @@ neural network in practice.&lt;/p&gt;
 &lt;p&gt;Before really dive into SVM, there are several terminologies worth to introduce,
 one is call &lt;strong&gt;hyperplane&lt;/strong&gt;, it defines as in a p-dimensional space, a hyperplane
 is a flat affine subspace of dimension p-1 &lt;span class=&#34;citation&#34;&gt;&lt;span class=&#34;csl-baseline&#34;&gt;&lt;span class=&#34;smallcaps&#34;&gt;[&lt;a href=&#34;#ref-james_introduction_2013&#34; role=&#34;doc-biblioref&#34;&gt;1&lt;/a&gt;]&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;, to make
-it more concrete, in 3-d, the hyperplan is a plane. Whereas, in 2-d, the hyperplan
-is a line.&lt;/p&gt;
+it more concrete, in 3-d, the hyperplane is a plane. Whereas, in 2-d, the hyperplane
+is a line. I have to give a math definition for later use, to define a hyperplane
+in math equation
+&lt;span class=&#34;math display&#34;&gt;\[
+\beta_0 + \beta_1X_1 + \beta_2X2 + \cdots + \beta_pX_p = 0
+\]&lt;/span&gt;
+if &lt;span class=&#34;math inline&#34;&gt;\(p=2\)&lt;/span&gt; we have a line, if &lt;span class=&#34;math inline&#34;&gt;\(p=3\)&lt;/span&gt; we will have a plane. Supposing we have a point
+in p-dimension that satisfies the equation above, we say that this point is sitting
+on this plane. If not, this point is either in
+&lt;span class=&#34;math display&#34;&gt;\[
+\beta_0 + \beta_1X_1 + \beta_2X2 + \cdots + \beta_pX_p &amp;gt; 0
+\]&lt;/span&gt;
+or
+&lt;span class=&#34;math display&#34;&gt;\[
+\beta_0 + \beta_1X_1 + \beta_2X2 + \cdots + \beta_pX_p &amp;lt; 0
+\]&lt;/span&gt;&lt;/p&gt;
 &lt;/div&gt;
 &lt;div id=&#34;svm&#34; class=&#34;section level3&#34;&gt;
 &lt;h3&gt;SVM&lt;/h3&gt;
@@ -357,9 +371,8 @@ based on decision tree, like Adaboosting, XGBoosting, CART, etc.&lt;/p&gt;
 - use &lt;code&gt;max_depth&lt;/code&gt; to control size of the tree to avoid overfitting
 - when using random forest, choose the training feature as &lt;code&gt;sqrt(total feature)&lt;/code&gt;
 - when using boosting, a typical learning rate &lt;span class=&#34;math inline&#34;&gt;\(\lambda=(0.01,0.001)\)&lt;/span&gt; will be a good start&lt;/p&gt;
-&lt;/div&gt;
-&lt;div id=&#34;references&#34; class=&#34;section level3 unnumbered&#34;&gt;
-&lt;h3&gt;References&lt;/h3&gt;
+&lt;p&gt;demo for &lt;a href=&#34;https://github.com/shuishoudage/ML_Note/blob/master/classic_ml/decision_tree_in_r.ipynb&#34;&gt;decision tree&lt;/a&gt;
+### References&lt;/p&gt;
 &lt;div id=&#34;refs&#34; class=&#34;references&#34;&gt;
 &lt;div id=&#34;ref-james_introduction_2013&#34;&gt;
 &lt;p&gt;1. &lt;strong&gt;An Introduction to Statistical Learning&lt;/strong&gt; [Internet].&lt;br /&gt;
