@@ -971,16 +971,5 @@ let myPartical = new Partical();
 </description>
     </item>
     
-    <item>
-      <title></title>
-      <link>/authors/admin/</link>
-      <pubDate>Sat, 27 Jul 2019 00:00:00 +0000</pubDate>
-      
-      <guid>/authors/admin/</guid>
-      <description>&lt;p&gt;Taotao Pan is a student of Data Science at the University of Queensland. His research interests include Machine Learning, Data Science and Software Engineering. He tends to solve real world problems
-by thinking like a engineer.&lt;/p&gt;
-</description>
-    </item>
-    
   </channel>
 </rss>
