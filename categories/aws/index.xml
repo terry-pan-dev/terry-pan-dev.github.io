@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>AWS on TAOTAO PAN</title>
+    <link>https://shuishoudage.github.io/categories/aws/</link>
+    <description>Recent content in AWS on TAOTAO PAN</description>
+    <generator>Source Themes Academic (https://sourcethemes.com/academic/)</generator>
+    <language>en-us</language>
+    <lastBuildDate>Fri, 24 Jan 2020 00:00:00 +0000</lastBuildDate>
+    
+	    <atom:link href="https://shuishoudage.github.io/categories/aws/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>AWS-KMS</title>
+      <link>https://shuishoudage.github.io/post/aws-kms/</link>
+      <pubDate>Fri, 24 Jan 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://shuishoudage.github.io/post/aws-kms/</guid>
+      <description>
+
+
+&lt;div id=&#34;aws-kms&#34; class=&#34;section level3&#34;&gt;
+&lt;h3&gt;AWS KMS&lt;/h3&gt;
+&lt;p&gt;AWS KMS is the service that amozon provided for managing encryption keys.&lt;/p&gt;
+&lt;p&gt;Before really dive into AWS KMS, it’s better to introduce several concepts about
+encryption. Generally there are two types of encryption, one is symmetric encryption
+another is asymmetric encryption.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Symmetric encryption&lt;/strong&gt; is normally used for local file encryption, as the name indicates
+symmetric encryption uses one key to encrypt data and using same key to decrypt
+data, in such case keep this key secret is important.&lt;/p&gt;
+&lt;div class=&#34;figure&#34;&gt;
+&lt;img src=&#34;https://www.ssl2buy.com/wiki/wp-content/uploads/2015/12/Symmetric-Encryption.png&#34; alt=&#34;&#34; /&gt;
+&lt;p class=&#34;caption&#34;&gt;symmetric&lt;/p&gt;
+&lt;/div&gt;
+&lt;p&gt;&lt;strong&gt;Asymmetric encryption&lt;/strong&gt; is generally used for transmission scenario, for example
+keep a secret tunnel to transmit files. Asymmetric encryption has two keys. One
+key is called private key, another key is called public key. Private key will be
+always kept in the sender part and never revealed it publicly. Whereas, public key
+can be transmitted to worldwide. General use case is following&lt;/p&gt;
+&lt;p&gt;Step 1: sender will send his/her public key to receiver (actually anyone can have
+the public key).&lt;/p&gt;
+&lt;p&gt;Step 2: receiver is now able to use the public key to encrypt his/her data, then
+send back to the sender, even there is an eavesdropper, the eavesdropper cannot
+use his/her public key to decrypt this data. Therefore, data will be kept secret
+between the real sender and receiver.&lt;/p&gt;
+&lt;p&gt;Step 3: when sender gets the encrypt data package, sender uses his private key
+to decrypt the packge.&lt;/p&gt;
+&lt;div class=&#34;figure&#34;&gt;
+&lt;img src=&#34;https://www.clickssl.net/wp-content/uploads/2019/12/asymmetric-encryption.jpg&#34; alt=&#34;&#34; /&gt;
+&lt;p class=&#34;caption&#34;&gt;asymmetric&lt;/p&gt;
+&lt;/div&gt;
+&lt;p&gt;Both symmetric and Asymmetric encrytion are used for avoiding information leak to
+others. There is another important concept called &lt;strong&gt;digital signature&lt;/strong&gt; is also worth
+to mention before give the detail of AWS KMS. Digital signature is used for keeping
+data integrity, avoiding data forge, notice it’s different than symmetric and
+asymmetric above, digital signature is not used to make data secret. However, digital
+signature utilizes asymmetric encryption. The way that digital signature works
+by following step.&lt;/p&gt;
+&lt;p&gt;Step 1: sender using certain hashing algorithm (md5 for example) to generate a data
+digest, this digest represents the data, even one byte change, the digest will
+be different.&lt;/p&gt;
+&lt;p&gt;Step 2: sender using his/her private key to encrypt the digest which can be
+decrypt by public key.&lt;/p&gt;
+&lt;p&gt;Step 3: when receiver gets the data and encryptd digest, receiver can decrypt
+the digest first, then using same hashing algorithm to hash the received data.
+Afterwards, comparing the generated digest with the received digest, if there is
+any difference, it means the data has changed by someone.&lt;/p&gt;
+&lt;p&gt;Notice, anyone who has the public key can decrypt the sender’s package. However,
+once they change any information inside the data and using their public key to
+encrypt the digest. The real receiver will not be able to use his public key
+to decrypt the encrypted digest, since public key cannot used to encrypt/decrypt
+data.&lt;/p&gt;
+&lt;div class=&#34;figure&#34;&gt;
+&lt;img src=&#34;https://i.stack.imgur.com/NFCbj.png&#34; alt=&#34;&#34; /&gt;
+&lt;p class=&#34;caption&#34;&gt;digital&lt;/p&gt;
+&lt;/div&gt;
+&lt;p&gt;Now, it’s the right time to give the detail of AWS KMS. AWS KMS is used to
+manage symmetric keys, not asymmetric keys. AWS KMS uses a concept called
+&lt;strong&gt;envolope encryption&lt;/strong&gt;, before introduce this concept, it’s better to understand
+two other things, one is called master key, another is called data key. Data key
+is the real encryption key that used to encrypt your data. Whereas, master is
+used to encrypt your data key, this process makes the encryption more strong.
+There is one more difference between data key and master key, you can view the
+data key but you cannot really view the master key, because the master is kept
+on AWS and managed by AWS, you can use but not view it. The process of envolope
+encryption is like this, AWS KMS generates data keys which used to encrypt client
+data, at the same time AWS KMS using master key to encrypt the data keys. Now you
+use the generated data keys (plain text) to encrypt data with the encrypted
+data key attached and the plain text data keys will be destroied. When clients
+want to decrypt the data, they have to use the master key to decrypt the encrypted
+data key first, after the data has been decrypted, clients can use the decrypted
+data key to decrypt the data &lt;span class=&#34;citation&#34;&gt;&lt;span class=&#34;csl-baseline&#34;&gt;&lt;span class=&#34;smallcaps&#34;&gt;[&lt;a href=&#34;#ref-ables2010escrowed&#34; role=&#34;doc-biblioref&#34;&gt;1&lt;/a&gt;]&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;.&lt;/p&gt;
+&lt;div class=&#34;figure&#34;&gt;
+&lt;img src=&#34;https://docs.aws.amazon.com/kms/latest/developerguide/images/key-hierarchy-cmk.png&#34; alt=&#34;&#34; /&gt;
+&lt;p class=&#34;caption&#34;&gt;kms&lt;/p&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div id=&#34;references&#34; class=&#34;section level3 unnumbered&#34;&gt;
+&lt;h3&gt;References&lt;/h3&gt;
+&lt;div id=&#34;refs&#34; class=&#34;references&#34;&gt;
+&lt;div id=&#34;ref-ables2010escrowed&#34;&gt;
+&lt;p&gt;1. &lt;strong&gt;Escrowed data and the digital envelope&lt;/strong&gt;.&lt;br /&gt;
+Ables K, Ryan MD. &lt;br /&gt;
+In: International conference on trust and trustworthy computing. Springer; 2010. pages 246–56.&lt;/p&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+</description>
+    </item>
+    
+  </channel>
+</rss>

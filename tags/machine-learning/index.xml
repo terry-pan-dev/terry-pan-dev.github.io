@@ -2,216 +2,21 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Machine Learning on TAOTAO PAN</title>
-    <link>/tags/machine-learning/</link>
+    <link>https://shuishoudage.github.io/tags/machine-learning/</link>
     <description>Recent content in Machine Learning on TAOTAO PAN</description>
     <generator>Source Themes Academic (https://sourcethemes.com/academic/)</generator>
     <language>en-us</language>
-    <lastBuildDate>Fri, 13 Sep 2019 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Mon, 09 Sep 2019 00:00:00 +0000</lastBuildDate>
     
-	    <atom:link href="/tags/machine-learning/index.xml" rel="self" type="application/rss+xml" />
+	    <atom:link href="https://shuishoudage.github.io/tags/machine-learning/index.xml" rel="self" type="application/rss+xml" />
     
-    
-    <item>
-      <title>SVM</title>
-      <link>/post/support-vector-machine/</link>
-      <pubDate>Fri, 13 Sep 2019 00:00:00 +0000</pubDate>
-      
-      <guid>/post/support-vector-machine/</guid>
-      <description>
-
-
-&lt;div id=&#34;introduction&#34; class=&#34;section level3&#34;&gt;
-&lt;h3&gt;Introduction&lt;/h3&gt;
-&lt;p&gt;SVM was probably the most powerful classic machine learning algorithm before
-neural network in practice.&lt;/p&gt;
-&lt;p&gt;Before really dive into SVM, there are several terminologies worth to introduce,
-one is call &lt;strong&gt;hyperplane&lt;/strong&gt;, it defines as in a p-dimensional space, a hyperplane
-is a flat affine subspace of dimension p-1 &lt;span class=&#34;citation&#34;&gt;&lt;span class=&#34;csl-baseline&#34;&gt;&lt;span class=&#34;smallcaps&#34;&gt;[&lt;a href=&#34;#ref-james_introduction_2013&#34; role=&#34;doc-biblioref&#34;&gt;1&lt;/a&gt;]&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;, to make
-it more concrete, in 3-d, the hyperplane is a plane. Whereas, in 2-d, the hyperplane
-is a line. I have to give a math definition for later use, to define a hyperplane
-in math equation
-&lt;span class=&#34;math display&#34;&gt;\[
-\beta_0 + \beta_1X_1 + \beta_2X2 + \cdots + \beta_pX_p = 0
-\]&lt;/span&gt;
-if &lt;span class=&#34;math inline&#34;&gt;\(p=2\)&lt;/span&gt; we have a line, if &lt;span class=&#34;math inline&#34;&gt;\(p=3\)&lt;/span&gt; we will have a plane. Supposing we have a point
-in p-dimension that satisfies the equation above, we say that this point is sitting
-on this plane. If not, this point is either in
-&lt;span class=&#34;math display&#34;&gt;\[
-\beta_0 + \beta_1X_1 + \beta_2X2 + \cdots + \beta_pX_p &amp;gt; 0
-\]&lt;/span&gt;
-or
-&lt;span class=&#34;math display&#34;&gt;\[
-\beta_0 + \beta_1X_1 + \beta_2X2 + \cdots + \beta_pX_p &amp;lt; 0
-\]&lt;/span&gt;&lt;/p&gt;
-&lt;/div&gt;
-&lt;div id=&#34;svm&#34; class=&#34;section level3&#34;&gt;
-&lt;h3&gt;SVM&lt;/h3&gt;
-&lt;p&gt;Regression tree can be used in a regression task like linear regression, so how
-does regression do a prediction? A regression tree predicted value is the mean
-response of the training observations &lt;span class=&#34;citation&#34;&gt;&lt;span class=&#34;csl-baseline&#34;&gt;&lt;span class=&#34;smallcaps&#34;&gt;[&lt;a href=&#34;#ref-james_introduction_2013&#34; role=&#34;doc-biblioref&#34;&gt;1&lt;/a&gt;]&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;. To make it
-simple, when we built our decision tree, the predicted value is just the average
-value in each terminal nodes or each rectangle. The way to decide the splitting
-value is by minimize the mean value with each observations in each rectangle.
-&lt;span class=&#34;math display&#34;&gt;\[
-\sum_{j=1}^J\sum_{i\in R_j} (y_i-\hat{y}_{R_j})^2
-\]&lt;/span&gt;
-Here, &lt;span class=&#34;math inline&#34;&gt;\(R_j\)&lt;/span&gt; is the rectangle or terminal node. What we have to do is just minimize
-the total error. When we doing a prediction, we just give a training observation
-based on decision we find the rectangle it belongs to, then we find the mean
-value inside that region. So how does a classification task can be done by decision
-tree?&lt;/p&gt;
-&lt;/div&gt;
-&lt;div id=&#34;classification-tree&#34; class=&#34;section level3&#34;&gt;
-&lt;h3&gt;Classification tree&lt;/h3&gt;
-&lt;p&gt;Classification tree is nothing special than a regression tree, only difference
-is the error measurement. For classfication problems, we don’t have quantitative
-ground truth, instead we have qualitative value. Therefore, one measure called
-&lt;strong&gt;Gini index&lt;/strong&gt; was introduced, Gini index is defined by
-&lt;span class=&#34;math display&#34;&gt;\[
-G = \sum_{k=1}^K \hat{p}_{mk}(1-\hat{p}_{mk})
-\]&lt;/span&gt;
-this is a measure of total variance across K classes, Where &lt;span class=&#34;math inline&#34;&gt;\(\hat{p}_{mk}\)&lt;/span&gt; is
-the proportion of observations in the mth region (rectangle) for kth class. Gini
-index measures the &lt;strong&gt;purity&lt;/strong&gt; of nodes, or call it &lt;strong&gt;impurity&lt;/strong&gt; &lt;span class=&#34;citation&#34;&gt;&lt;span class=&#34;csl-baseline&#34;&gt;&lt;span class=&#34;smallcaps&#34;&gt;[&lt;a href=&#34;#ref-alpaydin_introduction_2010&#34; role=&#34;doc-biblioref&#34;&gt;2&lt;/a&gt;]&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;
-why? as you can see the smaller the value the more a node from single class.
-in other words, this node is not impure. Which more close to human intuition.
-Another measure is called &lt;strong&gt;entropy&lt;/strong&gt;, it is defined as
-&lt;span class=&#34;math display&#34;&gt;\[
-E = -\sum_{k=1}^K \hat{p}_{mk}log_2(\hat{p}_{mk})
-\]&lt;/span&gt;
-as you can see, this measurement is close to Gini index measurement. Here I created
-an artificial dataset to demostrate how to use entropy. Supposing we have 2-class
-dataset like following&lt;/p&gt;
-&lt;table&gt;
-&lt;thead&gt;
-&lt;tr class=&#34;header&#34;&gt;
-&lt;th&gt;x1&lt;/th&gt;
-&lt;th&gt;x2&lt;/th&gt;
-&lt;th&gt;y&lt;/th&gt;
-&lt;/tr&gt;
-&lt;/thead&gt;
-&lt;tbody&gt;
-&lt;tr class=&#34;odd&#34;&gt;
-&lt;td&gt;1.5&lt;/td&gt;
-&lt;td&gt;2.3&lt;/td&gt;
-&lt;td&gt;0&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr class=&#34;even&#34;&gt;
-&lt;td&gt;1.8&lt;/td&gt;
-&lt;td&gt;3.2&lt;/td&gt;
-&lt;td&gt;0&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr class=&#34;odd&#34;&gt;
-&lt;td&gt;1.3&lt;/td&gt;
-&lt;td&gt;3.3&lt;/td&gt;
-&lt;td&gt;0&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr class=&#34;even&#34;&gt;
-&lt;td&gt;2.1&lt;/td&gt;
-&lt;td&gt;3.1&lt;/td&gt;
-&lt;td&gt;1&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr class=&#34;odd&#34;&gt;
-&lt;td&gt;2.3&lt;/td&gt;
-&lt;td&gt;3.4&lt;/td&gt;
-&lt;td&gt;1&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr class=&#34;even&#34;&gt;
-&lt;td&gt;2.8&lt;/td&gt;
-&lt;td&gt;4.0&lt;/td&gt;
-&lt;td&gt;1&lt;/td&gt;
-&lt;/tr&gt;
-&lt;/tbody&gt;
-&lt;/table&gt;
-&lt;p&gt;if we split the tree based on &lt;span class=&#34;math inline&#34;&gt;\(x1 &amp;lt;= 1.8\)&lt;/span&gt;, the node on the left will purely
-belongs to class 0, where the right node will all belongs to class 1. This is
-a better choice against &lt;span class=&#34;math inline&#34;&gt;\(x2\)&lt;/span&gt;. Why? because the entropy
-for the left node is 0, and so as right node. Whereas, if we choose &lt;span class=&#34;math inline&#34;&gt;\(x2 &amp;lt;= 3\)&lt;/span&gt; as
-our splitting node, we will have entropy for left node is 0, but for right node
-we have entropy &lt;span class=&#34;math inline&#34;&gt;\((-0.4*log(0.6)) + (-0.6*log(0.6)) = 0.97\)&lt;/span&gt;. Which compared to
-splitting by &lt;span class=&#34;math inline&#34;&gt;\(x1\)&lt;/span&gt; is less optimal.&lt;/p&gt;
-&lt;p&gt;Here is a plot to show the differences for different measurement methods &lt;span class=&#34;citation&#34;&gt;&lt;span class=&#34;csl-baseline&#34;&gt;&lt;span class=&#34;smallcaps&#34;&gt;[&lt;a href=&#34;#ref-podgorelec2002decision&#34; role=&#34;doc-biblioref&#34;&gt;3&lt;/a&gt;]&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/p&gt;
-&lt;div class=&#34;figure&#34;&gt;
-&lt;img src=&#34;https://sebastianraschka.com/images/faq/decision-tree-binary/overview-plot.png&#34; alt=&#34;&#34; /&gt;
-&lt;p class=&#34;caption&#34;&gt;measure&lt;/p&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;div id=&#34;pruning&#34; class=&#34;section level3&#34;&gt;
-&lt;h3&gt;Pruning&lt;/h3&gt;
-&lt;p&gt;when you don’t specify the max depth for decision tree, decision tree will lead
-to overfitting. Pruning is for prevent overfitting, there are two strategies
-to prun a tree, one is called prepruning, which stop earlier when training a
-tree. Whereas, another is called postpruning, which allows the tree grow freely
-then pruning the tree. Each has its one advantage over other, for example prepruning
-will training fast, whereas, postpruning usually has a good accuracy over prepruning.&lt;/p&gt;
-&lt;/div&gt;
-&lt;div id=&#34;pros-cons&#34; class=&#34;section level3&#34;&gt;
-&lt;h3&gt;Pros, Cons&lt;/h3&gt;
-&lt;ul&gt;
-&lt;li&gt;trees are easy to explain to people (+)&lt;/li&gt;
-&lt;li&gt;trees can be displayed graphically (+)&lt;/li&gt;
-&lt;li&gt;trees can easily handle qualitative variable without creating dummy variable (+)&lt;/li&gt;
-&lt;li&gt;no need to center or scale data (+)&lt;/li&gt;
-&lt;li&gt;no as accurate as other regression and classification methods (-)&lt;/li&gt;
-&lt;/ul&gt;
-&lt;p&gt;However, by adding more decision trees, the power of decision trees emerge,
-one representative algorithm is random forest.&lt;/p&gt;
-&lt;/div&gt;
-&lt;div id=&#34;random-forest&#34; class=&#34;section level3&#34;&gt;
-&lt;h3&gt;Random Forest&lt;/h3&gt;
-&lt;p&gt;random foreset is an ensemble learning algorithm, as the name shows, it consists
-many decision trees, it also utilizes a statistical method called bootstrap,
-bootstrap is a way to sample data from a limited datasets, so that we can have
-enough dataset to train. random forest is similar like bagging algorithm
-the difference between bagging algorithm is that random forest using fewer
-predictor variable (feature) to training. Which will help reduce the correlation
-between predictor variables. One advantage of random forest is that even add
-more decision trees, there will not lead to overfitting. There are other algorithms
-based on decision tree, like Adaboosting, XGBoosting, CART, etc.&lt;/p&gt;
-&lt;/div&gt;
-&lt;div id=&#34;tips&#34; class=&#34;section level3&#34;&gt;
-&lt;h3&gt;Tips&lt;/h3&gt;
-&lt;p&gt;Here are some tips from practice &lt;span class=&#34;citation&#34;&gt;&lt;span class=&#34;csl-baseline&#34;&gt;&lt;span class=&#34;smallcaps&#34;&gt;[&lt;a href=&#34;#ref-boettcher2016online&#34; role=&#34;doc-biblioref&#34;&gt;4&lt;/a&gt;]&lt;/span&gt;&lt;/span&gt;&lt;/span&gt; regard to &lt;code&gt;sklearn&lt;/code&gt;.
-- consider performing dimension reduction before training model
-- using &lt;code&gt;depth=3&lt;/code&gt; as an starting tree to get a feel how the tree look like
-- use &lt;code&gt;max_depth&lt;/code&gt; to control size of the tree to avoid overfitting
-- when using random forest, choose the training feature as &lt;code&gt;sqrt(total feature)&lt;/code&gt;
-- when using boosting, a typical learning rate &lt;span class=&#34;math inline&#34;&gt;\(\lambda=(0.01,0.001)\)&lt;/span&gt; will be a good start&lt;/p&gt;
-&lt;/div&gt;
-&lt;div id=&#34;references&#34; class=&#34;section level3 unnumbered&#34;&gt;
-&lt;h3&gt;References&lt;/h3&gt;
-&lt;div id=&#34;refs&#34; class=&#34;references&#34;&gt;
-&lt;div id=&#34;ref-james_introduction_2013&#34;&gt;
-&lt;p&gt;1. &lt;strong&gt;An Introduction to Statistical Learning&lt;/strong&gt; [Internet].&lt;br /&gt;
-James G, Witten D, Hastie T, Tibshirani R. &lt;br /&gt;
-New York, NY: Springer New York; 2013 [cited 2019 Nov 8]. Available from: &lt;a href=&#34;http://link.springer.com/10.1007/978-1-4614-7138-7&#34;&gt;http://link.springer.com/10.1007/978-1-4614-7138-7&lt;/a&gt;&lt;/p&gt;
-&lt;/div&gt;
-&lt;div id=&#34;ref-alpaydin_introduction_2010&#34;&gt;
-&lt;p&gt;2. &lt;strong&gt;Introduction to machine learning&lt;/strong&gt;.&lt;br /&gt;
-Alpaydin E. &lt;br /&gt;
-2nd ed. Cambridge, Mass: MIT Press; 2010. &lt;/p&gt;
-&lt;/div&gt;
-&lt;div id=&#34;ref-podgorelec2002decision&#34;&gt;
-&lt;p&gt;3. &lt;strong&gt;Decision trees: An overview and their use in medicine&lt;/strong&gt;.&lt;br /&gt;
-Podgorelec V, Kokol P, Stiglic B, Rozman I. &lt;br /&gt;
-Journal of medical systems 2002;26(5):445–63. &lt;/p&gt;
-&lt;/div&gt;
-&lt;div id=&#34;ref-boettcher2016online&#34;&gt;
-&lt;p&gt;4. &lt;strong&gt;The online teaching survival guide: Simple and practical pedagogical tips&lt;/strong&gt;.&lt;br /&gt;
-Boettcher JV, Conrad R-M. &lt;br /&gt;
-John Wiley &amp;amp; Sons; 2016. &lt;/p&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-</description>
-    </item>
     
     <item>
       <title>Decision tree</title>
-      <link>/post/decision-tree/</link>
+      <link>https://shuishoudage.github.io/post/decision-tree/</link>
       <pubDate>Mon, 09 Sep 2019 00:00:00 +0000</pubDate>
       
-      <guid>/post/decision-tree/</guid>
+      <guid>https://shuishoudage.github.io/post/decision-tree/</guid>
       <description>
 
 
@@ -400,73 +205,11 @@ John Wiley &amp;amp; Sons; 2016. &lt;/p&gt;
     </item>
     
     <item>
-      <title>LSTM</title>
-      <link>/post/lstm/</link>
-      <pubDate>Wed, 28 Aug 2019 00:00:00 +0000</pubDate>
-      
-      <guid>/post/lstm/</guid>
-      <description>
-
-
-&lt;div id=&#34;introduction&#34; class=&#34;section level3&#34;&gt;
-&lt;h3&gt;Introduction&lt;/h3&gt;
-&lt;p&gt;LSTM stards for Long-short term memory, it is a variant of RNN network. The strong
-part of LSTM archetect is it has memory build-in. Imaging the daily conversation,
-we are able to predict next words based on the context of the conversation because
-we have remembered the important of part of the context. See example below,&lt;/p&gt;
-&lt;div class=&#34;figure&#34;&gt;
-&lt;img src=&#34;images/ad_pre.png&#34; alt=&#34;&#34; /&gt;
-&lt;p class=&#34;caption&#34;&gt;ad_pre&lt;/p&gt;
-&lt;/div&gt;
-&lt;p&gt;What you can remember after several days probabily only a few key information,
-and you choose to forget irrelavant information. Here is the things you possible
-remember after several days&lt;/p&gt;
-&lt;div class=&#34;figure&#34;&gt;
-&lt;img src=&#34;images/ad_post.png&#34; alt=&#34;&#34; /&gt;
-&lt;p class=&#34;caption&#34;&gt;ad_post&lt;/p&gt;
-&lt;/div&gt;
-&lt;p&gt;As LSTM can remember through time. Therefore, it has wide range of applications
-like text/speech translation, speech to text translation, audio/video prediction&lt;/p&gt;
-&lt;/div&gt;
-&lt;div id=&#34;limitations&#34; class=&#34;section level3&#34;&gt;
-&lt;h3&gt;Limitations&lt;/h3&gt;
-&lt;/div&gt;
-&lt;div id=&#34;references&#34; class=&#34;section level3&#34;&gt;
-&lt;h3&gt;References&lt;/h3&gt;
-&lt;/div&gt;
-</description>
-    </item>
-    
-    <item>
-      <title>Maximum likelihood estimation</title>
-      <link>/post/maximum-likelihood-estimation/</link>
-      <pubDate>Sat, 27 Jul 2019 00:00:00 +0000</pubDate>
-      
-      <guid>/post/maximum-likelihood-estimation/</guid>
-      <description>
-
-
-&lt;div id=&#34;introduction&#34; class=&#34;section level3&#34;&gt;
-&lt;h3&gt;Introduction&lt;/h3&gt;
-&lt;p&gt;Maximum likelihood is a fairly common optimization tool in machine learning&lt;/p&gt;
-&lt;p&gt;There are many books discussed about MLE. However, the derivation of formulas
-are often not clear. Thus in this article I am going to disclose of several
-MLE formulas step by step, hoping that will benefit all machine learning
-practitioners.&lt;/p&gt;
-&lt;p&gt;to be continue…&lt;/p&gt;
-&lt;/div&gt;
-&lt;div id=&#34;reference&#34; class=&#34;section level3&#34;&gt;
-&lt;h3&gt;Reference&lt;/h3&gt;
-&lt;/div&gt;
-</description>
-    </item>
-    
-    <item>
       <title>Linear Regression</title>
-      <link>/post/linear-regression/</link>
+      <link>https://shuishoudage.github.io/post/linear-regression/</link>
       <pubDate>Fri, 28 Jun 2019 00:00:00 +0000</pubDate>
       
-      <guid>/post/linear-regression/</guid>
+      <guid>https://shuishoudage.github.io/post/linear-regression/</guid>
       <description>
 
 
@@ -484,7 +227,7 @@ y = ax + b
 Here y is outcome or sometimes we will written as &lt;span class=&#34;math inline&#34;&gt;\(f(x)\)&lt;/span&gt;, it is the same thing
 but written in a different format. a is the slope and b is the intercept. Let’s
 giving a plot.&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;/post/linear-regression/index_files/figure-html/unnamed-chunk-2-1.png&#34; width=&#34;672&#34; /&gt;
+&lt;p&gt;&lt;img src=&#34;https://shuishoudage.github.io/post/linear-regression/index_files/figure-html/unnamed-chunk-2-1.png&#34; width=&#34;672&#34; /&gt;
 This example is set intercept to 1.4 and slope as 0.5. For this example, we only
 have one input (x) and one output (y)&lt;/p&gt;
 &lt;p&gt;In real world application, we normally have more than one feature. Suppose
@@ -610,7 +353,7 @@ f(X)=\beta_{0}+\sum_{j=1}^{p} X_{j} \beta_{j}
 &lt;pre class=&#34;r&#34;&gt;&lt;code&gt;ggplot(df, aes(TV, Sales)) +
   geom_point() +
   geom_smooth(method = &amp;#39;lm&amp;#39;, formula = y~x)&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;&lt;img src=&#34;/post/linear-regression/index_files/figure-html/unnamed-chunk-4-1.png&#34; width=&#34;672&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://shuishoudage.github.io/post/linear-regression/index_files/figure-html/unnamed-chunk-4-1.png&#34; width=&#34;672&#34; /&gt;&lt;/p&gt;
 &lt;p&gt;What we like to do is reduce the residuals.&lt;/p&gt;
 &lt;div class=&#34;figure&#34;&gt;
 &lt;img src=&#34;residuals.png&#34; alt=&#34;&#34; /&gt;
@@ -688,7 +431,7 @@ simply the formula of this model, nothing special. Next one is the statistical
 summary for residuals, actually we can use box plot to show it more concretely.&lt;/p&gt;
 &lt;pre class=&#34;r&#34;&gt;&lt;code&gt;ggplot(data.frame(resi = residuals(lm.fit)), aes(x = &amp;quot;&amp;quot;, y = resi )) +
   geom_boxplot()&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;&lt;img src=&#34;/post/linear-regression/index_files/figure-html/unnamed-chunk-6-1.png&#34; width=&#34;672&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://shuishoudage.github.io/post/linear-regression/index_files/figure-html/unnamed-chunk-6-1.png&#34; width=&#34;672&#34; /&gt;&lt;/p&gt;
 &lt;p&gt;As we can see, the plot above matches the summary. The middle thicker horizontal
 line is the median (-1.318) in the summary, and the line above and below the
 median line is the first quantile (1Q) and third quantile (3Q). The points on
@@ -754,7 +497,7 @@ linear regression.&lt;/p&gt;
 &lt;p&gt;By checking residuals normality, we can use Q-Q plot,&lt;/p&gt;
 &lt;pre class=&#34;r&#34;&gt;&lt;code&gt;lm.fit &amp;lt;- lm(medv ~ rm + lstat + crim + dis, data = Boston)
 ggqqplot(residuals(lm.fit))&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;&lt;img src=&#34;/post/linear-regression/index_files/figure-html/unnamed-chunk-9-1.png&#34; width=&#34;672&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://shuishoudage.github.io/post/linear-regression/index_files/figure-html/unnamed-chunk-9-1.png&#34; width=&#34;672&#34; /&gt;&lt;/p&gt;
 &lt;p&gt;How to interpret this plot? Suppose the residuals are following a normal distribution,
 the points above should be roughly located around the slope line and should be
 with inside the 95% confidence curvy dashed line.&lt;/p&gt;
@@ -777,7 +520,7 @@ this is &lt;strong&gt;not&lt;/strong&gt; a normally distributed data.&lt;/p&gt;
 independency.&lt;/p&gt;
 &lt;pre class=&#34;r&#34;&gt;&lt;code&gt;plot(sequence(nrow(Boston)), residuals(lm.fit))
 abline(h=0, col=&amp;#39;red&amp;#39;)&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;&lt;img src=&#34;/post/linear-regression/index_files/figure-html/unnamed-chunk-11-1.png&#34; width=&#34;672&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://shuishoudage.github.io/post/linear-regression/index_files/figure-html/unnamed-chunk-11-1.png&#34; width=&#34;672&#34; /&gt;&lt;/p&gt;
 &lt;p&gt;Independent residuals should be located around 0 and randomly scattered.&lt;/p&gt;
 &lt;/div&gt;
 &lt;div id=&#34;linearity&#34; class=&#34;section level4&#34;&gt;
@@ -787,7 +530,7 @@ relation between the response variable. After all, we use linear regression to
 create model, if there is no linear relation we have to use other non-linear
 model.&lt;/p&gt;
 &lt;pre class=&#34;r&#34;&gt;&lt;code&gt;crPlots(lm(medv ~ rm + lstat + crim + dis, data = Boston))&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;&lt;img src=&#34;/post/linear-regression/index_files/figure-html/unnamed-chunk-12-1.png&#34; width=&#34;672&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://shuishoudage.github.io/post/linear-regression/index_files/figure-html/unnamed-chunk-12-1.png&#34; width=&#34;672&#34; /&gt;&lt;/p&gt;
 &lt;p&gt;what we most case is if there is any pattern inside the plot&lt;/p&gt;
 &lt;pre class=&#34;r&#34;&gt;&lt;code&gt;summary(gvlma::gvlma(x = lm.fit))&lt;/code&gt;&lt;/pre&gt;
 &lt;pre&gt;&lt;code&gt;## 
@@ -833,7 +576,7 @@ model.&lt;/p&gt;
 be constant, see the plot below.&lt;/p&gt;
 &lt;pre class=&#34;r&#34;&gt;&lt;code&gt;par(mfrow=c(2,2))
 plot(lm.fit, pch = 16, cex = 0.5)&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;&lt;img src=&#34;/post/linear-regression/index_files/figure-html/unnamed-chunk-14-1.png&#34; width=&#34;672&#34; /&gt;
+&lt;p&gt;&lt;img src=&#34;https://shuishoudage.github.io/post/linear-regression/index_files/figure-html/unnamed-chunk-14-1.png&#34; width=&#34;672&#34; /&gt;
 We are intereted in the left side two plots. To express homoscedasticity in a plot,
 it would look like a roughly flat line with random points around it. However, in
 our case here &lt;span class=&#34;citation&#34;&gt;&lt;span class=&#34;csl-baseline&#34;&gt;&lt;span class=&#34;smallcaps&#34;&gt;[&lt;a href=&#34;#ref-BibEntry2016Jan&#34; role=&#34;doc-biblioref&#34;&gt;4&lt;/a&gt;]&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;. We could find the red line is curvy and the
@@ -855,7 +598,7 @@ will highly influence the RSS. Which makes the wrong interpretation to the model
 &lt;pre class=&#34;r&#34;&gt;&lt;code&gt;par(mfrow=c(1,2))
 plot(lm.fit, 4)
 plot(lm.fit, 5, pch = 16, cex = 1)&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;&lt;img src=&#34;/post/linear-regression/index_files/figure-html/unnamed-chunk-16-1.png&#34; width=&#34;672&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://shuishoudage.github.io/post/linear-regression/index_files/figure-html/unnamed-chunk-16-1.png&#34; width=&#34;672&#34; /&gt;&lt;/p&gt;
 &lt;p&gt;The plot above shows that #23, #49 and #39 are influenced points. Among those
 three points, #23 and #49 are close to 3 standard deviation. Which is more influential
 than #39. However, are these outliers really influence the result of the regression
@@ -866,7 +609,7 @@ really influential.&lt;/p&gt;
 variables. Thus, we can calculate Cook’s distance for this model, which is
 4/(50-1-1) = 0.08. We can add a horizontal line to the Cook’s distance plot&lt;/p&gt;
 &lt;pre class=&#34;r&#34;&gt;&lt;code&gt;olsrr::ols_plot_cooksd_bar(lm.fit)&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;&lt;img src=&#34;/post/linear-regression/index_files/figure-html/unnamed-chunk-17-1.png&#34; width=&#34;672&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://shuishoudage.github.io/post/linear-regression/index_files/figure-html/unnamed-chunk-17-1.png&#34; width=&#34;672&#34; /&gt;&lt;/p&gt;
 &lt;p&gt;As we can see above, data point #23 and #49 are really influence the result of
 linear regression analysis.&lt;/p&gt;
 &lt;/div&gt;

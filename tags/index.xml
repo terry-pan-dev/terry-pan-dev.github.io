@@ -2,192 +2,192 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Tags on TAOTAO PAN</title>
-    <link>/tags/</link>
+    <link>https://shuishoudage.github.io/tags/</link>
     <description>Recent content in Tags on TAOTAO PAN</description>
     <generator>Source Themes Academic (https://sourcethemes.com/academic/)</generator>
     <language>en-us</language>
-    <lastBuildDate>Fri, 13 Sep 2019 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Fri, 24 Jan 2020 00:00:00 +0000</lastBuildDate>
     
-	    <atom:link href="/tags/index.xml" rel="self" type="application/rss+xml" />
+	    <atom:link href="https://shuishoudage.github.io/tags/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
-      <title>Machine Learning</title>
-      <link>/tags/machine-learning/</link>
-      <pubDate>Fri, 13 Sep 2019 00:00:00 +0000</pubDate>
+      <title>aws</title>
+      <link>https://shuishoudage.github.io/tags/aws/</link>
+      <pubDate>Fri, 24 Jan 2020 00:00:00 +0000</pubDate>
       
-      <guid>/tags/machine-learning/</guid>
+      <guid>https://shuishoudage.github.io/tags/aws/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Machine Learning</title>
+      <link>https://shuishoudage.github.io/tags/machine-learning/</link>
+      <pubDate>Mon, 09 Sep 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://shuishoudage.github.io/tags/machine-learning/</guid>
       <description></description>
     </item>
     
     <item>
       <title>math</title>
-      <link>/tags/math/</link>
+      <link>https://shuishoudage.github.io/tags/math/</link>
       <pubDate>Sat, 27 Jul 2019 00:00:00 +0000</pubDate>
       
-      <guid>/tags/math/</guid>
+      <guid>https://shuishoudage.github.io/tags/math/</guid>
       <description></description>
     </item>
     
     <item>
       <title>permutation and combination</title>
-      <link>/tags/permutation-and-combination/</link>
+      <link>https://shuishoudage.github.io/tags/permutation-and-combination/</link>
       <pubDate>Sat, 27 Jul 2019 00:00:00 +0000</pubDate>
       
-      <guid>/tags/permutation-and-combination/</guid>
+      <guid>https://shuishoudage.github.io/tags/permutation-and-combination/</guid>
       <description></description>
     </item>
     
     <item>
       <title>statistics</title>
-      <link>/tags/statistics/</link>
+      <link>https://shuishoudage.github.io/tags/statistics/</link>
       <pubDate>Sat, 27 Jul 2019 00:00:00 +0000</pubDate>
       
-      <guid>/tags/statistics/</guid>
+      <guid>https://shuishoudage.github.io/tags/statistics/</guid>
       <description></description>
     </item>
     
     <item>
       <title>git</title>
-      <link>/tags/git/</link>
+      <link>https://shuishoudage.github.io/tags/git/</link>
       <pubDate>Wed, 17 Jul 2019 00:00:00 +0000</pubDate>
       
-      <guid>/tags/git/</guid>
+      <guid>https://shuishoudage.github.io/tags/git/</guid>
       <description></description>
     </item>
     
     <item>
       <title>git flow</title>
-      <link>/tags/git-flow/</link>
+      <link>https://shuishoudage.github.io/tags/git-flow/</link>
       <pubDate>Wed, 17 Jul 2019 00:00:00 +0000</pubDate>
       
-      <guid>/tags/git-flow/</guid>
+      <guid>https://shuishoudage.github.io/tags/git-flow/</guid>
       <description></description>
     </item>
     
     <item>
       <title>git tips</title>
-      <link>/tags/git-tips/</link>
+      <link>https://shuishoudage.github.io/tags/git-tips/</link>
       <pubDate>Wed, 17 Jul 2019 00:00:00 +0000</pubDate>
       
-      <guid>/tags/git-tips/</guid>
+      <guid>https://shuishoudage.github.io/tags/git-tips/</guid>
       <description></description>
     </item>
     
     <item>
       <title>git tricks</title>
-      <link>/tags/git-tricks/</link>
+      <link>https://shuishoudage.github.io/tags/git-tricks/</link>
       <pubDate>Wed, 17 Jul 2019 00:00:00 +0000</pubDate>
       
-      <guid>/tags/git-tricks/</guid>
+      <guid>https://shuishoudage.github.io/tags/git-tricks/</guid>
       <description></description>
     </item>
     
     <item>
       <title>github flow</title>
-      <link>/tags/github-flow/</link>
+      <link>https://shuishoudage.github.io/tags/github-flow/</link>
       <pubDate>Wed, 17 Jul 2019 00:00:00 +0000</pubDate>
       
-      <guid>/tags/github-flow/</guid>
+      <guid>https://shuishoudage.github.io/tags/github-flow/</guid>
       <description></description>
     </item>
     
     <item>
       <title>event loop</title>
-      <link>/tags/event-loop/</link>
+      <link>https://shuishoudage.github.io/tags/event-loop/</link>
       <pubDate>Thu, 11 Jul 2019 00:00:00 +0000</pubDate>
       
-      <guid>/tags/event-loop/</guid>
+      <guid>https://shuishoudage.github.io/tags/event-loop/</guid>
       <description></description>
     </item>
     
     <item>
       <title>event queue</title>
-      <link>/tags/event-queue/</link>
+      <link>https://shuishoudage.github.io/tags/event-queue/</link>
       <pubDate>Thu, 11 Jul 2019 00:00:00 +0000</pubDate>
       
-      <guid>/tags/event-queue/</guid>
+      <guid>https://shuishoudage.github.io/tags/event-queue/</guid>
       <description></description>
     </item>
     
     <item>
       <title>javascript</title>
-      <link>/tags/javascript/</link>
+      <link>https://shuishoudage.github.io/tags/javascript/</link>
       <pubDate>Thu, 11 Jul 2019 00:00:00 +0000</pubDate>
       
-      <guid>/tags/javascript/</guid>
+      <guid>https://shuishoudage.github.io/tags/javascript/</guid>
       <description></description>
     </item>
     
     <item>
       <title>context</title>
-      <link>/tags/context/</link>
+      <link>https://shuishoudage.github.io/tags/context/</link>
       <pubDate>Tue, 09 Jul 2019 00:00:00 +0000</pubDate>
       
-      <guid>/tags/context/</guid>
+      <guid>https://shuishoudage.github.io/tags/context/</guid>
       <description></description>
     </item>
     
     <item>
       <title>scope</title>
-      <link>/tags/scope/</link>
+      <link>https://shuishoudage.github.io/tags/scope/</link>
       <pubDate>Tue, 09 Jul 2019 00:00:00 +0000</pubDate>
       
-      <guid>/tags/scope/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>Docker</title>
-      <link>/tags/docker/</link>
-      <pubDate>Mon, 01 Jul 2019 00:00:00 +0000</pubDate>
-      
-      <guid>/tags/docker/</guid>
+      <guid>https://shuishoudage.github.io/tags/scope/</guid>
       <description></description>
     </item>
     
     <item>
       <title>tools</title>
-      <link>/tags/tools/</link>
+      <link>https://shuishoudage.github.io/tags/tools/</link>
       <pubDate>Thu, 11 Apr 2019 00:00:00 +0000</pubDate>
       
-      <guid>/tags/tools/</guid>
+      <guid>https://shuishoudage.github.io/tags/tools/</guid>
       <description></description>
     </item>
     
     <item>
       <title>Source Themes</title>
-      <link>/tags/source-themes/</link>
+      <link>https://shuishoudage.github.io/tags/source-themes/</link>
       <pubDate>Sun, 07 Apr 2019 00:00:00 +0000</pubDate>
       
-      <guid>/tags/source-themes/</guid>
+      <guid>https://shuishoudage.github.io/tags/source-themes/</guid>
       <description></description>
     </item>
     
     <item>
       <title>commonjs</title>
-      <link>/tags/commonjs/</link>
+      <link>https://shuishoudage.github.io/tags/commonjs/</link>
       <pubDate>Fri, 27 Jul 2018 00:00:00 +0000</pubDate>
       
-      <guid>/tags/commonjs/</guid>
+      <guid>https://shuishoudage.github.io/tags/commonjs/</guid>
       <description></description>
     </item>
     
     <item>
       <title>modular loader</title>
-      <link>/tags/modular-loader/</link>
+      <link>https://shuishoudage.github.io/tags/modular-loader/</link>
       <pubDate>Fri, 27 Jul 2018 00:00:00 +0000</pubDate>
       
-      <guid>/tags/modular-loader/</guid>
+      <guid>https://shuishoudage.github.io/tags/modular-loader/</guid>
       <description></description>
     </item>
     
     <item>
       <title>python</title>
-      <link>/tags/python/</link>
+      <link>https://shuishoudage.github.io/tags/python/</link>
       <pubDate>Mon, 19 Sep 2016 00:00:00 +0000</pubDate>
       
-      <guid>/tags/python/</guid>
+      <guid>https://shuishoudage.github.io/tags/python/</guid>
       <description></description>
     </item>
     

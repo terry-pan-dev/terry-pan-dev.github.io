@@ -469,7 +469,7 @@
   
   <span class="middot-divider"></span>
   <span class="article-reading-time">
-    5 min read
+    3 min read
   </span>
   
 
@@ -639,7 +639,7 @@
   
   <span class="middot-divider"></span>
   <span class="article-reading-time">
-    5 min read
+    3 min read
   </span>
   
 
@@ -781,7 +781,20 @@ neural network in practice.</p>
 one is call <strong>hyperplane</strong>, it defines as in a p-dimensional space, a hyperplane
 is a flat affine subspace of dimension p-1 <span class="citation"><span class="csl-baseline"><span class="smallcaps">[<a href="#ref-james_introduction_2013" role="doc-biblioref">1</a>]</span></span></span>, to make
 it more concrete, in 3-d, the hyperplane is a plane. Whereas, in 2-d, the hyperplane
-is a line. I have to give a math definition for later use, to define a hyperplane
+is a line.</p>
+<p>Next concept is called <strong>margin</strong>, suppose we have a svm plot like following
+<img src="https://www.saedsayad.com/images/SVM_2.png" alt="svm" />
+as you can see from the image above, the hyperplane is the dash line in the middle,
+the <strong>margin</strong> is the width from the solid line to dash line, we have <strong>support
+vectors</strong> to define margin. Which are the closest point to the hyperplane. However,
+we may not always have such perfect case. Suppose data point are interleaving,
+we can not find a hyperplane perfectly separate two classes. However, if we
+can tolerate certain level of misclassifying and find a hyperplane to
+minimize this error, we call this <strong>soft margin</strong>.</p>
+</div>
+<div id="maximal-margin-classifier" class="section level3">
+<h3>Maximal margin classifier</h3>
+<p>I have to give a math definition for later use, to define a hyperplane
 in math equation
 <span class="math display">\[
 \beta_0 + \beta_1X_1 + \beta_2X2 + \cdots + \beta_pX_p = 0
@@ -795,141 +808,29 @@ on this plane. If not, this point is either in
 or
 <span class="math display">\[
 \beta_0 + \beta_1X_1 + \beta_2X2 + \cdots + \beta_pX_p &lt; 0
-\]</span></p>
-</div>
-<div id="svm" class="section level3">
-<h3>SVM</h3>
-<p>Regression tree can be used in a regression task like linear regression, so how
-does regression do a prediction? A regression tree predicted value is the mean
-response of the training observations <span class="citation"><span class="csl-baseline"><span class="smallcaps">[<a href="#ref-james_introduction_2013" role="doc-biblioref">1</a>]</span></span></span>. To make it
-simple, when we built our decision tree, the predicted value is just the average
-value in each terminal nodes or each rectangle. The way to decide the splitting
-value is by minimize the mean value with each observations in each rectangle.
-<span class="math display">\[
-\sum_{j=1}^J\sum_{i\in R_j} (y_i-\hat{y}_{R_j})^2
 \]</span>
-Here, <span class="math inline">\(R_j\)</span> is the rectangle or terminal node. What we have to do is just minimize
-the total error. When we doing a prediction, we just give a training observation
-based on decision we find the rectangle it belongs to, then we find the mean
-value inside that region. So how does a classification task can be done by decision
-tree?</p>
+we know that the middle dash line is our decision boundary. Therefore, any point
+lies on the line equal to zero. Otherwise, not greater than or less than zero.
+Moreover, the larger the value the longer the distance between the point and
+the line. Therefore, if you only need decide the margin, we do not need all
+points, we know need three as above which we call it <strong>support vectors</strong>. This
+seems like a greate property, since we do not have to calculate many observations.</p>
+<p>for people who have used sklearn might notice, the svm classifier in sklearn
+has a same parameter called <code>C</code>. However, they are opposite each other, the <code>C</code>
+in sklearn is the penalty term. Which means if you give a big <code>C</code> value, when
+the classifier misclassifies points, it will get big penalty, in other words,
+the classifier must make less misclassification to reduce the error or you could
+say narrowing down the margin and vise versa.</p>
 </div>
-<div id="classification-tree" class="section level3">
-<h3>Classification tree</h3>
-<p>Classification tree is nothing special than a regression tree, only difference
-is the error measurement. For classfication problems, we don’t have quantitative
-ground truth, instead we have qualitative value. Therefore, one measure called
-<strong>Gini index</strong> was introduced, Gini index is defined by
-<span class="math display">\[
-G = \sum_{k=1}^K \hat{p}_{mk}(1-\hat{p}_{mk})
-\]</span>
-this is a measure of total variance across K classes, Where <span class="math inline">\(\hat{p}_{mk}\)</span> is
-the proportion of observations in the mth region (rectangle) for kth class. Gini
-index measures the <strong>purity</strong> of nodes, or call it <strong>impurity</strong> <span class="citation"><span class="csl-baseline"><span class="smallcaps">[<a href="#ref-alpaydin_introduction_2010" role="doc-biblioref">2</a>]</span></span></span>
-why? as you can see the smaller the value the more a node from single class.
-in other words, this node is not impure. Which more close to human intuition.
-Another measure is called <strong>entropy</strong>, it is defined as
-<span class="math display">\[
-E = -\sum_{k=1}^K \hat{p}_{mk}log_2(\hat{p}_{mk})
-\]</span>
-as you can see, this measurement is close to Gini index measurement. Here I created
-an artificial dataset to demostrate how to use entropy. Supposing we have 2-class
-dataset like following</p>
-<table>
-<thead>
-<tr class="header">
-<th>x1</th>
-<th>x2</th>
-<th>y</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td>1.5</td>
-<td>2.3</td>
-<td>0</td>
-</tr>
-<tr class="even">
-<td>1.8</td>
-<td>3.2</td>
-<td>0</td>
-</tr>
-<tr class="odd">
-<td>1.3</td>
-<td>3.3</td>
-<td>0</td>
-</tr>
-<tr class="even">
-<td>2.1</td>
-<td>3.1</td>
-<td>1</td>
-</tr>
-<tr class="odd">
-<td>2.3</td>
-<td>3.4</td>
-<td>1</td>
-</tr>
-<tr class="even">
-<td>2.8</td>
-<td>4.0</td>
-<td>1</td>
-</tr>
-</tbody>
-</table>
-<p>if we split the tree based on <span class="math inline">\(x1 &lt;= 1.8\)</span>, the node on the left will purely
-belongs to class 0, where the right node will all belongs to class 1. This is
-a better choice against <span class="math inline">\(x2\)</span>. Why? because the entropy
-for the left node is 0, and so as right node. Whereas, if we choose <span class="math inline">\(x2 &lt;= 3\)</span> as
-our splitting node, we will have entropy for left node is 0, but for right node
-we have entropy <span class="math inline">\((-0.4*log(0.6)) + (-0.6*log(0.6)) = 0.97\)</span>. Which compared to
-splitting by <span class="math inline">\(x1\)</span> is less optimal.</p>
-<p>Here is a plot to show the differences for different measurement methods <span class="citation"><span class="csl-baseline"><span class="smallcaps">[<a href="#ref-podgorelec2002decision" role="doc-biblioref">3</a>]</span></span></span></p>
-<div class="figure">
-<img src="https://sebastianraschka.com/images/faq/decision-tree-binary/overview-plot.png" alt="" />
-<p class="caption">measure</p>
-</div>
-</div>
-<div id="pruning" class="section level3">
-<h3>Pruning</h3>
-<p>when you don’t specify the max depth for decision tree, decision tree will lead
-to overfitting. Pruning is for prevent overfitting, there are two strategies
-to prun a tree, one is called prepruning, which stop earlier when training a
-tree. Whereas, another is called postpruning, which allows the tree grow freely
-then pruning the tree. Each has its one advantage over other, for example prepruning
-will training fast, whereas, postpruning usually has a good accuracy over prepruning.</p>
-</div>
-<div id="pros-cons" class="section level3">
-<h3>Pros, Cons</h3>
-<ul>
-<li>trees are easy to explain to people (+)</li>
-<li>trees can be displayed graphically (+)</li>
-<li>trees can easily handle qualitative variable without creating dummy variable (+)</li>
-<li>no need to center or scale data (+)</li>
-<li>no as accurate as other regression and classification methods (-)</li>
-</ul>
-<p>However, by adding more decision trees, the power of decision trees emerge,
-one representative algorithm is random forest.</p>
-</div>
-<div id="random-forest" class="section level3">
-<h3>Random Forest</h3>
-<p>random foreset is an ensemble learning algorithm, as the name shows, it consists
-many decision trees, it also utilizes a statistical method called bootstrap,
-bootstrap is a way to sample data from a limited datasets, so that we can have
-enough dataset to train. random forest is similar like bagging algorithm
-the difference between bagging algorithm is that random forest using fewer
-predictor variable (feature) to training. Which will help reduce the correlation
-between predictor variables. One advantage of random forest is that even add
-more decision trees, there will not lead to overfitting. There are other algorithms
-based on decision tree, like Adaboosting, XGBoosting, CART, etc.</p>
-</div>
-<div id="tips" class="section level3">
-<h3>Tips</h3>
-<p>Here are some tips from practice <span class="citation"><span class="csl-baseline"><span class="smallcaps">[<a href="#ref-boettcher2016online" role="doc-biblioref">4</a>]</span></span></span> regard to <code>sklearn</code>.
-- consider performing dimension reduction before training model
-- using <code>depth=3</code> as an starting tree to get a feel how the tree look like
-- use <code>max_depth</code> to control size of the tree to avoid overfitting
-- when using random forest, choose the training feature as <code>sqrt(total feature)</code>
-- when using boosting, a typical learning rate <span class="math inline">\(\lambda=(0.01,0.001)\)</span> will be a good start</p>
+<div id="non-linear-decision-boundary" class="section level3">
+<h3>Non-linear decision boundary</h3>
+<p>suppose we have dataset like following:
+<img src="https://miro.medium.com/max/974/1*1o_4zV7Js_65TThqlDeGsg.png" alt="non-linear" /></p>
+<p>It’s obviousely that we cannot use linear classifier to make the decision boundary
+any more. However, what if we can transform the original feature space to higher
+order? we have an similar example like the right side of above image.
+<img src="https://d3i71xaburhd42.cloudfront.net/7cb5f30af11f0ed5f88856a10da65d70b0a04d98/2-Figure1-1.png" alt="kernel" />
+It has become linearly separable.</p>
 </div>
 <div id="references" class="section level3 unnumbered">
 <h3>References</h3>
@@ -938,21 +839,6 @@ based on decision tree, like Adaboosting, XGBoosting, CART, etc.</p>
 <p>1. <strong>An Introduction to Statistical Learning</strong> [Internet].<br />
 James G, Witten D, Hastie T, Tibshirani R. <br />
 New York, NY: Springer New York; 2013 [cited 2019 Nov 8]. Available from: <a href="http://link.springer.com/10.1007/978-1-4614-7138-7">http://link.springer.com/10.1007/978-1-4614-7138-7</a></p>
-</div>
-<div id="ref-alpaydin_introduction_2010">
-<p>2. <strong>Introduction to machine learning</strong>.<br />
-Alpaydin E. <br />
-2nd ed. Cambridge, Mass: MIT Press; 2010. </p>
-</div>
-<div id="ref-podgorelec2002decision">
-<p>3. <strong>Decision trees: An overview and their use in medicine</strong>.<br />
-Podgorelec V, Kokol P, Stiglic B, Rozman I. <br />
-Journal of medical systems 2002;26(5):445–63. </p>
-</div>
-<div id="ref-boettcher2016online">
-<p>4. <strong>The online teaching survival guide: Simple and practical pedagogical tips</strong>.<br />
-Boettcher JV, Conrad R-M. <br />
-John Wiley &amp; Sons; 2016. </p>
 </div>
 </div>
 </div>
