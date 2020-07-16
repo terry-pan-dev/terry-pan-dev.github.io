@@ -1,22 +1,22 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>AWS on TAOTAO PAN</title>
-    <link>https://shuishoudage.github.io/categories/aws/</link>
-    <description>Recent content in AWS on TAOTAO PAN</description>
+    <title>AWS on Terry Pan</title>
+    <link>https://terry-pan-dev.github.io/categories/aws/</link>
+    <description>Recent content in AWS on Terry Pan</description>
     <generator>Source Themes Academic (https://sourcethemes.com/academic/)</generator>
     <language>en-us</language>
     <lastBuildDate>Mon, 03 Feb 2020 00:00:00 +0000</lastBuildDate>
     
-	    <atom:link href="https://shuishoudage.github.io/categories/aws/index.xml" rel="self" type="application/rss+xml" />
+	    <atom:link href="https://terry-pan-dev.github.io/categories/aws/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
       <title>AWS-SQS</title>
-      <link>https://shuishoudage.github.io/post/aws-sqs/</link>
+      <link>https://terry-pan-dev.github.io/post/aws-sqs/</link>
       <pubDate>Mon, 03 Feb 2020 00:00:00 +0000</pubDate>
       
-      <guid>https://shuishoudage.github.io/post/aws-sqs/</guid>
+      <guid>https://terry-pan-dev.github.io/post/aws-sqs/</guid>
       <description>
 
 
@@ -117,10 +117,10 @@ is for storing this message.&lt;/p&gt;
     
     <item>
       <title>AWS-KMS</title>
-      <link>https://shuishoudage.github.io/post/aws-kms/</link>
+      <link>https://terry-pan-dev.github.io/post/aws-kms/</link>
       <pubDate>Fri, 24 Jan 2020 00:00:00 +0000</pubDate>
       
-      <guid>https://shuishoudage.github.io/post/aws-kms/</guid>
+      <guid>https://terry-pan-dev.github.io/post/aws-kms/</guid>
       <description>
 
 

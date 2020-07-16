@@ -1,22 +1,22 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>javascript on TAOTAO PAN</title>
-    <link>https://shuishoudage.github.io/tags/javascript/</link>
-    <description>Recent content in javascript on TAOTAO PAN</description>
+    <title>javascript on Terry Pan</title>
+    <link>https://terry-pan-dev.github.io/tags/javascript/</link>
+    <description>Recent content in javascript on Terry Pan</description>
     <generator>Source Themes Academic (https://sourcethemes.com/academic/)</generator>
     <language>en-us</language>
     <lastBuildDate>Thu, 11 Jul 2019 00:00:00 +0000</lastBuildDate>
     
-	    <atom:link href="https://shuishoudage.github.io/tags/javascript/index.xml" rel="self" type="application/rss+xml" />
+	    <atom:link href="https://terry-pan-dev.github.io/tags/javascript/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
       <title>Javascript event loop explained</title>
-      <link>https://shuishoudage.github.io/post/js-event-loop/</link>
+      <link>https://terry-pan-dev.github.io/post/js-event-loop/</link>
       <pubDate>Thu, 11 Jul 2019 00:00:00 +0000</pubDate>
       
-      <guid>https://shuishoudage.github.io/post/js-event-loop/</guid>
+      <guid>https://terry-pan-dev.github.io/post/js-event-loop/</guid>
       <description>
 
 
@@ -190,10 +190,10 @@ has not finished yet, &lt;code&gt;promise2&lt;/code&gt; will be printed. Finally
     
     <item>
       <title>Javascript scope and context</title>
-      <link>https://shuishoudage.github.io/post/js-scope-context/</link>
+      <link>https://terry-pan-dev.github.io/post/js-scope-context/</link>
       <pubDate>Tue, 09 Jul 2019 00:00:00 +0000</pubDate>
       
-      <guid>https://shuishoudage.github.io/post/js-scope-context/</guid>
+      <guid>https://terry-pan-dev.github.io/post/js-scope-context/</guid>
       <description>
 
 
@@ -384,10 +384,10 @@ Scotch2019;Available from: &lt;a href=&#34;https://scotch.io/tutorials/understan
     
     <item>
       <title>Javascript modular history</title>
-      <link>https://shuishoudage.github.io/post/js-modular-history/</link>
+      <link>https://terry-pan-dev.github.io/post/js-modular-history/</link>
       <pubDate>Fri, 27 Jul 2018 00:00:00 +0000</pubDate>
       
-      <guid>https://shuishoudage.github.io/post/js-modular-history/</guid>
+      <guid>https://terry-pan-dev.github.io/post/js-modular-history/</guid>
       <description>&lt;p&gt;Javascript has been dramatically used in front-end and back-end compared to the
 time when it was invented. When the time it was invented, it supposes to be a joy
 programming language, doing some simple interactions between browser. However,

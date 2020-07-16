@@ -1,58 +1,58 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>TAOTAO PAN</title>
-    <link>https://shuishoudage.github.io/</link>
-    <description>Recent content on TAOTAO PAN</description>
+    <title>Terry Pan</title>
+    <link>https://terry-pan-dev.github.io/</link>
+    <description>Recent content on Terry Pan</description>
     <generator>Source Themes Academic (https://sourcethemes.com/academic/)</generator>
     <language>en-us</language>
     <lastBuildDate>Sat, 01 Jun 2030 13:00:00 +0000</lastBuildDate>
     
-	    <atom:link href="https://shuishoudage.github.io/index.xml" rel="self" type="application/rss+xml" />
+	    <atom:link href="https://terry-pan-dev.github.io/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
       <title>Recent &amp; Upcoming Talks</title>
-      <link>https://shuishoudage.github.io/talk/</link>
+      <link>https://terry-pan-dev.github.io/talk/</link>
       <pubDate>Sat, 01 Jun 2030 13:00:00 +0000</pubDate>
       
-      <guid>https://shuishoudage.github.io/talk/</guid>
+      <guid>https://terry-pan-dev.github.io/talk/</guid>
       <description></description>
     </item>
     
     <item>
       <title>Posts</title>
-      <link>https://shuishoudage.github.io/post/</link>
+      <link>https://terry-pan-dev.github.io/post/</link>
       <pubDate>Sun, 01 Mar 2020 00:00:00 +0000</pubDate>
       
-      <guid>https://shuishoudage.github.io/post/</guid>
+      <guid>https://terry-pan-dev.github.io/post/</guid>
       <description></description>
     </item>
     
     <item>
       <title>Projects</title>
-      <link>https://shuishoudage.github.io/project/</link>
+      <link>https://terry-pan-dev.github.io/project/</link>
       <pubDate>Thu, 11 Apr 2019 00:00:00 +0000</pubDate>
       
-      <guid>https://shuishoudage.github.io/project/</guid>
+      <guid>https://terry-pan-dev.github.io/project/</guid>
       <description></description>
     </item>
     
     <item>
       <title>Publications</title>
-      <link>https://shuishoudage.github.io/publication/</link>
+      <link>https://terry-pan-dev.github.io/publication/</link>
       <pubDate>Sun, 07 Apr 2019 00:00:00 +0000</pubDate>
       
-      <guid>https://shuishoudage.github.io/publication/</guid>
+      <guid>https://terry-pan-dev.github.io/publication/</guid>
       <description></description>
     </item>
     
     <item>
       <title>Slides</title>
-      <link>https://shuishoudage.github.io/slides/</link>
+      <link>https://terry-pan-dev.github.io/slides/</link>
       <pubDate>Tue, 05 Feb 2019 00:00:00 +0000</pubDate>
       
-      <guid>https://shuishoudage.github.io/slides/</guid>
+      <guid>https://terry-pan-dev.github.io/slides/</guid>
       <description></description>
     </item>
     

@@ -1,67 +1,67 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>Categories on TAOTAO PAN</title>
-    <link>https://shuishoudage.github.io/categories/</link>
-    <description>Recent content in Categories on TAOTAO PAN</description>
+    <title>Categories on Terry Pan</title>
+    <link>https://terry-pan-dev.github.io/categories/</link>
+    <description>Recent content in Categories on Terry Pan</description>
     <generator>Source Themes Academic (https://sourcethemes.com/academic/)</generator>
     <language>en-us</language>
     <lastBuildDate>Sun, 01 Mar 2020 00:00:00 +0000</lastBuildDate>
     
-	    <atom:link href="https://shuishoudage.github.io/categories/index.xml" rel="self" type="application/rss+xml" />
+	    <atom:link href="https://terry-pan-dev.github.io/categories/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
       <title>distributed system</title>
-      <link>https://shuishoudage.github.io/categories/distributed-system/</link>
+      <link>https://terry-pan-dev.github.io/categories/distributed-system/</link>
       <pubDate>Sun, 01 Mar 2020 00:00:00 +0000</pubDate>
       
-      <guid>https://shuishoudage.github.io/categories/distributed-system/</guid>
+      <guid>https://terry-pan-dev.github.io/categories/distributed-system/</guid>
       <description></description>
     </item>
     
     <item>
       <title>AWS</title>
-      <link>https://shuishoudage.github.io/categories/aws/</link>
+      <link>https://terry-pan-dev.github.io/categories/aws/</link>
       <pubDate>Mon, 03 Feb 2020 00:00:00 +0000</pubDate>
       
-      <guid>https://shuishoudage.github.io/categories/aws/</guid>
+      <guid>https://terry-pan-dev.github.io/categories/aws/</guid>
       <description></description>
     </item>
     
     <item>
       <title>Data Science</title>
-      <link>https://shuishoudage.github.io/categories/data-science/</link>
+      <link>https://terry-pan-dev.github.io/categories/data-science/</link>
       <pubDate>Mon, 09 Sep 2019 00:00:00 +0000</pubDate>
       
-      <guid>https://shuishoudage.github.io/categories/data-science/</guid>
+      <guid>https://terry-pan-dev.github.io/categories/data-science/</guid>
       <description></description>
     </item>
     
     <item>
       <title>Math</title>
-      <link>https://shuishoudage.github.io/categories/math/</link>
+      <link>https://terry-pan-dev.github.io/categories/math/</link>
       <pubDate>Sat, 27 Jul 2019 00:00:00 +0000</pubDate>
       
-      <guid>https://shuishoudage.github.io/categories/math/</guid>
+      <guid>https://terry-pan-dev.github.io/categories/math/</guid>
       <description></description>
     </item>
     
     <item>
       <title>Software Engineering</title>
-      <link>https://shuishoudage.github.io/categories/software-engineering/</link>
+      <link>https://terry-pan-dev.github.io/categories/software-engineering/</link>
       <pubDate>Wed, 17 Jul 2019 00:00:00 +0000</pubDate>
       
-      <guid>https://shuishoudage.github.io/categories/software-engineering/</guid>
+      <guid>https://terry-pan-dev.github.io/categories/software-engineering/</guid>
       <description></description>
     </item>
     
     <item>
       <title>javascript</title>
-      <link>https://shuishoudage.github.io/categories/javascript/</link>
+      <link>https://terry-pan-dev.github.io/categories/javascript/</link>
       <pubDate>Thu, 11 Jul 2019 00:00:00 +0000</pubDate>
       
-      <guid>https://shuishoudage.github.io/categories/javascript/</guid>
+      <guid>https://terry-pan-dev.github.io/categories/javascript/</guid>
       <description></description>
     </item>
     
