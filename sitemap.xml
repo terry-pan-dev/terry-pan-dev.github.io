@@ -18,6 +18,41 @@
   </url>
   
   <url>
+    <loc>https://shuishoudage.github.io/categories/</loc>
+    <lastmod>2020-03-01T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://shuishoudage.github.io/categories/distributed-system/</loc>
+    <lastmod>2020-03-01T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://shuishoudage.github.io/tags/distributed-system/</loc>
+    <lastmod>2020-03-01T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://shuishoudage.github.io/post/gfs-and-hdfs/</loc>
+    <lastmod>2020-03-01T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://shuishoudage.github.io/post/</loc>
+    <lastmod>2020-03-01T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://shuishoudage.github.io/tags/</loc>
+    <lastmod>2020-03-01T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://shuishoudage.github.io/post/hadoop/</loc>
+    <lastmod>2020-02-26T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
     <loc>https://shuishoudage.github.io/categories/aws/</loc>
     <lastmod>2020-02-03T00:00:00+00:00</lastmod>
   </url>
@@ -29,21 +64,6 @@
   
   <url>
     <loc>https://shuishoudage.github.io/post/aws-sqs/</loc>
-    <lastmod>2020-02-03T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://shuishoudage.github.io/categories/</loc>
-    <lastmod>2020-02-03T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://shuishoudage.github.io/post/</loc>
-    <lastmod>2020-02-03T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://shuishoudage.github.io/tags/</loc>
     <lastmod>2020-02-03T00:00:00+00:00</lastmod>
   </url>
   
@@ -148,12 +168,12 @@
   </url>
   
   <url>
-    <loc>https://shuishoudage.github.io/categories/javascript/</loc>
+    <loc>https://shuishoudage.github.io/tags/javascript/</loc>
     <lastmod>2019-07-11T00:00:00+00:00</lastmod>
   </url>
   
   <url>
-    <loc>https://shuishoudage.github.io/tags/javascript/</loc>
+    <loc>https://shuishoudage.github.io/categories/javascript/</loc>
     <lastmod>2019-07-11T00:00:00+00:00</lastmod>
   </url>
   

@@ -1,0 +1,178 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>distributed system on TAOTAO PAN</title>
+    <link>https://shuishoudage.github.io/categories/distributed-system/</link>
+    <description>Recent content in distributed system on TAOTAO PAN</description>
+    <generator>Source Themes Academic (https://sourcethemes.com/academic/)</generator>
+    <language>en-us</language>
+    <lastBuildDate>Sun, 01 Mar 2020 00:00:00 +0000</lastBuildDate>
+    
+	    <atom:link href="https://shuishoudage.github.io/categories/distributed-system/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>GFS and HDFS</title>
+      <link>https://shuishoudage.github.io/post/gfs-and-hdfs/</link>
+      <pubDate>Sun, 01 Mar 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://shuishoudage.github.io/post/gfs-and-hdfs/</guid>
+      <description>
+
+
+&lt;div id=&#34;distributed-file-system&#34; class=&#34;section level2&#34;&gt;
+&lt;h2&gt;Distributed file system&lt;/h2&gt;
+&lt;div id=&#34;introduction&#34; class=&#34;section level3&#34;&gt;
+&lt;h3&gt;Introduction&lt;/h3&gt;
+&lt;p&gt;Both GFS and HDFS are distributed file system. GFS stands for Google file system,
+it’s designed by google while HDFS is an open source version of distributed file
+system that referenced GFS. The motivation that we need distributed file system
+was the astronomical increase on data. Google has designed GFS because the huge
+increase of index of their search engine. The creator of HDFS is also the creator
+of Lucene search enginee has encounter similar problems. However, to design a
+distributed system is not as simple as design a single machine file system. There
+are several challenges to be overcome.&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;fault tolerance&lt;/li&gt;
+&lt;li&gt;high performance&lt;/li&gt;
+&lt;li&gt;network communication&lt;/li&gt;
+&lt;li&gt;replicas&lt;/li&gt;
+&lt;li&gt;consistency&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;The archetecture of GFS is designed as master server and chunkserver, master
+server is reponse for manage the namespace, access control, and mapping from
+the files to chunks. Whereas chunk server is response storing the real data object.&lt;/p&gt;
+&lt;div class=&#34;figure&#34;&gt;
+&lt;img src=&#34;https://i.imgur.com/uAZnK8Z.png&#34; alt=&#34;&#34; /&gt;
+&lt;p class=&#34;caption&#34;&gt;gfs&lt;/p&gt;
+&lt;/div&gt;
+&lt;p&gt;let’s explain the process of creating a file in GFS, first of all, client sends
+information about the file or object it wants to store on GFS by the file name
+chunk index to the master server of GFS then master server will start scheduling
+which chunk server to store file, the location of the chunk, after finishing the
+negotiation the master server will send back the necessary information to
+client typically the &lt;code&gt;chunk handle&lt;/code&gt; and &lt;code&gt;chunk location&lt;/code&gt;. Afterwards, client
+can talk to chunk server directly.&lt;/p&gt;
+&lt;p&gt;master server failure -&amp;gt; operation logs
+chunk server failure -&amp;gt; heartbeat signal&lt;/p&gt;
+&lt;p&gt;write:
+1. master find the most up to date chunk server (check the version number)
+2. pick one as primary rest as secondary server
+3. increment version number
+4. master server tells client who is primary and secondary chunk server
+5. when all secondary server say &lt;code&gt;yes&lt;/code&gt; to primary, primary say &lt;code&gt;yes&lt;/code&gt; to client, otherwise, say &lt;code&gt;no&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;success in many google applicatioins that relies on the underline distributed system,
+however, there are still several bottlenecks, like only one master that has to handle
+thousands of requests or master server need huge amount of memory to store the
+chunk server handle information.&lt;/p&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Hadoop</title>
+      <link>https://shuishoudage.github.io/post/hadoop/</link>
+      <pubDate>Wed, 26 Feb 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://shuishoudage.github.io/post/hadoop/</guid>
+      <description>
+
+
+&lt;div id=&#34;hadoop&#34; class=&#34;section level2&#34;&gt;
+&lt;h2&gt;Hadoop&lt;/h2&gt;
+&lt;div id=&#34;introduction&#34; class=&#34;section level3&#34;&gt;
+&lt;h3&gt;Introduction&lt;/h3&gt;
+&lt;p&gt;Hadoop is a distributed system created based on google’s GFS, the reason for the
+creator to create Hadoop is because when the creator creates lucene search engine
+he found there are huge amount of data needs to be stored into distributed system
+to be searched.&lt;/p&gt;
+&lt;p&gt;Hadoop is a system that consists several sub-systems, like HDFS the file system,
+MapReduce the computation system and yarn the resource scheduler along with
+additional projects like Pig, Hive, Sqoop, etc.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div id=&#34;different-queues&#34; class=&#34;section level3&#34;&gt;
+&lt;h3&gt;Different queues&lt;/h3&gt;
+&lt;p&gt;There are several advantages of using AWS SQS service, it’s fully managed service
+which means you don’t have to worry about the duribility and scalability of the
+service, of course you don’t have to manage the server. SQS is generally used to
+decouple your architecture which provides more reliable system. SQS provides two
+types of message queue, one is &lt;strong&gt;standard queue&lt;/strong&gt;, standard queue guarantees
+&lt;strong&gt;at-least-once&lt;/strong&gt; message delivery. Therefore, when your application requires
+the sensitivity of delivery once message, you have to choose &lt;strong&gt;FIFO queue&lt;/strong&gt;.
+What’s more, standard queue will do its best to keep the message deliver in order.
+However, there is no guarantee for the order. Generally to say, standard queue
+provides a simple queue service, it can be used in an application without the
+restriction of delivery order and times. In the contrary, &lt;strong&gt;FIFO queue&lt;/strong&gt; supports
+strong ordering and &lt;strong&gt;exactly-once&lt;/strong&gt; message delivery. Hence, if your application
+has these restrictions you’d better choose &lt;strong&gt;FIFO queue&lt;/strong&gt;. Another important
+feature of SQS is that if you have several clients want to get a message, SQS
+is not the proper service to pick, instead using SNS.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div id=&#34;sqs-key-attributes&#34; class=&#34;section level3&#34;&gt;
+&lt;h3&gt;SQS key attributes&lt;/h3&gt;
+&lt;p&gt;There are several important settings worth to know when you creating a new queue.
+&lt;img src=&#34;https://i.imgur.com/xsktuA1.png&#34; alt=&#34;sqs&#34; /&gt;
+First of all, &lt;strong&gt;default visibility timeout&lt;/strong&gt; is an important property. Here is
+an image that from the aws official documents can help me explain it well.
+&lt;img src=&#34;https://docs.aws.amazon.com/AWSSimpleQueueService/latest/SQSDeveloperGuide/images/sqs-message-lifecycle-diagram.png&#34; alt=&#34;aws_sqs&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;when you push a message into the queue, the message will be copied into several
+servers (high availibity). Then the message is sitting there waiting for other
+service to pick (EC2, lambda, etc.). Whenever there is a service picking the message
+the visibility time out clock starts count while the message is not visible any
+more. Suppose the task (message) can be finished in the timeout peroid, the
+message will be deleted from the queue. Therefore, best practice to setup this
+timeout is setting it greater than the task processing time, otherwise, while
+the task is still processing, when the visibility timeout ends, this message
+will be visible by another service (process) which cause duplicated processing.&lt;/p&gt;
+&lt;p&gt;Next two settings are simple, &lt;strong&gt;message retention period&lt;/strong&gt; is the max time the
+queue can keep the message while no process picks it. And &lt;strong&gt;maximum message size&lt;/strong&gt;
+is simply as the name says the max message size. &lt;strong&gt;Delivery delay&lt;/strong&gt; is the time
+that when a message reach the queue, the message will be freezed from this amount
+of time, notice this time is applied for every new reached message. Next import
+attribute is &lt;strong&gt;receive message wait time&lt;/strong&gt;, this attribute sometimes is referred
+as &lt;strong&gt;long polling&lt;/strong&gt;. It works as following, whenever there is new process trying
+to pick a message, when this attribute is setting as 0, if the process finds the
+queue is empty, it will not wait for the new message arrives, the process will
+immediately shutdown the connection, in such scenaro, unnecessary connections
+will be established multiple times which costs extra billing. Therefore, normally
+we will set the value more than 0.&lt;/p&gt;
+&lt;div id=&#34;dead-letter-queue&#34; class=&#34;section level4&#34;&gt;
+&lt;h4&gt;Dead letter queue&lt;/h4&gt;
+&lt;p&gt;dead letter queue is another queue you have to associate with a queue you have
+created. Which used to store those messages cannot be processed by that queue.
+For example, you can create another process which has more CPU and memory power
+to process the message that cannot be processed from the standard queue. What’s
+more, you might want to use dead letter queue to diagnose why the message cannot
+be processed in the standard queue. There is only one important attribute,
+&lt;strong&gt;maximum receives&lt;/strong&gt;, this attribute is used to determine after how many processes
+tried the message failed, then put the message into the dead letter queue.&lt;/p&gt;
+&lt;p&gt;About the encryption option, please refer my another article called &lt;strong&gt;AWS KMS&lt;/strong&gt;&lt;/p&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div id=&#34;other-attributes&#34; class=&#34;section level3&#34;&gt;
+&lt;h3&gt;Other attributes&lt;/h3&gt;
+&lt;p&gt;&lt;img src=&#34;https://docs.aws.amazon.com/AWSSimpleQueueService/latest/SQSDeveloperGuide/images/sqs-tutorials-creating-queue-queue-type-content-based-deduplication-columns.png&#34; alt=&#34;other&#34; /&gt;
+when turn on the functionality of &lt;strong&gt;content-based deduplication&lt;/strong&gt;. The duplicated
+message will be removed automatically by the queues. &lt;strong&gt;Message available&lt;/strong&gt; is
+the metric that shows amount of messages that you pushed into the queue and
+&lt;strong&gt;Messages in Flight&lt;/strong&gt; is the total amount of messages that is processing.&lt;/p&gt;
+&lt;p&gt;There are several scenarios a SQS queue can be used, normally combine SQS queue
+with lambda is a good practice, you can trigger a lambda function whenever there
+is a new message arrives the queue.
+&lt;img src=&#34;https://docs.aws.amazon.com/AWSSimpleQueueService/latest/SQSDeveloperGuide/images/sqs-tutorials-configure-incoming-messages-trigger-lambda-function-drop-down.png&#34; alt=&#34;lambda&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;Another use case is combining SQS with SNS service to create a fan out architecture.
+Because, SQS can guarantee the message comes from a unique resource, whereas SNS
+can response the multiple delivery work.
+&lt;img src=&#34;https://theburningmonk.com/wp-content/uploads/2018/04/img_5ac37a9619876.png&#34; alt=&#34;fanout&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;the image above shows such architecture, the leftmost is the SQS service, the
+middle one is SNS service, suppose you have one message that has to be processed
+by different services, maybe one service is doing filtering, another service
+is for storing this message.&lt;/p&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+</description>
+    </item>
+    
+  </channel>
+</rss>
