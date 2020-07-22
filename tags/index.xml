@@ -6,10 +6,19 @@
     <description>Recent content in Tags on Terry Pan</description>
     <generator>Source Themes Academic (https://sourcethemes.com/academic/)</generator>
     <language>en-us</language>
-    <lastBuildDate>Sun, 01 Mar 2020 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Mon, 01 Jun 2020 00:00:00 +0000</lastBuildDate>
     
 	    <atom:link href="https://terry-pan-dev.github.io/tags/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>python</title>
+      <link>https://terry-pan-dev.github.io/tags/python/</link>
+      <pubDate>Mon, 01 Jun 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://terry-pan-dev.github.io/tags/python/</guid>
+      <description></description>
+    </item>
     
     <item>
       <title>distributed system</title>
@@ -188,15 +197,6 @@
       <pubDate>Fri, 27 Jul 2018 00:00:00 +0000</pubDate>
       
       <guid>https://terry-pan-dev.github.io/tags/modular-loader/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>python</title>
-      <link>https://terry-pan-dev.github.io/tags/python/</link>
-      <pubDate>Mon, 19 Sep 2016 00:00:00 +0000</pubDate>
-      
-      <guid>https://terry-pan-dev.github.io/tags/python/</guid>
       <description></description>
     </item>
     
