@@ -20,23 +20,5 @@
       <description></description>
     </item>
     
-    <item>
-      <title>Netwalk</title>
-      <link>https://terry-pan-dev.github.io/project/netwalk/</link>
-      <pubDate>Mon, 01 Jun 2020 00:00:00 +0000</pubDate>
-      
-      <guid>https://terry-pan-dev.github.io/project/netwalk/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>ES honeypot</title>
-      <link>https://terry-pan-dev.github.io/project/honeypot/</link>
-      <pubDate>Mon, 19 Sep 2016 00:00:00 +0000</pubDate>
-      
-      <guid>https://terry-pan-dev.github.io/project/honeypot/</guid>
-      <description></description>
-    </item>
-    
   </channel>
 </rss>
