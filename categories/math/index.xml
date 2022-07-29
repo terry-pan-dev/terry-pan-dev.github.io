@@ -12,6 +12,30 @@
     
     
     <item>
+      <title>Maximum likelihood estimation</title>
+      <link>https://terry-pan-dev.github.io/post/maximum-likelihood-estimation/</link>
+      <pubDate>Sat, 27 Jul 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://terry-pan-dev.github.io/post/maximum-likelihood-estimation/</guid>
+      <description>
+
+
+&lt;div id=&#34;introduction&#34; class=&#34;section level3&#34;&gt;
+&lt;h3&gt;Introduction&lt;/h3&gt;
+&lt;p&gt;Maximum likelihood is a fairly common optimization tool in machine learning&lt;/p&gt;
+&lt;p&gt;There are many books discussed about MLE. However, the derivation of formulas
+are often not clear. Thus in this article I am going to disclose of several
+MLE formulas step by step, hoping that will benefit all machine learning
+practitioners.&lt;/p&gt;
+&lt;p&gt;to be continue…&lt;/p&gt;
+&lt;/div&gt;
+&lt;div id=&#34;reference&#34; class=&#34;section level3&#34;&gt;
+&lt;h3&gt;Reference&lt;/h3&gt;
+&lt;/div&gt;
+</description>
+    </item>
+    
+    <item>
       <title>Permutation and combination</title>
       <link>https://terry-pan-dev.github.io/post/permutation-combination/</link>
       <pubDate>Sat, 27 Jul 2019 00:00:00 +0000</pubDate>

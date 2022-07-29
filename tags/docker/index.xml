@@ -1,22 +1,22 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>Docker on TAOTAO PAN</title>
-    <link>/tags/docker/</link>
-    <description>Recent content in Docker on TAOTAO PAN</description>
+    <title>Docker on Terry Pan</title>
+    <link>https://terry-pan-dev.github.io/tags/docker/</link>
+    <description>Recent content in Docker on Terry Pan</description>
     <generator>Source Themes Academic (https://sourcethemes.com/academic/)</generator>
     <language>en-us</language>
     <lastBuildDate>Mon, 01 Jul 2019 00:00:00 +0000</lastBuildDate>
     
-	    <atom:link href="/tags/docker/index.xml" rel="self" type="application/rss+xml" />
+	    <atom:link href="https://terry-pan-dev.github.io/tags/docker/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
       <title>Docker</title>
-      <link>/post/docker/</link>
+      <link>https://terry-pan-dev.github.io/post/docker/</link>
       <pubDate>Mon, 01 Jul 2019 00:00:00 +0000</pubDate>
       
-      <guid>/post/docker/</guid>
+      <guid>https://terry-pan-dev.github.io/post/docker/</guid>
       <description>
 
 

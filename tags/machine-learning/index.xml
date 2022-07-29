@@ -205,6 +205,68 @@ John Wiley &amp;amp; Sons; 2016. &lt;/p&gt;
     </item>
     
     <item>
+      <title>LSTM</title>
+      <link>https://terry-pan-dev.github.io/post/lstm/</link>
+      <pubDate>Wed, 28 Aug 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://terry-pan-dev.github.io/post/lstm/</guid>
+      <description>
+
+
+&lt;div id=&#34;introduction&#34; class=&#34;section level3&#34;&gt;
+&lt;h3&gt;Introduction&lt;/h3&gt;
+&lt;p&gt;LSTM stards for Long-short term memory, it is a variant of RNN network. The strong
+part of LSTM archetect is it has memory build-in. Imaging the daily conversation,
+we are able to predict next words based on the context of the conversation because
+we have remembered the important of part of the context. See example below,&lt;/p&gt;
+&lt;div class=&#34;figure&#34;&gt;
+&lt;img src=&#34;images/ad_pre.png&#34; alt=&#34;&#34; /&gt;
+&lt;p class=&#34;caption&#34;&gt;ad_pre&lt;/p&gt;
+&lt;/div&gt;
+&lt;p&gt;What you can remember after several days probabily only a few key information,
+and you choose to forget irrelavant information. Here is the things you possible
+remember after several days&lt;/p&gt;
+&lt;div class=&#34;figure&#34;&gt;
+&lt;img src=&#34;images/ad_post.png&#34; alt=&#34;&#34; /&gt;
+&lt;p class=&#34;caption&#34;&gt;ad_post&lt;/p&gt;
+&lt;/div&gt;
+&lt;p&gt;As LSTM can remember through time. Therefore, it has wide range of applications
+like text/speech translation, speech to text translation, audio/video prediction&lt;/p&gt;
+&lt;/div&gt;
+&lt;div id=&#34;limitations&#34; class=&#34;section level3&#34;&gt;
+&lt;h3&gt;Limitations&lt;/h3&gt;
+&lt;/div&gt;
+&lt;div id=&#34;references&#34; class=&#34;section level3&#34;&gt;
+&lt;h3&gt;References&lt;/h3&gt;
+&lt;/div&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Maximum likelihood estimation</title>
+      <link>https://terry-pan-dev.github.io/post/maximum-likelihood-estimation/</link>
+      <pubDate>Sat, 27 Jul 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://terry-pan-dev.github.io/post/maximum-likelihood-estimation/</guid>
+      <description>
+
+
+&lt;div id=&#34;introduction&#34; class=&#34;section level3&#34;&gt;
+&lt;h3&gt;Introduction&lt;/h3&gt;
+&lt;p&gt;Maximum likelihood is a fairly common optimization tool in machine learning&lt;/p&gt;
+&lt;p&gt;There are many books discussed about MLE. However, the derivation of formulas
+are often not clear. Thus in this article I am going to disclose of several
+MLE formulas step by step, hoping that will benefit all machine learning
+practitioners.&lt;/p&gt;
+&lt;p&gt;to be continue…&lt;/p&gt;
+&lt;/div&gt;
+&lt;div id=&#34;reference&#34; class=&#34;section level3&#34;&gt;
+&lt;h3&gt;Reference&lt;/h3&gt;
+&lt;/div&gt;
+</description>
+    </item>
+    
+    <item>
       <title>Linear Regression</title>
       <link>https://terry-pan-dev.github.io/post/linear-regression/</link>
       <pubDate>Fri, 28 Jun 2019 00:00:00 +0000</pubDate>
