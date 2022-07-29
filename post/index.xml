@@ -377,6 +377,85 @@ In: International conference on trust and trustworthy computing. Springer; 2010.
     </item>
     
     <item>
+      <title>SVM</title>
+      <link>https://terry-pan-dev.github.io/post/support-vector-machine/</link>
+      <pubDate>Fri, 13 Sep 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://terry-pan-dev.github.io/post/support-vector-machine/</guid>
+      <description>
+
+
+&lt;div id=&#34;introduction&#34; class=&#34;section level3&#34;&gt;
+&lt;h3&gt;Introduction&lt;/h3&gt;
+&lt;p&gt;SVM was probably the most powerful classic machine learning algorithm before
+neural network in practice.&lt;/p&gt;
+&lt;p&gt;Before really dive into SVM, there are several terminologies worth to introduce,
+one is call &lt;strong&gt;hyperplane&lt;/strong&gt;, it defines as in a p-dimensional space, a hyperplane
+is a flat affine subspace of dimension p-1 &lt;span class=&#34;citation&#34;&gt;&lt;span class=&#34;nodecoration&#34;&gt;&lt;span class=&#34;smallcaps&#34;&gt;[&lt;a href=&#34;#ref-james_introduction_2013&#34; role=&#34;doc-biblioref&#34;&gt;1&lt;/a&gt;]&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;, to make
+it more concrete, in 3-d, the hyperplane is a plane. Whereas, in 2-d, the hyperplane
+is a line.&lt;/p&gt;
+&lt;p&gt;Next concept is called &lt;strong&gt;margin&lt;/strong&gt;, suppose we have a svm plot like following
+&lt;img src=&#34;https://www.saedsayad.com/images/SVM_2.png&#34; alt=&#34;svm&#34; /&gt;
+as you can see from the image above, the hyperplane is the dash line in the middle,
+the &lt;strong&gt;margin&lt;/strong&gt; is the width from the solid line to dash line, we have &lt;strong&gt;support
+vectors&lt;/strong&gt; to define margin. Which are the closest point to the hyperplane. However,
+we may not always have such perfect case. Suppose data point are interleaving,
+we can not find a hyperplane perfectly separate two classes. However, if we
+can tolerate certain level of misclassifying and find a hyperplane to
+minimize this error, we call this &lt;strong&gt;soft margin&lt;/strong&gt;.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div id=&#34;maximal-margin-classifier&#34; class=&#34;section level3&#34;&gt;
+&lt;h3&gt;Maximal margin classifier&lt;/h3&gt;
+&lt;p&gt;I have to give a math definition for later use, to define a hyperplane
+in math equation
+&lt;span class=&#34;math display&#34;&gt;\[
+\beta_0 + \beta_1X_1 + \beta_2X2 + \cdots + \beta_pX_p = 0
+\]&lt;/span&gt;
+if &lt;span class=&#34;math inline&#34;&gt;\(p=2\)&lt;/span&gt; we have a line, if &lt;span class=&#34;math inline&#34;&gt;\(p=3\)&lt;/span&gt; we will have a plane. Supposing we have a point
+in p-dimension that satisfies the equation above, we say that this point is sitting
+on this plane. If not, this point is either in
+&lt;span class=&#34;math display&#34;&gt;\[
+\beta_0 + \beta_1X_1 + \beta_2X2 + \cdots + \beta_pX_p &amp;gt; 0
+\]&lt;/span&gt;
+or
+&lt;span class=&#34;math display&#34;&gt;\[
+\beta_0 + \beta_1X_1 + \beta_2X2 + \cdots + \beta_pX_p &amp;lt; 0
+\]&lt;/span&gt;
+we know that the middle dash line is our decision boundary. Therefore, any point
+lies on the line equal to zero. Otherwise, not greater than or less than zero.
+Moreover, the larger the value the longer the distance between the point and
+the line. Therefore, if you only need decide the margin, we do not need all
+points, we know need three as above which we call it &lt;strong&gt;support vectors&lt;/strong&gt;. This
+seems like a greate property, since we do not have to calculate many observations.&lt;/p&gt;
+&lt;p&gt;for people who have used sklearn might notice, the svm classifier in sklearn
+has a same parameter called &lt;code&gt;C&lt;/code&gt;. However, they are opposite each other, the &lt;code&gt;C&lt;/code&gt;
+in sklearn is the penalty term. Which means if you give a big &lt;code&gt;C&lt;/code&gt; value, when
+the classifier misclassifies points, it will get big penalty, in other words,
+the classifier must make less misclassification to reduce the error or you could
+say narrowing down the margin and vise versa.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div id=&#34;non-linear-decision-boundary&#34; class=&#34;section level3&#34;&gt;
+&lt;h3&gt;Non-linear decision boundary&lt;/h3&gt;
+&lt;p&gt;suppose we have dataset like following:
+&lt;img src=&#34;https://miro.medium.com/max/974/1*1o_4zV7Js_65TThqlDeGsg.png&#34; alt=&#34;non-linear&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;It’s obviousely that we cannot use linear classifier to make the decision boundary
+any more. However, what if we can transform the original feature space to higher
+order? we have an similar example like the right side of above image.
+&lt;img src=&#34;https://d3i71xaburhd42.cloudfront.net/7cb5f30af11f0ed5f88856a10da65d70b0a04d98/2-Figure1-1.png&#34; alt=&#34;kernel&#34; /&gt;
+It has become linearly separable.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div id=&#34;references&#34; class=&#34;section level3 unnumbered&#34;&gt;
+&lt;h3&gt;References&lt;/h3&gt;
+&lt;div id=&#34;refs&#34; class=&#34;references csl-bib-body&#34;&gt;
+&lt;div id=&#34;ref-james_introduction_2013&#34; class=&#34;csl-entry&#34;&gt;
+&lt;div class=&#34;csl-left-margin&#34;&gt;1. &lt;/div&gt;&lt;div class=&#34;csl-right-inline&#34;&gt;&lt;div class=&#34;csl-left-margin&#34;&gt;&lt;strong&gt;An &lt;span&gt;Introduction&lt;/span&gt; to &lt;span&gt;Statistical&lt;/span&gt; &lt;span&gt;Learning&lt;/span&gt;&lt;/strong&gt;&lt;/div&gt; [Internet].&lt;div class=&#34;csl-block&#34;&gt;James G&lt;/div&gt;, &lt;div class=&#34;csl-block&#34;&gt;Witten D&lt;/div&gt;, &lt;div class=&#34;csl-block&#34;&gt;Hastie T&lt;/div&gt;, &lt;div class=&#34;csl-block&#34;&gt;Tibshirani R&lt;/div&gt;. New York, NY: Springer New York; 2013 [cited 2019 Nov 8]. Available from: &lt;a href=&#34;http://link.springer.com/10.1007/978-1-4614-7138-7&#34;&gt;http://link.springer.com/10.1007/978-1-4614-7138-7&lt;/a&gt;&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+</description>
+    </item>
+    
+    <item>
       <title>Decision tree</title>
       <link>https://terry-pan-dev.github.io/post/decision-tree/</link>
       <pubDate>Mon, 09 Sep 2019 00:00:00 +0000</pubDate>
